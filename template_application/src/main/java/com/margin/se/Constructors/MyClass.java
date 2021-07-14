@@ -18,6 +18,6 @@ public class MyClass {
     }
 
     public MyClass(String myName) {
-        this.myName=myName;
+        this.myName = myName;
     }
 }

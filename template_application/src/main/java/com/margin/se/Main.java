@@ -13,6 +13,6 @@ public class Main {
 
         lessonMethods.changeParameters(s1, "hi");
         System.out.println(s1);
-        lessonMethods.checkFinal("Asya","Valod",lessonMethods);
+        lessonMethods.checkFinal("Asya", "Valod", lessonMethods);
     }
 }

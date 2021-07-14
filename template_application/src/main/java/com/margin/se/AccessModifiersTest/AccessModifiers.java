@@ -4,7 +4,7 @@ public class AccessModifiers {
 
     private String access;
 
-    private int time=0;
+    private int time = 0;
 
     private AccessModifiers(String access) {
         this.access = access;
@@ -22,7 +22,7 @@ public class AccessModifiers {
     public AccessModifiers accessModifiers(String access) {
         return new AccessModifiers(access);
     }
- // accessor methods
+    // accessor methods
 
     public String getAccess() {
         return access;

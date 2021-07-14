@@ -64,11 +64,12 @@ public class ArrayLessons {
         System.out.println(k1);
 
     }
+
     public void copyArray() {
         int[] numbers = new int[]{3, 4, 5};
-        int [] newArray= Arrays.copyOf(numbers,5);
+        int[] newArray = Arrays.copyOf(numbers, 5);
         System.out.println(newArray[4]);
-        
+
 
     }
 }

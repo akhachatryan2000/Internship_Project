@@ -15,7 +15,7 @@ public class Main {
         int[] arrayOfInts = {12, 56, 45};
         int[] arrayOfShorts = {4, 5, 6};
         float[] arrayOfFloats = {0.1f, 0.2f, 0.6f};
-        int [] [] matrix ={{1,2,3},{4,5,6}};
+        int[][] matrix = {{1, 2, 3}, {4, 5, 6}};
         System.out.println("******************");
         System.out.println(arrayOfInts);
         System.out.println("******************");
