@@ -7,7 +7,36 @@ import javax.swing.plaf.basic.BasicRadioButtonMenuItemUI;
 
 public class Main {
     public static void main(String[] args) {
-        Car car = new Car();
+        MySub mySub= new MySub(4);
+        mySub.myMethod();
+        mySub.fieldCheck();
+
+
+        Employee e= new Employee();
+        e.name="Emily";
+        e.salary=45.6;
+        e.age=45;
+
+        Programmer p= new Programmer();
+        p.name="Valod";
+        p.age=48;
+        p.salary=45.89;
+        p.language="Java";
+
+        DatabasePro d= new DatabasePro();
+        d.name="Karen";
+        d.age=89;
+        d.salary=45.56;
+        d.databaseTool="MongoDB";
+
+        e.print();
+        p.print();
+        d.print();
+
+
+
+
+       /* Car car = new Car();
         TransportMeans transportMeans = car;
         TransportMeans transportMeans2 = new TransportMeans();
 
@@ -53,7 +82,7 @@ public class Main {
         Car.SmallCar smallCar=s.new SmallCar(); // instantiating nested class
 
         ProcessImpl  processImpl= new ProcessImpl();
-        processImpl.process();  // this is an example of Template Method Design Pattern
+        processImpl.process();  // this is an example of Template Method Design Pattern*/
 
     }
 }

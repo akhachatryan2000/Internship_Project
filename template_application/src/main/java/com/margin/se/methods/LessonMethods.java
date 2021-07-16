@@ -29,7 +29,8 @@ public class LessonMethods {
 
     public void checkFinal(final String name, final String name1, LessonMethods l) {
         System.out.println(name);
-        System.out.println(name1);   //final parameters can]t be changed within a method
+        System.out.println(name1); //final parameters can't be changed within a method
+
     }
 
     public void checkLocalVariables() {
@@ -46,6 +47,7 @@ public class LessonMethods {
     public int getSum(int s, int s1) {
         return s + s1;
     }
+
 
     public String getName(String s, String s1) {
         return s + s1; //returns the concatenation
