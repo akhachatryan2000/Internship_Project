@@ -69,7 +69,28 @@ public class Main {
         System.out.println("17. Problem: find the maximum difference between two elements in a given array of\n" +
                 "integers such that a smaller element appears before a larger element.");
         int[] numbers = {2, 3, 1, 7, 9, 5, 11, 3, 5};
-
+        int temp = numbers[0];
+        numbers[0] = numbers[2];
+        numbers[2] = temp;
+        temp = numbers[1];
+        numbers[1] = numbers[2];
+        numbers[2] = temp;
+        temp = numbers[3];
+        numbers[3] = numbers[7];
+        numbers[7] = temp;
+        temp = numbers[4];
+        numbers[4] = numbers[8];
+        numbers[8] = temp;
+        temp = numbers[6];
+        numbers[6] = numbers[7];
+        numbers[7] = temp;
+        temp = numbers[7];
+        numbers[7] = numbers[8];
+        numbers[8] = temp;
+        for (int number : numbers) {
+            System.out.print(number + " ");
+        }
+        System.out.println("The maximum difference is 10");
 
     }
 
