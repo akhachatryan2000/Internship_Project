@@ -252,6 +252,7 @@ public class Main {
         System.out.println();
         System.out.println("68. Problem: create a new string of 4 copies of the last 3 characters of the original\n" +
                 "string. The length of the original string must be 3 and above.");
+        lastString();
 
 
     }
@@ -920,13 +921,17 @@ public class Main {
             if (i == 1) {
                 inserted[1] = "Tutorial";
             }
-            System.out.print(inserted [i] + " ");
+            System.out.print(inserted[i] + " ");
 
         }
     }
 
-    public static  void lastString() {
-        String main="Python 3.0";
+    public static void lastString() {
+        String main = "Python 3.0";
+
+        String last_three_chars = main.substring(main.length() - 3);
+        System.out.println(last_three_chars);
+        System.out.println(last_three_chars + last_three_chars + last_three_chars + last_three_chars);
 
     }
 }
