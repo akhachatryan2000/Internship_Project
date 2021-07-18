@@ -253,7 +253,41 @@ public class Main {
         System.out.println("68. Problem: create a new string of 4 copies of the last 3 characters of the original\n" +
                 "string. The length of the original string must be 3 and above.");
         lastString();
-
+        System.out.println("69. Problem: extract the first half of a string of even length.");
+        stringExtract();
+        System.out.println("70. Problem: get the number of elements in a given array of integers that are smaller\n" +
+                "than the integer of another given array of integers.");
+        System.out.println("71. Problem: create the concatenation of the two strings except removing the first\n" +
+                "character of each string. The length of the strings must be 1 and above.");
+        concat();
+        System.out.println("72. Problem: create a new string taking the first three characters from a given string.\n" +
+                "If the length of the given string is less than 3 use \"#\" as substitute characters.");
+        join();
+        System.out.println("73. Problem: create a new string taking first and last characters from two given\n" +
+                "strings. If the length of either string is 0 use \"#\" for missing characters.");
+        changeString();
+        System.out.println("74. Problem: test if 10 appears as either the first or last element of an array of\n" +
+                "integers. The length of the array must be greater than or equal to 2.");
+        checkArray();
+        System.out.println("75. Problem: test if the first and the last element of an array of integers are the same.\n" +
+                "The length of the array must be greater than or equal to 2.");
+        arrayLastFirst();
+        System.out.println("76. Problem: test if the first and the last element of two arrays of integers are the\n" +
+                "same. The length of the array must be greater than or equal to 2.");
+        arrays();
+        System.out.println("77. Problem: create a new array of length 2 from two arrays of integers with three\n" +
+                "elements and the new array will contain the first and last elements from the two\n" +
+                "arrays.");
+        newArray();
+        System.out.println("78. Problem: test that a given array of integers of length 2 contains a 4 or a 7.");
+        givenArray();
+        System.out.println("79. Problem: rotate an array (length 3) of integers in the left direction.");
+        rotateArray();
+        System.out.println();
+        System.out.println("80. Problem: get the larger value between the first and last element of an array\n" +
+                "(length 3) of integers .");
+        System.out.println();
+        largerValue();
 
     }
 
@@ -929,12 +963,137 @@ public class Main {
     public static void lastString() {
         String main = "Python 3.0";
 
-        String last_three_chars = main.substring(main.length() - 3);
+        String last_three_chars = main.substring(7, 10);
         System.out.println(last_three_chars);
         System.out.println(last_three_chars + last_three_chars + last_three_chars + last_three_chars);
 
     }
+
+    public static void stringExtract() {
+        String s = "Python";
+        System.out.println(s.substring(0, 3));
+    }
+
+    public static void concat() {
+        String s = "Python";
+        String s1 = "Tutorial";
+        String newS = s.substring(1, 6);
+        String newS1 = s1.substring(1, 8);
+        System.out.println(newS + newS1);
+    }
+
+    public static void join() {
+        String given = "";
+        System.out.println("The given string is " + given);
+        String newString = given.substring(0, 0);
+        System.out.println(newString + "###");
+    }
+
+    public static void changeString() {
+        String given1 = "Python";
+        String given2 = "";
+        String newGiven1 = given1.substring(0, 1);
+        String newGiven2 = given2.concat("#");
+        System.out.println(newGiven1 + newGiven2);
+
+
+    }
+
+    public static void checkArray() {
+        int[] array = {10, -20, 0, 30, 40, 60, 10};
+        if (array.length >= 2) {
+            if (array[0] == array[array.length - 1] && array[0] == 10) {
+                System.out.println(true);
+            }
+
+        }
+    }
+
+    public static void arrayLastFirst() {
+        int[] array = {50, -20, 0, 30, 40, 60, 10};
+        if (array.length >= 2) {
+            if (array[0] == array[array.length - 1]) {
+                System.out.println("First and last are the same");
+            } else {
+                System.out.println(false);
+            }
+        }
+
+    }
+
+    public static void arrays() {
+        int[] arr = {50, -20, 0, 30, 40, 60, 12};
+        int[] arr1 = {45, 20, 10, 20, 30, 50, 11};
+        if (arr.length >= 2 && arr1.length >= 2) {
+            if (arr[0] == arr1[0] && arr[arr.length - 1] == arr1[arr1.length - 1]) {
+                System.out.println("The first and the last elements are the same");
+            } else {
+                System.out.println(false);
+            }
+        }
+    }
+
+    public static void newArray() {
+        int[] array = {50, -20, 0};
+        int[] array1 = {5, -50, 10};
+        int[] newArray = new int[2];
+        newArray[0] = array[0];
+        newArray[1] = array1[2];
+        for (int i = 0; i < newArray.length; i++) {
+            System.out.println(newArray[i]);
+
+        }
+    }
+
+    public static void givenArray() {
+        int[] given = {5, 7};
+        for (int i = 0; i < given.length; i++) {
+            if (given[i] == 4 || given[i] == 7 || given[i + 1] == 4 || given[i + 1] == 7) {
+                System.out.println(true);
+                break;
+            } else {
+                System.out.println(false);
+            }
+
+
+        }
+
+    }
+
+    public static void rotateArray() {
+        int[] array = {20, 30, 40};
+        int temp = array[0];
+        for (int i = 1; i < array.length; i++) {
+            array[i - 1] = array[i];
+        }
+        array[array.length - 1] = temp;
+        for (int i = 0; i < array.length; i++) {
+            System.out.print(array[i] + " ");
+
+        }
+
+    }
+
+    public static void largerValue() {
+        int[] original = {20, 30, 40};
+        int max=0;
+        for (int i = 0; i < original.length ; i++) {
+            if (original[i]>max) {
+                max=original[i];
+            }
+
+        }
+        System.out.println(max);
+    }
+
+
 }
+
+
+
+
+
+
 
 
 
