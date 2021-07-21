@@ -288,6 +288,22 @@ public class Main {
                 "(length 3) of integers .");
         System.out.println();
         largerValue();
+        System.out.println("81. Problem: swap the first and last elements of an array (length must be at least 1)\n" +
+                "and create a new array.");
+        swapArray();
+        System.out.println("82. Problem: find the largest element between first, last, and middle values from an\n" +
+                "array of integers (even length).");
+        largerElement();
+        System.out.println();
+        System.out.println("83. Problem: multiply corresponding elements of two arrays of integers.");
+        multiply();
+        System.out.println("84. Problem: take the last three characters from a given string and add the three\n" +
+                "characters at both the front and back of the string. String length must be greater than\n" +
+                "three and more.");
+        addCharacters();
+        System.out.println("85. Problem: check if a string starts with a specified word.");
+        startsWith();
+
 
     }
 
@@ -1076,18 +1092,70 @@ public class Main {
 
     public static void largerValue() {
         int[] original = {20, 30, 40};
-        int max=0;
-        for (int i = 0; i < original.length ; i++) {
-            if (original[i]>max) {
-                max=original[i];
+        int max = 0;
+        for (int i = 0; i < original.length; i++) {
+            if (original[i] > max) {
+                max = original[i];
             }
 
         }
         System.out.println(max);
     }
 
+    public static void swapArray() {
+        int[] array = {20, 30, 40};
+        int temp = array[0];
+        int temp1 = array[array.length - 1];
+        if (array.length > 1) {
+            array[0] = temp1;
+            array[array.length - 1] = temp;
+        }
+        for (int i = 0; i < array.length; i++) {
+            System.out.print(array[i] + " ");
+
+        }
+
+    }
+
+    public static void largerElement() {
+        int[] array = {20, 30, 40, 50, 67};
+        int max = 0;
+        for (int i = 0; i < array.length; i++) {
+            if (array[i] > max) {
+                max = array[i];
+            }
+
+        }
+        System.out.println(max);
+    }
+
+    public static void multiply() {
+        int[] arr = {1, 3, -5, 4};
+        int[] arr1 = {1, 4, -5, -2};
+        int[] newArray = new int[4];
+
+        for (int i = 0; i < arr.length; i++) {
+            newArray[i] = arr[i] * arr1[i];
+            System.out.println(newArray[i]);
+
+        }
+    }
+
+    public static void addCharacters() {
+        String word = "Python";
+        String charac = word.substring(3, 6);
+        System.out.println(charac);
+        System.out.println(charac+word+charac);
+    }
+    public static void startsWith() {
+        String s="Hello how are you?";
+        System.out.println(s.startsWith("hello"));
+    }
 
 }
+
+
+
 
 
 
