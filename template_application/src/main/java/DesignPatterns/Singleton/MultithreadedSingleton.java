@@ -10,8 +10,8 @@ public final class MultithreadedSingleton {
 
     public static MultithreadedSingleton getInstance(String value) {
         MultithreadedSingleton result = instance;
-        if (instance != null) {
-            return instance;
+        if (result != null) {
+            return result;
         }
         synchronized (Singleton.class) {
             if (instance == null) {
