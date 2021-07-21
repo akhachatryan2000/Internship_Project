@@ -1,6 +1,9 @@
 package DesignPatterns.AbstractFactory;
 
-public abstract class ContinentFactory {
-    public abstract Carnivore createCarnivore();
-    public abstract Herbivore createHerbivore();
+public interface ContinentFactory {
+    public Carnivore createCarnivore();
+
+    public Herbivore createHerbivore();
+
+
 }

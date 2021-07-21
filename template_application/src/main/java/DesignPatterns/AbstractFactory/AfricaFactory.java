@@ -1,6 +1,6 @@
 package DesignPatterns.AbstractFactory;
 
-public class AfricaFactory extends ContinentFactory {
+public class AfricaFactory implements ContinentFactory{
 
 
     @Override

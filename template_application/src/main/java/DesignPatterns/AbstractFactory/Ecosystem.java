@@ -1,17 +1,18 @@
 package DesignPatterns.AbstractFactory;
 
+
 public class Ecosystem {
-    private Herbivore herbivore;
     private Carnivore carnivore;
 
+    private Herbivore herbivore;
 
     public Ecosystem(ContinentFactory factory) {
-        herbivore = factory.createHerbivore();
         carnivore = factory.createCarnivore();
+        herbivore = factory.createHerbivore();
     }
 
     public void run() {
         carnivore.eat(herbivore);
-
     }
+
 }
