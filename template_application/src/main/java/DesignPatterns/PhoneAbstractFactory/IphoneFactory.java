@@ -1,6 +1,7 @@
 package DesignPatterns.PhoneAbstractFactory;
 
-public class IphoneFactory implements PhoneFactory{
+public class IphoneFactory implements PhoneFactory {
+
     @Override
     public ModernPhone produceModernPhone() {
         return new IphoneLastGen();
