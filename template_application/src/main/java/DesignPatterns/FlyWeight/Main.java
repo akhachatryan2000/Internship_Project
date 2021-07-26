@@ -14,17 +14,7 @@ public class Main {
             forest.plantTree(random(0, canvasSize), random(0, canvasSize), "Autumn Oak", Color.ORANGE, "Autumn oak texture stub");
             forest.plantTree(random(0, canvasSize), random(0, canvasSize), "Summer Oak", Color.GREEN, "Oak texture stub");
         }
-        TreeType treetype = TreeFactory.getTreeType("Autumn Oak", Color.ORANGE, "AUtumn texture");
-        System.out.println(treetype);
-        System.out.println();
-        forest.setSize(canvasSize, canvasSize);
-        forest.setVisible(true);
-        System.out.println(treestoDraw + " trees drawn");
-        System.out.println("--------------------");
-        System.out.println("Memory usage:");
-        System.out.println("Tree size (8 bytes) * " + treestoDraw);
-        System.out.println("Tree types size * " + treeTypes);
-        System.out.println("********************");
+
     }
 
     private static int random(int min, int max) {
