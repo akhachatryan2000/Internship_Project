@@ -1,12 +1,20 @@
 package DesignPatterns.Prototype;
 
-public class Dick implements Person{
+import java.util.ArrayList;
 
-    private final String name="Dick";
+public class Dick implements Person {
+
+    private ArrayList arrayList = new ArrayList();
+
+    private final String name = "Dick";
 
     @Override
     public Person clone() {
         return new Dick();
+    }
+
+    public ArrayList getArrayList() {
+        return arrayList;
     }
 
     @Override
