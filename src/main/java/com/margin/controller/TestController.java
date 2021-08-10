@@ -1,13 +1,13 @@
-package com.margin.example;
+package com.margin.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class HelloController {
+public class TestController {
 
-    @GetMapping("/")
+    @GetMapping("/tatev")
     public String index() {
-        return "Greetings from Spring Boot";
+        return "hello world";
     }
 }
