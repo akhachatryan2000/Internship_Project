@@ -9,17 +9,18 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class ProductService {
+
     @Autowired
     private ProductRepository productRepository;
 
     private ProductEntityConverter productEntityConverter;
 
 
-    public ProductModel getProduct(int id) {
-        ProductEntity productEntity = productRepository.getById(id);
-        return productEntityConverter.convert(productEntity);
-
-
-    }
+//    public com.margin.service.product.model.ProductModel getProduct(int id) {
+//       // ProductEntity productEntity = productRepository.getById(id);
+//       // return productEntityConverter.convert(productEntity);
+//
+//
+//    }
 
 }

@@ -1,10 +1,46 @@
 package com.margin.repository.product.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import com.margin.common.enums.Unit;
+import com.margin.repository.productschedule.ProductScheduleEntity;
+import com.margin.repository.shop.entity.ShopEntity;
+import lombok.Getter;
+import lombok.Setter;
+
+import javax.persistence.*;
+import java.math.BigDecimal;
 
 @Entity
+@Setter
+@Getter
 public class ProductEntity {
     @Id
-    private int id;
+    @GeneratedValue
+    private Long id;
+
+    @Column(name = "name")
+    private String name;
+
+    @Column(name = "description")
+    private String description;
+
+    @Column(name = "active")
+    private Boolean active;
+
+
+    @Column(name = "visible")
+    private Boolean visible;
+
+
+    @Column(name = "price")
+    private BigDecimal price;
+
+    @Column(name = "unit")
+    private Unit unit;
+
+   // private ProductScheduleEntity schedule;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    private ShopEntity shopEntity;
+
+
 }
