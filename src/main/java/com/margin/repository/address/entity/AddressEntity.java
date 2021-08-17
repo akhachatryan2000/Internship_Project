@@ -7,7 +7,7 @@ import lombok.Setter;
 import javax.persistence.*;
 
 @Entity(name = "AddressEntity")
-@Table(name = "address_entity")
+@Table(name = "address")
 @Setter
 @Getter
 public class AddressEntity {

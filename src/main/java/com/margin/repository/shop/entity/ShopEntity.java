@@ -11,7 +11,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity(name = "ShopEntity")
-@Table(name = "shop_entity")
+@Table(name = "shop")
 @Setter
 @Getter
 public class ShopEntity {
@@ -29,7 +29,7 @@ public class ShopEntity {
     @Column(name = "visible")
     private Boolean visible;
 
-    @OneToMany
+    @OneToMany(mappedBy = "shopEntity", cascade = CascadeType.ALL)
     private List<ProductEntity> productEntities;
 
    // private user

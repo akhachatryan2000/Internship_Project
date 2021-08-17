@@ -7,12 +7,12 @@ import com.margin.repository.orderproduct.entity.OrderProductEntity;
 import com.margin.repository.shop.entity.ShopEntity;
 import lombok.Getter;
 import lombok.Setter;
-
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.List;
 
 @Entity
+@Table(name = "order")
 @Setter
 @Getter
 public class OrderEntity {
@@ -21,21 +21,19 @@ public class OrderEntity {
     @GeneratedValue
     private Long id;
 
-    @Column(name = "products")
-    @OneToMany
+    @OneToMany(cascade =  CascadeType.ALL, orphanRemoval = true)
     private List<OrderProductEntity> products;
 
-    @Column(name = "customer")
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "customer_id")
     private CustomerEntity customer;
 
-    @Column(name="shop")
-
-    @OneToMany
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "shop_id")
     private ShopEntity shop;
 
-    @Column(name = "address")
     @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "address_id")
     private AddressEntity address;
 
 

@@ -7,7 +7,7 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 
 @Entity(name = "OrderProductEntity")
-@Table(name = "order_product_entity")
+@Table(name = "order_products")
 @Getter
 @Setter
 public class OrderProductEntity {
@@ -15,20 +15,17 @@ public class OrderProductEntity {
     @GeneratedValue
     private Long id;
 
-    @Column(name = "order_id")
+    @JoinColumn(name = "product_id")
+    private Long productId;
+
+    @JoinColumn(name = "order_id")
     private Long orderId;
 
     @Column(name = "sum")
-    private BigDecimal sum;
+    private BigDecimal amount;
 
     @Column(name = "total_Price")
     private BigDecimal totalPrice;
-
-    @Column(name = "product_id")
-    private Long productId;
-
-    @Column(name = "amount")
-    private Integer amount;
 
     @Column(name = "comment")
     private String comment;

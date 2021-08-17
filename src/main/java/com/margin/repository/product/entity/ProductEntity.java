@@ -12,6 +12,7 @@ import java.math.BigDecimal;
 @Entity
 @Setter
 @Getter
+@Table(name = "product")
 public class ProductEntity {
     @Id
     @GeneratedValue
@@ -39,7 +40,8 @@ public class ProductEntity {
 
    // private ProductScheduleEntity schedule;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "shop_id")
     private ShopEntity shopEntity;
 
 

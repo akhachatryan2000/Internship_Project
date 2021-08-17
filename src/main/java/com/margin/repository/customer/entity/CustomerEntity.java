@@ -12,7 +12,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 @Entity(name = "CustomerEntity")
-@Table(name = "customer_entity")
+@Table(name = "customer")
 @Setter
 @Getter
 public class CustomerEntity {
@@ -27,15 +27,13 @@ public class CustomerEntity {
     @Column(name = "phoneNumber")
     private String phoneNumber;
 
-    @Column(name = "address")
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="customer_id")
+    @OneToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL,orphanRemoval = true)
+    @JoinColumn(name="address_id")
     private AddressEntity address;
 
     @Column(name = "bonus")
     private BigDecimal bonus;
 
-    @Column(name = "orders")
-    @OneToMany (cascade = CascadeType.ALL)
+    @OneToMany (cascade = CascadeType.ALL, mappedBy = "customer")
     private List<OrderEntity> orders;
 }
