@@ -10,38 +10,25 @@ import org.springframework.stereotype.Component;
 @Component
 public class OrderProductEntityConverter {
 
-    public OrderProductModel convert(OrderProductEntity orderProductEntity) {
+    public OrderProductModel convert(OrderProductUpdateModel orderProductEntity) {
         if (orderProductEntity == null) {
             return null;
         }
-        OrderProductModel orderProductModel = new OrderProductModel();
-        orderProductModel.setProductId(orderProductEntity.getProductId());
-        orderProductModel.setOrderId(orderProductEntity.getOrderId());
-        orderProductModel.setId(orderProductEntity.getId());
-        orderProductModel.setTotalPrice(orderProductEntity.getTotalPrice());
-        orderProductModel.setOriginalPrice(orderProductEntity.getOriginalPrice());
-        orderProductModel.setAmount(orderProductModel.getAmount());
-        orderProductModel.setDiscount(orderProductModel.getDiscount());
-        orderProductModel.setComment(orderProductEntity.getComment());
+        OrderProductModel orderProductModel = new OrderProductModel(
+                orderProductEntity.getId(),
+                orderProductEntity.getOrderId(),
+                orderProductEntity.getProductId(),
+                orderProductEntity.getTotalPrice(),
+                orderProductEntity.getAmount(),
+                orderProductEntity.getComment(),
+                orderProductEntity.getOriginalPrice(),
+                orderProductEntity.getDiscount()
+        );
+
         return orderProductModel;
 
     }
 
-    public OrderProductEntity convert(OrderProductModel orderProductModel) {
-        if (orderProductModel == null) {
-            return null;
-        }
-        OrderProductEntity orderProductEntity = new OrderProductEntity();
-        orderProductEntity.setProductId(orderProductModel.getProductId());
-        orderProductEntity.setOrderId(orderProductModel.getOrderId());
-        orderProductEntity.setAmount(orderProductModel.getAmount());
-        orderProductEntity.setId(orderProductModel.getId());
-        orderProductEntity.setComment(orderProductModel.getComment());
-        orderProductEntity.setDiscount(orderProductModel.getDiscount());
-        orderProductEntity.setTotalPrice(orderProductModel.getDiscount());
-        orderProductEntity.setOriginalPrice(orderProductModel.getOriginalPrice());
-        return orderProductEntity;
-    }
 
     public OrderProductEntity convert(OrderProductCreationModel orderProductCreationModel) {
         if (orderProductCreationModel == null) {

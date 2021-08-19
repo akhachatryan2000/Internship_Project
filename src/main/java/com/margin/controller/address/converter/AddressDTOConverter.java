@@ -15,14 +15,13 @@ public class AddressDTOConverter {
         if (addressDTO==null) {
             return null;
         }
-        AddressModel addressModel = new AddressModel();
-        addressModel.setId(addressDTO.getId());
-        addressModel.setAddressLine1(addressDTO.getAddressLine1());
-        addressModel.setAddressLine2(addressDTO.getAddressLine2());
-        addressModel.setCity(addressDTO.getCity());
-        addressModel.setCountry(addressDTO.getCountry());
-        addressModel.setDistrict(addressDTO.getDistrict());
-        addressModel.setPostCode(addressDTO.getPostCode());
+        AddressModel addressModel = new AddressModel(addressDTO.getId(),
+                addressDTO.getCountry(),
+                addressDTO.getDistrict(),
+                addressDTO.getCity(),
+                addressDTO.getAddressLine1(),
+                addressDTO.getAddressLine2(),
+                addressDTO.getPostCode());
         return addressModel;
     }
 
@@ -31,28 +30,29 @@ public class AddressDTOConverter {
         if (addressCreationDTO==null) {
             return null;
         }
-        AddressCreationModel addressCreationModel = new AddressCreationModel();
-        addressCreationModel.setAddressLine1(addressCreationDTO.getAddressLine1());
-        addressCreationModel.setAddressLine2(addressCreationDTO.getAddressLine2());
-        addressCreationModel.setCity(addressCreationDTO.getCity());
-        addressCreationModel.setCountry(addressCreationDTO.getCountry());
-        addressCreationModel.setDistrict(addressCreationDTO.getDistrict());
-        addressCreationModel.setPostCode(addressCreationDTO.getPostCode());
+        AddressCreationModel addressCreationModel = new AddressCreationModel(
+                addressCreationDTO.getCountry(),
+                addressCreationDTO.getDistrict(),
+                addressCreationDTO.getCity(),
+                addressCreationDTO.getAddressLine1(),
+                addressCreationDTO.getAddressLine2(),
+                addressCreationDTO.getPostCode());
         return addressCreationModel;
 
     }
 
-    public AddressUpdateModel convert(AddressUpdateDTO updateDTO) {
-        if (updateDTO==null) {
+    public AddressUpdateModel convert(AddressUpdateDTO addressUpdateDTO) {
+        if (addressUpdateDTO==null) {
             return null;
         }
-        AddressUpdateModel addressUpdateModel = new AddressUpdateModel();
-        addressUpdateModel.setAddressLine1(updateDTO.getAddressLine1());
-        addressUpdateModel.setAddressLine2(updateDTO.getAddressLine2());
-        addressUpdateModel.setCity(updateDTO.getCity());
-        addressUpdateModel.setPostCode(updateDTO.getPostCode());
-        addressUpdateModel.setDistrict(updateDTO.getDistrict());
-        addressUpdateModel.setCountry(updateDTO.getCountry());
+        AddressUpdateModel addressUpdateModel = new AddressUpdateModel(addressUpdateDTO.getId(),
+                addressUpdateDTO.getCountry(),
+                addressUpdateDTO.getDistrict(),
+                addressUpdateDTO.getCity(),
+                addressUpdateDTO.getAddressLine1(),
+                addressUpdateDTO.getAddressLine2(),
+                addressUpdateDTO.getPostCode());
+
         return addressUpdateModel;
     }
 }

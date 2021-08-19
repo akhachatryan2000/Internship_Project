@@ -5,19 +5,15 @@ import com.margin.controller.address.dto.AddressCreationDTO;
 import com.margin.controller.customer.dto.CustomerCreationDTO;
 import com.margin.controller.orderproduct.dto.OrderProductCreationDTO;
 import com.margin.controller.shop.dto.ShopCreationDTO;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.math.BigDecimal;
 import java.util.List;
 @Getter
 @Setter
 @EqualsAndHashCode
-@NoArgsConstructor
+@AllArgsConstructor
 public class OrderCreationDTO {
-
 
     private List<OrderProductCreationDTO> orderProducts;
 

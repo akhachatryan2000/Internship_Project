@@ -4,6 +4,8 @@ import com.margin.service.address.model.AddressCreationModel;
 import com.margin.service.address.model.AddressModel;
 import com.margin.service.order.model.OrderCreationModel;
 import com.margin.service.order.model.OrderModel;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,6 +14,8 @@ import java.util.List;
 
 @Setter
 @Getter
+@EqualsAndHashCode
+@AllArgsConstructor
 public class CustomerCreationModel {
 
 
@@ -23,5 +27,4 @@ public class CustomerCreationModel {
 
     private BigDecimal bonus;
 
-    private List<OrderModel> orders;
 }

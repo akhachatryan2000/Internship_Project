@@ -5,6 +5,8 @@ import com.margin.service.address.model.AddressModel;
 import com.margin.service.customer.model.CustomerModel;
 import com.margin.service.orderproduct.model.OrderProductModel;
 import com.margin.service.shop.model.ShopModel;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,6 +14,8 @@ import java.math.BigDecimal;
 import java.util.List;
 @Getter
 @Setter
+@EqualsAndHashCode
+@AllArgsConstructor
 public class OrderModel {
     private Long id;
 

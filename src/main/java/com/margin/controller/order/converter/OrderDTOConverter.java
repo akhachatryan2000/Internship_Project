@@ -40,87 +40,101 @@ public class OrderDTOConverter {
     @Autowired
     private OrderDTOConverter orderDTOConverter;
 
+
     public OrderModel convert(OrderDTO orderDTO) {
         if (orderDTO == null) {
             return null;
         }
-        OrderModel orderModel = new OrderModel();
-        orderModel.setCustomerId(orderDTO.getId());
-        //orderModel.setOrderProductIds(orderDTO.getOrderProductIds());
-        orderModel.setShopId(orderDTO.getShopId());
-        orderModel.setOriginalPrice(orderDTO.getOriginalPrice());
-        orderModel.setTotalPrice(orderDTO.getTotalPrice());
-        orderModel.setPaidFromBonus(orderDTO.getPaidFromBonus());
-        orderModel.setPaymentType(orderDTO.getPaymentType());
-        orderModel.setOrderDiscount(orderDTO.getOrderDiscount());
+        OrderModel orderModel = new OrderModel(
+                orderDTO.getId(),
+                orderDTOConverter.convertList(orderDTO.getOrderProducts(), orderDTO),
+                orderDTO.getCustomerId(),
+                orderDTO.getShopId(),
+                orderDTO.getAddressId(),
+                orderDTO.getOriginalPrice(),
+                orderDTO.getTotalPrice(),
+                orderDTO.getPaidFromBonus(),
+                orderDTO.getPaymentType(),
+                orderDTO.getOrderDiscount());
+
+
         return orderModel;
     }
 
-//    public List<OrderProductModel> convert(List<OrderProductDTO> orderProductDTOS, OrderDTO orderDTO) {
-//        if (orderProductDTOS == null) {
-//            return new ArrayList<>();
-//        }
-//        List<OrderProductModel> orderProductModels = orderDTO.getProducts()
-//                .stream()
-//                .map(o -> orderProductDTOConverter.convert(o))
-//                .collect(Collectors.toList());
-//        return orderProductModels;
-//    }
+    public List<OrderProductModel> convertList(List<OrderProductDTO> orderProductDTOS, OrderDTO orderDTO) {
+        if (orderProductDTOS == null) {
+            return new ArrayList<>();
+        }
+        List<OrderProductModel> orderProductModels = orderDTO.getOrderProducts()
+                .stream()
+                .map(orderProductDTO -> orderProductDTOConverter
+                        .convert(orderProductDTO))
+                .collect(Collectors.toList());
+        return orderProductModels;
+
+    }
 
     public OrderCreationModel convert(OrderCreationDTO orderDTO) {
         if (orderDTO == null) {
             return null;
         }
-        OrderCreationModel orderModel = new OrderCreationModel();
-       // orderModel.setProducts(orderDTOConverter.convert(orderDTO.getProducts(), orderDTO));
-       // CustomerCreationModel customerModel = customerDTOConverter.convert(orderDTO.getCustomer());
-       // orderModel.setCustomer(customerModel);
-       // ShopCreationModel shopModel = shopDTOConverter.convert(orderDTO.getShop());
-        //orderModel.setShop(shopModel);
-        orderModel.setOriginalPrice(orderDTO.getOriginalPrice());
-        orderModel.setTotalPrice(orderDTO.getTotalPrice());
-        orderModel.setPaidFromBonus(orderDTO.getPaidFromBonus());
-        orderModel.setPaymentType(orderDTO.getPaymentType());
-        orderModel.setOrderDiscount(orderDTO.getOrderDiscount());
+        OrderCreationModel orderModel = new OrderCreationModel(
+                orderDTOConverter.convertList(orderDTO.getOrderProducts(), orderDTO),
+                orderDTO.getCustomerId(),
+                orderDTO.getShopId(),
+                orderDTO.getAddressId(),
+                orderDTO.getOriginalPrice(),
+                orderDTO.getTotalPrice(),
+                orderDTO.getPaidFromBonus(),
+                orderDTO.getPaymentType(),
+                orderDTO.getOrderDiscount());
+
         return orderModel;
 
     }
 
-//    public List<OrderProductCreationModel> convert(List<OrderProductCreationDTO> orderProductDTOS, OrderCreationDTO orderDTO) {
-//        if (orderProductDTOS == null) {
-//            return new ArrayList<>();
-//        }
-//        List<OrderProductCreationModel> orderProductModels = orderDTO.getProducts()
-//                .stream().map(o -> orderProductDTOConverter.convert(o)).collect(Collectors.toList());
-//        return orderProductModels;
-//    }
+    public List<OrderProductCreationModel> convertList(List<OrderProductCreationDTO> orderProductDTOS, OrderCreationDTO orderDTO) {
+        if (orderProductDTOS == null) {
+            return new ArrayList<>();
+        }
+        List<OrderProductCreationModel> orderProductModels = orderDTO.getOrderProducts()
+                .stream()
+                .map(o -> orderProductDTOConverter
+                        .convert(o))
+                .collect(Collectors
+                        .toList());
+        return orderProductModels;
+    }
 
     public OrderUpdateModel convert(OrderUpdateDTO orderDTO) {
         if (orderDTO == null) {
             return null;
         }
-        OrderUpdateModel orderModel = new OrderUpdateModel();
-      //  orderModel.setProducts(orderDTOConverter.convert(orderDTO.getProducts(), orderDTO));
-        //CustomerUpdateModel customerUpdateModel = customerDTOConverter.convert(orderDTO.getCustomer());
-        //orderModel.setCustomer(customerUpdateModel);
-     //   ShopUpdateModel shopUpdateModel = shopDTOConverter.convert(orderDTO.getShop());
-      //  orderModel.setShop(shopUpdateModel);
-        orderModel.setOriginalPrice(orderDTO.getOriginalPrice());
-        orderModel.setTotalPrice(orderDTO.getTotalPrice());
-        orderModel.setPaidFromBonus(orderDTO.getPaidFromBonus());
-        orderModel.setPaymentType(orderDTO.getPaymentType());
-        orderModel.setOrderDiscount(orderDTO.getOrderDiscount());
+        OrderUpdateModel orderModel = new OrderUpdateModel(
+                orderDTO.getId(),
+                orderDTOConverter.convert(orderDTO.getOrderProducts(), orderDTO),
+                orderDTO.getCustomerId(),
+                orderDTO.getShopId(),
+                orderDTO.getAddressId(),
+                orderDTO.getOriginalPrice(),
+                orderDTO.getTotalPrice(),
+                orderDTO.getPaidFromBonus(),
+                orderDTO.getPaymentType(),
+                orderDTO.getOrderDiscount()
+        );
+
         return orderModel;
 
     }
 
-//    public List<OrderProductUpdateModel> convert(List<OrderProductUpdateDTO> orderProductDTOS, OrderUpdateDTO orderDTO) {
-//        if (orderProductDTOS == null) {
-//            return new ArrayList<>();
-//        }
-//        List<OrderProductUpdateModel> orderProductModels = orderDTO.getProducts()
-//                .stream().map(o -> orderProductDTOConverter.convert(o)).collect(Collectors.toList());
-//        return orderProductModels;
-//    }
+    public List<OrderProductUpdateModel> convert(List<OrderProductUpdateDTO> orderProductDTOS, OrderUpdateDTO orderDTO) {
+        if (orderProductDTOS == null) {
+            return new ArrayList<>();
+        }
+        List<OrderProductUpdateModel> orderProductModels = orderDTO.getOrderProducts()
+                .stream().map(o -> orderProductDTOConverter
+                        .convert(o)).collect(Collectors.toList());
+        return orderProductModels;
+    }
 
 }

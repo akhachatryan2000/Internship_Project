@@ -27,5 +27,4 @@ public class CustomerCreationDTO {
 
     private BigDecimal bonus;
 
-    private List<Order> orders;
 }

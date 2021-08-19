@@ -1,44 +1,37 @@
 package com.margin.service.product.converter;
 
 import com.margin.repository.product.entity.ProductEntity;
+import com.margin.repository.shop.entity.ShopRepository;
 import com.margin.service.product.model.ProductCreationModel;
 import com.margin.service.product.model.ProductModel;
 import com.margin.service.product.model.ProductUpdateModel;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 public class ProductEntityConverter {
+
+    @Autowired
+    private ShopRepository shopRepository;
 
     public ProductModel convert(ProductEntity productEntity) {
         if (productEntity == null) {
             return null;
         }
 
-        ProductModel productModel = new ProductModel();
-        productModel.setId(productEntity.getId());
-        productModel.setName(productEntity.getName());
-        productModel.setActive(productEntity.getActive());
-        productModel.setPrice(productEntity.getPrice());
-        productModel.setDescription(productEntity.getDescription());
-        productModel.setUnit(productEntity.getUnit());
-        productModel.setVisible(productEntity.getVisible());
-        productModel.setShopId(productEntity.getShopEntity().getId());
-        return productModel;
-    }
+        ProductModel productModel = new ProductModel(
+                productEntity.getId(),
+                productEntity.getName(),
+                productEntity.getDescription(),
+                productEntity.getActive(),
+                productEntity.getVisible(),
+                productEntity.getPrice(),
+                productEntity.getUnit(),
+                productEntity.getShopEntity().getId()
 
-    public ProductEntity convert(ProductModel productModel) {
-        if (productModel == null) {
-            return null;
-        }
-        ProductEntity productEntity = new ProductEntity();
-        productEntity.setId(productModel.getId());
-        productEntity.setName(productModel.getName());
-        productEntity.setActive(productModel.getActive());
-        productEntity.setPrice(productEntity.getPrice());
-        productEntity.setDescription(productEntity.getDescription());
-        productEntity.setVisible(productModel.getVisible());
-        //  productEntity.setShopEntity(productModel.getShopId());
-        return productEntity;
+        );
+
+        return productModel;
     }
 
     public ProductEntity convert(ProductCreationModel productCreationModel) {
@@ -52,6 +45,7 @@ public class ProductEntityConverter {
         productEntity.setPrice(productCreationModel.getPrice());
         productEntity.setUnit(productCreationModel.getUnit());
         productEntity.setActive(productCreationModel.getActive());
+        productEntity.setShopEntity(shopRepository.getById(productCreationModel.getShopId()));
         return productEntity;
 
     }
@@ -60,7 +54,7 @@ public class ProductEntityConverter {
         if (productUpdateModel == null) {
             return null;
         }
-        // productEntity.setShopEntity(productUpdateModel.getShopId());
+        productEntity.setShopEntity(shopRepository.getById(productUpdateModel.getShopId()));
         productEntity.setActive(productUpdateModel.getActive());
         productEntity.setVisible(productUpdateModel.getVisible());
         productEntity.setPrice(productUpdateModel.getPrice());

@@ -7,8 +7,11 @@ import com.margin.service.customer.model.CustomerCreationModel;
 import com.margin.service.customer.model.CustomerModel;
 import com.margin.service.orderproduct.model.OrderProductCreationModel;
 import com.margin.service.orderproduct.model.OrderProductModel;
+import com.margin.service.orderproduct.model.OrderProductUpdateModel;
 import com.margin.service.shop.model.ShopCreationModel;
 import com.margin.service.shop.model.ShopModel;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -18,9 +21,11 @@ import java.util.List;
 
 @Setter
 @Getter
+@EqualsAndHashCode
+@AllArgsConstructor
 public class OrderCreationModel {
 
-    private List<OrderProductModel> orderProducts;
+    private List<OrderProductCreationModel> orderProducts;
 
     private Long customerId;
 

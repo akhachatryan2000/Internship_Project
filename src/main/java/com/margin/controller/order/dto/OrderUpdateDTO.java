@@ -9,10 +9,7 @@ import com.margin.controller.orderproduct.dto.OrderProductDTO;
 import com.margin.controller.orderproduct.dto.OrderProductUpdateDTO;
 import com.margin.controller.shop.dto.ShopDTO;
 import com.margin.controller.shop.dto.ShopUpdateDTO;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -20,8 +17,9 @@ import java.util.List;
 @Setter
 @Getter
 @EqualsAndHashCode
-@NoArgsConstructor
+@AllArgsConstructor
 public class OrderUpdateDTO {
+
     private Long id;
 
     private List<OrderProductUpdateDTO> orderProducts;

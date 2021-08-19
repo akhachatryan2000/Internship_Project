@@ -15,15 +15,16 @@ public class OrderProductModelConverter {
         if (orderProductModel == null) {
             return null;
         }
-        OrderProductDTO orderProductDTO = new OrderProductDTO();
-        orderProductDTO.setProductId(orderProductModel.getProductId());
-        orderProductDTO.setOrderId(orderProductModel.getOrderId());
-        orderProductDTO.setId(orderProductModel.getId());
-        orderProductDTO.setAmount(orderProductModel.getAmount());
-        orderProductDTO.setComment(orderProductModel.getComment());
-        orderProductDTO.setOriginalPrice(orderProductModel.getOriginalPrice());
-        orderProductDTO.setDiscount(orderProductModel.getDiscount());
-        orderProductDTO.setTotalPrice(orderProductModel.getTotalPrice());
+        OrderProductDTO orderProductDTO = new OrderProductDTO(
+                orderProductModel.getId(),
+                orderProductModel.getOrderId(),
+                orderProductModel.getProductId(),
+                orderProductModel.getTotalPrice(),
+                orderProductModel.getAmount(),
+                orderProductModel.getComment(),
+                orderProductModel.getOriginalPrice(),
+                orderProductModel.getDiscount()
+        );
         return orderProductDTO;
     }
 
@@ -31,14 +32,16 @@ public class OrderProductModelConverter {
         if (orderProductModel == null) {
             return null;
         }
-        OrderProductCreationDTO orderProductDTO = new OrderProductCreationDTO();
-        orderProductDTO.setProductId(orderProductModel.getProductId());
-        orderProductDTO.setOrderId(orderProductModel.getOrderId());
-        orderProductDTO.setAmount(orderProductModel.getAmount());
-        orderProductDTO.setComment(orderProductModel.getComment());
-        orderProductDTO.setOriginalPrice(orderProductModel.getOriginalPrice());
-        orderProductDTO.setDiscount(orderProductModel.getDiscount());
-        orderProductDTO.setTotalPrice(orderProductModel.getTotalPrice());
+        OrderProductCreationDTO orderProductDTO = new OrderProductCreationDTO(
+                orderProductModel.getOrderId(),
+                orderProductModel.getProductId(),
+                orderProductModel.getTotalPrice(),
+                orderProductModel.getAmount(),
+                orderProductModel.getComment(),
+                orderProductModel.getOriginalPrice(),
+                orderProductModel.getDiscount()
+        );
+
         return orderProductDTO;
 
     }
@@ -47,15 +50,16 @@ public class OrderProductModelConverter {
         if (orderProductModel == null) {
             return null;
         }
-        OrderProductUpdateDTO orderProductDTO = new OrderProductUpdateDTO();
-        orderProductDTO.setProductId(orderProductModel.getProductId());
-        orderProductDTO.setOrderId(orderProductModel.getOrderId());
-        orderProductDTO.setId(orderProductModel.getId());
-        orderProductDTO.setAmount(orderProductModel.getAmount());
-        orderProductDTO.setComment(orderProductModel.getComment());
-        orderProductDTO.setOriginalPrice(orderProductModel.getOriginalPrice());
-        orderProductDTO.setDiscount(orderProductModel.getDiscount());
-        orderProductDTO.setTotalPrice(orderProductModel.getTotalPrice());
+        OrderProductUpdateDTO orderProductDTO = new OrderProductUpdateDTO(
+                orderProductModel.getId(),
+                orderProductModel.getOrderId(),
+                orderProductModel.getProductId(),
+                orderProductModel.getTotalPrice(),
+                orderProductModel.getAmount(),
+                orderProductModel.getComment(),
+                orderProductModel.getOriginalPrice(),
+                orderProductModel.getDiscount()
+        );
         return orderProductDTO;
 
     }

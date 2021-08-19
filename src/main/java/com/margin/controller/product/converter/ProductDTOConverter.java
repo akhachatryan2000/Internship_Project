@@ -19,19 +19,21 @@ public class ProductDTOConverter {
     @Autowired
     private ShopDTOConverter shopDTOConverter;
 
-    public ProductCreationModel convert(ProductCreationDTO productCreationDTO) {
-        if (productCreationDTO == null) {
+    public ProductCreationModel convert(ProductCreationDTO productDTO) {
+        if (productDTO == null) {
             return null;
         }
-        ProductCreationModel productCreationModel = new ProductCreationModel();
-        productCreationModel.setName(productCreationDTO.getName());
-        productCreationModel.setActive(productCreationDTO.getActive());
-        productCreationModel.setDescription(productCreationDTO.getDescription());
-        productCreationModel.setPrice(productCreationDTO.getPrice());
-        //ShopCreationModel shopModel = shopDTOConverter.convert(productCreationDTO.getShop());
-        //productCreationModel.setShop(shopModel);
-        productCreationModel.setVisible(productCreationDTO.getVisible());
-        productCreationModel.setUnit(productCreationDTO.getUnit());
+        ProductCreationModel productCreationModel = new ProductCreationModel(
+                productDTO.getName(),
+                productDTO.getDescription(),
+                productDTO.getActive(),
+                productDTO.getVisible(),
+                productDTO.getPrice(),
+                productDTO.getUnit(),
+                productDTO.getShopId()
+
+        );
+
         return productCreationModel;
 
     }
@@ -40,17 +42,16 @@ public class ProductDTOConverter {
         if (productDTO == null) {
             return null;
         }
-        ProductModel productModel = new ProductModel();
-        productModel.setId(productDTO.getId());
-        productModel.setName(productDTO.getName());
-        productModel.setName(productDTO.getName());
-        productModel.setActive(productDTO.getActive());
-        productModel.setDescription(productDTO.getDescription());
-        productModel.setPrice(productDTO.getPrice());
-        //ShopModel shopModel = shopDTOConverter.convert(productDTO.getShop());
-      //  productModel.setShop(shopModel);
-        productModel.setVisible(productDTO.getVisible());
-        productModel.setUnit(productDTO.getUnit());
+        ProductModel productModel = new ProductModel(
+                productDTO.getId(),
+                productDTO.getName(),
+                productDTO.getDescription(),
+                productDTO.getActive(),
+                productDTO.getVisible(),
+                productDTO.getPrice(),
+                productDTO.getUnit(),
+                productDTO.getShopId()
+        );
         return productModel;
 
 
@@ -60,17 +61,17 @@ public class ProductDTOConverter {
         if (productDTO == null) {
             return null;
         }
-        ProductUpdateModel productModel = new ProductUpdateModel();
-        productModel.setId(productDTO.getId());
-        productModel.setName(productDTO.getName());
-        productModel.setName(productDTO.getName());
-        productModel.setActive(productDTO.getActive());
-        productModel.setDescription(productDTO.getDescription());
-        productModel.setPrice(productDTO.getPrice());
-       // ShopUpdateModel shopUpdateModel = shopDTOConverter.convert(productDTO.getShop());
-        //productModel.setShop(shopUpdateModel);
-        productModel.setVisible(productDTO.getVisible());
-        productModel.setUnit(productDTO.getUnit());
+        ProductUpdateModel productModel = new ProductUpdateModel(
+                productDTO.getId(),
+                productDTO.getName(),
+                productDTO.getDescription(),
+                productDTO.getActive(),
+                productDTO.getVisible(),
+                productDTO.getPrice(),
+                productDTO.getUnit(),
+                productDTO.getShopId()
+        );
+
         return productModel;
     }
 

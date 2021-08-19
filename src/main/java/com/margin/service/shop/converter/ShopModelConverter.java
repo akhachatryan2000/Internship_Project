@@ -15,8 +15,11 @@ public class ShopModelConverter {
         if (shopModel == null) {
             return null;
         }
-        ShopDTO shopDTO = new ShopDTO(shopModel.getId(),
-                shopModel.getName(), shopModel.getActive(), shopModel.getVisible());
+        ShopDTO shopDTO = new ShopDTO(
+                shopModel.getId(),
+                shopModel.getName(),
+                shopModel.getActive(),
+                shopModel.getVisible());
         return shopDTO;
 
     }
@@ -25,9 +28,10 @@ public class ShopModelConverter {
         if (shopModel == null) {
             return null;
         }
-        ShopCreationDTO shopDTO = new ShopCreationDTO(shopModel.getName(), shopModel.getActive(),shopModel.getVisible());
-        //shopDTO.setScheduleId(shopModel.getScheduleId());
-       // shopDTO.setUserId(shopModel.getUserId());
+        ShopCreationDTO shopDTO = new ShopCreationDTO(
+                shopModel.getName(),
+                shopModel.getActive(),
+                shopModel.getVisible());
         return shopDTO;
 
     }
@@ -36,13 +40,11 @@ public class ShopModelConverter {
         if (shopModel == null) {
             return null;
         }
-        ShopUpdateDTO shopDTO = new ShopUpdateDTO(shopModel.getId(),shopModel.getName(),shopModel.getActive(),shopModel.getVisible());
-//        shopDTO.setId(shopModel.getId());
-//        shopDTO.setName(shopModel.getName());
-//        shopDTO.setActive(shopModel.getActive());
-//        shopDTO.setVisible(shopModel.getVisible());
-//        shopDTO.setScheduleId(shopModel.getScheduleId());
-//        shopDTO.setUserId(shopModel.getUserId());
+        ShopUpdateDTO shopDTO = new ShopUpdateDTO(
+                shopModel.getId(),
+                shopModel.getName(),
+                shopModel.getActive(),
+                shopModel.getVisible());
         return shopDTO;
 
     }

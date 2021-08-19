@@ -1,10 +1,12 @@
 package com.margin.service.customer.converter;
 
+import com.margin.repository.address.AddressRepository;
 import com.margin.repository.customer.entity.CustomerEntity;
 import com.margin.repository.order.entity.OrderEntity;
 import com.margin.service.customer.model.CustomerCreationModel;
 import com.margin.service.customer.model.CustomerModel;
 import com.margin.service.customer.model.CustomerUpdateModel;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -12,17 +14,19 @@ import java.util.List;
 @Component
 public class CustomerEntityConverter {
 
+    @Autowired
+    private AddressRepository addressRepository;
+
     public CustomerModel convert(CustomerEntity customerEntity) {
         if (customerEntity == null) {
             return null;
         }
-        CustomerModel customerModel = new CustomerModel();
-        customerModel.setId(customerEntity.getId());
-        customerModel.setBonus(customerEntity.getBonus());
-        customerModel.setPhoneNumber(customerEntity.getPhoneNumber());
-        customerModel.setName(customerEntity.getName());
-        customerModel.setAddressId(customerModel.getAddressId());
-        // customerModel.setOrderIds(customerEntity.getOrders());
+        CustomerModel customerModel = new CustomerModel(
+                customerEntity.getId(),
+                customerEntity.getName(),
+                customerEntity.getPhoneNumber(),
+                customerEntity.getAddress().getId(),
+                customerEntity.getBonus());
         return customerModel;
     }
 
@@ -34,9 +38,7 @@ public class CustomerEntityConverter {
         customerEntity.setName(customerModel.getName());
         customerEntity.setBonus(customerModel.getBonus());
         customerEntity.setPhoneNumber(customerEntity.getPhoneNumber());
-        customerEntity.setId(customerModel.getId());
-        customerEntity.setAddress(customerEntity.getAddress());
-        // customerEntity.setOrders(customerModel.getOrderIds());
+        customerEntity.setAddress(addressRepository.getById(customerModel.getAddressId()));
         return customerEntity;
 
     }
@@ -45,12 +47,15 @@ public class CustomerEntityConverter {
         if (customerCreationModel == null) {
             return null;
         }
+
         CustomerEntity customer = new CustomerEntity();
         customer.setName(customerCreationModel.getName());
-        //customer.setAddress(customerCreationModel.getAddress());
+        customer.setAddress(addressRepository.getById(customerCreationModel.getAddressId()));
         customer.setBonus(customerCreationModel.getBonus());
         customer.setPhoneNumber(customerCreationModel.getPhoneNumber());
         return customer;
+
+
     }
 
     public CustomerEntity convert(CustomerUpdateModel customerUpdateModel, CustomerEntity customerEntity) {
@@ -59,8 +64,8 @@ public class CustomerEntityConverter {
         }
         customerEntity.setBonus(customerUpdateModel.getBonus());
         customerEntity.setName(customerUpdateModel.getName());
-        // customerEntity.setAddress(customerUpdateModel.getAddressId());
-        //customerEntity.setOrders(customerUpdateModel.getOrderIds());
+        customerEntity.setAddress(addressRepository.getById(customerUpdateModel.getAddressId()));
+        customerEntity.setPhoneNumber(customerUpdateModel.getPhoneNumber());
         return customerEntity;
     }
 

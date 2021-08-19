@@ -9,18 +9,22 @@ import org.springframework.stereotype.Component;
 @Component
 public class AddressEntityConverter {
 
+    // TODO: 19.08.21 review the convertsion methods from addresModel to addressEntity 
+
     public AddressModel convert(AddressEntity addressEntity) {
         if (addressEntity == null) {
             return null;
         }
-        AddressModel addressModel = new AddressModel();
-        addressModel.setId(addressEntity.getId());
-        addressModel.setAddressLine1(addressEntity.getAddressLine1());
-        addressModel.setAddressLine2(addressEntity.getAddressLine2());
-        addressModel.setDistrict(addressEntity.getDistrict());
-        addressModel.setCountry(addressEntity.getCountry());
-        addressModel.setPostCode(addressEntity.getPostCode());
-        addressModel.setCity(addressEntity.getCity());
+        AddressModel addressModel = new AddressModel(
+                addressEntity.getId(),
+                addressEntity.getCountry(),
+                addressEntity.getDistrict(),
+                addressEntity.getCity(),
+                addressEntity.getAddressLine1(),
+                addressEntity.getAddressLine2(),
+                addressEntity.getPostCode()
+        );
+
         return addressModel;
     }
 
@@ -29,12 +33,11 @@ public class AddressEntityConverter {
             return null;
         }
         AddressEntity addressEntity = new AddressEntity();
-        addressEntity.setDistrict(addressModel.getDistrict());
-        addressEntity.setAddressLine1(addressEntity.getAddressLine1());
-        addressEntity.setAddressLine2(addressModel.getAddressLine2());
-        addressEntity.setId(addressModel.getId());
-        addressEntity.setCity(addressModel.getCity());
+        addressEntity.setCity(addressEntity.getCity());
         addressEntity.setCountry(addressModel.getCountry());
+        addressEntity.setDistrict(addressModel.getDistrict());
+        addressEntity.setAddressLine1(addressModel.getAddressLine1());
+        addressEntity.setAddressLine2(addressModel.getAddressLine2());
         addressEntity.setPostCode(addressModel.getPostCode());
         return addressEntity;
     }
@@ -44,12 +47,11 @@ public class AddressEntityConverter {
             return null;
         }
         AddressEntity addressEntity = new AddressEntity();
-        addressEntity.setDistrict(addressModel.getDistrict());
-        addressEntity.setAddressLine1(addressEntity.getAddressLine1());
-        addressEntity.setAddressLine2(addressModel.getAddressLine2());
-        addressEntity.setCity(addressModel.getCity());
-        addressEntity.setCountry(addressModel.getCountry());
         addressEntity.setPostCode(addressModel.getPostCode());
+        addressEntity.setCountry(addressModel.getCountry());
+        addressEntity.setAddressLine1(addressModel.getAddressLine1());
+        addressEntity.setAddressLine2(addressEntity.getAddressLine2());
+        addressEntity.setCity(addressModel.getCity());
         return addressEntity;
     }
 
@@ -57,7 +59,6 @@ public class AddressEntityConverter {
         if (addressUpdateModel == null) {
             return null;
         }
-        addressEntity.setId(addressUpdateModel.getId());
         addressEntity.setAddressLine1(addressUpdateModel.getAddressLine1());
         addressEntity.setAddressLine2(addressUpdateModel.getAddressLine2());
         addressEntity.setDistrict(addressUpdateModel.getDistrict());

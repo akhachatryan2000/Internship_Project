@@ -1,9 +1,7 @@
 package com.margin.repository.address.entity;
 
 import com.margin.common.enums.Country;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -12,6 +10,8 @@ import javax.persistence.*;
 @Setter
 @Getter
 @EqualsAndHashCode
+@AllArgsConstructor
+@NoArgsConstructor
 public class AddressEntity {
 
     @Id

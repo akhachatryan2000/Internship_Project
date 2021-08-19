@@ -14,12 +14,12 @@ public class ShopEntityConverter {
         if (shopEntity == null) {
             return null;
         }
-        ShopModel shopModel = new ShopModel();
-        shopModel.setId(shopEntity.getId());
-        shopModel.setActive(shopEntity.getActive());
-        shopModel.setVisible(shopEntity.getVisible());
-        shopModel.setName(shopEntity.getName());
-        // shopModel.setScheduleId(shopEntity.get);
+        ShopModel shopModel = new ShopModel(
+                shopEntity.getId(),
+                shopEntity.getName(),
+                shopEntity.getActive(),
+                shopEntity.getVisible()
+        );
         return shopModel;
     }
 

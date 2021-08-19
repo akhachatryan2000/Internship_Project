@@ -11,6 +11,7 @@ import lombok.Setter;
 @EqualsAndHashCode
 @AllArgsConstructor
 public class AddressUpdateDTO {
+
     private Long id;
 
     private Country country;

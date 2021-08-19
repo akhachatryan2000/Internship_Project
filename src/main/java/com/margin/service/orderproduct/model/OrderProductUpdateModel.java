@@ -1,11 +1,15 @@
 package com.margin.service.orderproduct.model;
 
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.math.BigDecimal;
 @Setter
 @Getter
+@EqualsAndHashCode
+@AllArgsConstructor
 public class OrderProductUpdateModel {
 
     private Long id;
@@ -13,8 +17,6 @@ public class OrderProductUpdateModel {
     private Long orderId;
 
     private Long productId;
-
-    private BigDecimal sum;
 
     private BigDecimal totalPrice;
 

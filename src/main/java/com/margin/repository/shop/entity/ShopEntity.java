@@ -3,9 +3,7 @@ package com.margin.repository.shop.entity;
 import com.margin.common.Schedule;
 
 import com.margin.repository.product.entity.ProductEntity;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 
 import javax.persistence.*;
@@ -16,6 +14,8 @@ import java.util.List;
 @Setter
 @Getter
 @EqualsAndHashCode
+@NoArgsConstructor
+@AllArgsConstructor
 public class ShopEntity {
 
     @Id

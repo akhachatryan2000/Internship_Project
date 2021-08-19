@@ -15,42 +15,41 @@ public class ShopDTOConverter {
         if (shopDTO == null) {
             return null;
         } else {
-            ShopModel shopModel = new ShopModel();
-            shopModel.setId(shopDTO.getId());
-            shopModel.setName(shopDTO.getName());
-            shopModel.setActive(shopDTO.getActive());
-            shopModel.setVisible(shopDTO.getVisible());
-            shopModel.setSchedule(shopDTO.getSchedule());
-            //shopModel.setUser(shopDTO.getUser());
+            ShopModel shopModel = new ShopModel(
+                    shopDTO.getId(),
+                    shopDTO.getName(),
+                    shopDTO.getActive(),
+                    shopDTO.getVisible()
+            );
             return shopModel;
         }
 
     }
 
     public ShopCreationModel convert(ShopCreationDTO shopDTO) {
-        if (shopDTO==null)  {
+        if (shopDTO == null) {
             return null;
         }
-        ShopCreationModel shopModel = new ShopCreationModel();
-        shopModel.setName(shopDTO.getName());
-        shopModel.setActive(shopDTO.getActive());
-        shopModel.setVisible(shopDTO.getVisible());
-        shopModel.setSchedule(shopDTO.getSchedule());
-        // shopModel.setUser(shopDTO.getUser());
+        ShopCreationModel shopModel = new ShopCreationModel(
+                shopDTO.getName(),
+                shopDTO.getActive(),
+                shopDTO.getVisible()
+        );
+
         return shopModel;
     }
 
     public ShopUpdateModel convert(ShopUpdateDTO shopDTO) {
-        if (shopDTO==null)  {
+        if (shopDTO == null) {
             return null;
         }
-        ShopUpdateModel shopModel = new ShopUpdateModel();
-        shopModel.setId(shopDTO.getId());
-        shopModel.setName(shopDTO.getName());
-        shopModel.setActive(shopDTO.getActive());
-        shopModel.setVisible(shopDTO.getVisible());
-        shopModel.setSchedule(shopDTO.getSchedule());
-        // shopModel.setUser(shopDTO.getUser());
+        ShopUpdateModel shopModel = new ShopUpdateModel(
+                shopDTO.getId(),
+                shopDTO.getName(),
+                shopDTO.getActive(),
+                shopDTO.getVisible()
+        );
+
         return shopModel;
 
 

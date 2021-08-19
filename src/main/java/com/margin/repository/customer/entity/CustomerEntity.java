@@ -4,9 +4,7 @@ import com.margin.controller.address.dto.AddressDTO;
 import com.margin.controller.order.dto.OrderDTO;
 import com.margin.repository.address.entity.AddressEntity;
 import com.margin.repository.order.entity.OrderEntity;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -17,6 +15,8 @@ import java.util.List;
 @Setter
 @Getter
 @EqualsAndHashCode
+@AllArgsConstructor
+@NoArgsConstructor
 public class CustomerEntity {
 
     @Id

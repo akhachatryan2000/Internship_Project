@@ -9,6 +9,8 @@ import com.margin.service.orderproduct.model.OrderProductModel;
 import com.margin.service.orderproduct.model.OrderProductUpdateModel;
 import com.margin.service.shop.model.ShopModel;
 import com.margin.service.shop.model.ShopUpdateModel;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -18,10 +20,12 @@ import java.util.List;
 
 @Setter
 @Getter
+@EqualsAndHashCode
+@AllArgsConstructor
 public class OrderUpdateModel {
     private Long id;
 
-    private List<OrderProductModel> orderProducts;
+    private List<OrderProductUpdateModel> orderProducts;
 
     private Long customerId;
 

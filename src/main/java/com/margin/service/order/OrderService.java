@@ -2,7 +2,9 @@ package com.margin.service.order;
 
 import com.margin.repository.order.OrderRepository;
 import com.margin.repository.order.entity.OrderEntity;
+import com.margin.service.OrderFacade;
 import com.margin.service.order.converter.OrderEntityConverter;
+import com.margin.service.order.converter.OrderModelConverter;
 import com.margin.service.order.model.OrderCreationModel;
 import com.margin.service.order.model.OrderModel;
 import com.margin.service.order.model.OrderUpdateModel;
@@ -21,6 +23,11 @@ public class OrderService {
     @Autowired
     private OrderEntityConverter orderEntityConverter;
 
+    @Autowired
+    private OrderFacade orderFacade;
+
+    @Autowired
+    private OrderModelConverter orderModelConverter;
 
     public OrderModel get(Long id) {
         try {
@@ -35,10 +42,11 @@ public class OrderService {
     }
 
     public OrderModel create(OrderCreationModel orderCreationModel) {
-        OrderEntity orderEntity = orderEntityConverter.convert(orderCreationModel);
-        OrderEntity orderCreated = orderRepository.save(orderEntity);
-        OrderModel orderModel = orderEntityConverter.convert(orderCreated);
-        return orderModel;
+        OrderModel order = orderFacade.createOrder(orderCreationModel);
+         OrderEntity orderEntity = orderEntityConverter.convert(order);
+         OrderEntity orderCreated = orderRepository.save(orderEntity);
+         OrderModel orderModel = orderEntityConverter.convert(orderCreated);
+        return null;
     }
 
     public OrderModel update(OrderUpdateModel orderUpdateModel, Long id) {

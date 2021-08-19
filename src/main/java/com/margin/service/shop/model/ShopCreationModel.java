@@ -2,6 +2,7 @@ package com.margin.service.shop.model;
 
 import com.margin.common.Schedule;
 
+import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -9,6 +10,7 @@ import lombok.Setter;
 @Setter
 @Getter
 @EqualsAndHashCode
+@AllArgsConstructor
 public class ShopCreationModel {
 
     private String name;

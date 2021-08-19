@@ -29,71 +29,47 @@ public class CustomerDTOConverter {
 
 
     public CustomerModel convert(CustomerDTO customerDTO) {
-        if (customerDTO==null) {
+        if (customerDTO == null) {
             return null;
         }
-        CustomerModel customerModel = new CustomerModel();
-        customerModel.setId(customerDTO.getId());
-        customerModel.setName(customerDTO.getName());
-        customerModel.setBonus(customerDTO.getBonus());
-        customerModel.setPhoneNumber(customerDTO.getPhoneNumber());
-        customerModel.setAddressModel(customerModel.getAddressModel());
-        customerModel.setOrders(customerDTOConverter.convert(customerDTO.getOrders(), customerDTO));
+        CustomerModel customerModel = new CustomerModel(
+                customerDTO.getId(),
+                customerDTO.getName(),
+                customerDTO.getPhoneNumber(),
+                customerDTO.getAddressId(),
+                customerDTO.getBonus()
+        );
+
         return customerModel;
     }
 
-    public List<OrderModel> convert(List<OrderDTO> orderDTOs, CustomerDTO customerDTO) {
-        if (orderDTOs == null) {
-            return new ArrayList<OrderModel>();
-        }
-        List<OrderModel> orderModels = customerDTO.getOrders()
-                .stream().map(o -> orderDTOConverter.convert(o))
-                .collect(Collectors.toList());
-        return orderModels;
-    }
 
     public CustomerCreationModel convert(CustomerCreationDTO customerDTO) {
         if (customerDTO == null) {
             return null;
         }
-        CustomerCreationModel customerModel = new CustomerCreationModel();
-        customerModel.setName(customerDTO.getName());
-        customerModel.setPhoneNumber(customerDTO.getPhoneNumber());
-        customerModel.setAddressModel(customerModel.getAddressModel());
-        customerModel.setBonus(customerDTO.getBonus());
-        customerModel.setOrders(customerDTOConverter.convert(customerDTO.getOrders(), customerDTO));
+        CustomerCreationModel customerModel = new CustomerCreationModel(
+                customerDTO.getName(),
+                customerDTO.getPhoneNumber(),
+                customerDTO.getAddressId(),
+                customerDTO.getBonus()
+        );
+
         return customerModel;
     }
 
-    public List<OrderCreationModel> convert(List<OrderCreationDTO> orderDTOs, CustomerCreationDTO customerDTO) {
-        if (orderDTOs == null) {
-            return new ArrayList<OrderCreationModel>();
-        }
-        List<OrderCreationModel> orderCreationModels = customerDTO.getOrders().stream()
-                .map(o -> orderDTOConverter.convert(o)).collect(Collectors.toList());
-        return orderCreationModels;
-    }
-
     public CustomerUpdateModel convert(CustomerUpdateDTO customerDTO) {
-        if(customerDTO==null) {
+        if (customerDTO == null) {
             return null;
         }
-        CustomerUpdateModel customerUpdateModel = new CustomerUpdateModel();
-        customerUpdateModel.setId(customerDTO.getId());
-        customerUpdateModel.setAddressModel(customerUpdateModel.getAddressModel());
-        customerUpdateModel.setName(customerDTO.getName());
-        customerUpdateModel.setBonus(customerDTO.getBonus());
-        customerUpdateModel.setPhoneNumber(customerDTO.getPhoneNumber());
-        customerUpdateModel.setOrders(customerDTOConverter.convert(customerDTO.getOrders(), customerDTO));
+        CustomerUpdateModel customerUpdateModel = new CustomerUpdateModel(
+                customerDTO.getId(),
+                customerDTO.getName(),
+                customerDTO.getPhoneNumber(),
+                customerDTO.getAddressId(),
+                customerDTO.getBonus()
+        );
         return customerUpdateModel;
     }
 
-    public List<OrderUpdateModel> convert(List<OrderUpdateDTO> orderDTOs, CustomerUpdateDTO customerDTO) {
-        if (orderDTOs == null) {
-            return new ArrayList<OrderUpdateModel>();
-        }
-        List<OrderUpdateModel> orderModels = customerDTO.getOrders().stream()
-                .map(o -> orderDTOConverter.convert(o)).collect(Collectors.toList());
-        return orderModels;
-    }
 }

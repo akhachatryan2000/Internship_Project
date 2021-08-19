@@ -5,10 +5,7 @@ import com.margin.controller.address.dto.AddressDTO;
 import com.margin.controller.customer.dto.CustomerDTO;
 import com.margin.controller.orderproduct.dto.OrderProductDTO;
 import com.margin.controller.shop.dto.ShopDTO;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -16,7 +13,7 @@ import java.util.List;
 @Getter
 @Setter
 @EqualsAndHashCode
-@NoArgsConstructor
+@AllArgsConstructor
 public class OrderDTO {
 
     private Long id;
@@ -38,6 +35,5 @@ public class OrderDTO {
     private PaymentType paymentType;
 
     private BigDecimal orderDiscount;
-
 
 }

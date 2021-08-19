@@ -15,54 +15,60 @@ import java.util.List;
 public class OrderProductDTOConverter {
 
     public OrderProductModel convert(OrderProductDTO orderProductDTO) {
-        if (orderProductDTO==null) {
+        if (orderProductDTO == null) {
             return null;
         }
-        OrderProductModel orderProductModel = new OrderProductModel();
-        orderProductModel.setProductId(orderProductDTO.getProductId());
-        orderProductModel.setOrderId(orderProductDTO.getOrderId());
-        orderProductModel.setId(orderProductDTO.getId());
-        orderProductModel.setAmount(orderProductDTO.getAmount());
-        orderProductModel.setComment(orderProductDTO.getComment());
-        orderProductModel.setOriginalPrice(orderProductDTO.getOriginalPrice());
-        orderProductModel.setDiscount(orderProductDTO.getDiscount());
-        orderProductModel.setTotalPrice(orderProductDTO.getTotalPrice());
+        OrderProductModel orderProductModel = new OrderProductModel(
+                orderProductDTO.getId(),
+                orderProductDTO.getOrderId(),
+                orderProductDTO.getProductId(),
+                orderProductDTO.getTotalPrice(),
+                orderProductDTO.getAmount(),
+                orderProductDTO.getComment(),
+                orderProductDTO.getOriginalPrice(),
+                orderProductDTO.getDiscount()
+        );
+
         return orderProductModel;
 
 
     }
 
 
-        public OrderProductCreationModel convert(OrderProductCreationDTO orderProductCreationDTO) {
-            if (orderProductCreationDTO==null) {
-                return null;
-            }
-        OrderProductCreationModel orderProductModel = new OrderProductCreationModel();
-        orderProductModel.setProductId(orderProductCreationDTO.getProductId());
-        orderProductModel.setOrderId(orderProductCreationDTO.getOrderId());
-        //orderProductModel.setAmount(orderProductCreationDTO.getAmount());
-        orderProductModel.setComment(orderProductCreationDTO.getComment());
-        orderProductModel.setOriginalPrice(orderProductCreationDTO.getOriginalPrice());
-        orderProductModel.setDiscount(orderProductCreationDTO.getDiscount());
-        orderProductModel.setTotalPrice(orderProductCreationDTO.getTotalPrice());
+    public OrderProductCreationModel convert(OrderProductCreationDTO orderProductDTO) {
+        if (orderProductDTO == null) {
+            return null;
+        }
+        OrderProductCreationModel orderProductModel = new OrderProductCreationModel(
+                orderProductDTO.getOrderId(),
+                orderProductDTO.getProductId(),
+                orderProductDTO.getTotalPrice(),
+                orderProductDTO.getAmount(),
+                orderProductDTO.getComment(),
+                orderProductDTO.getOriginalPrice(),
+                orderProductDTO.getDiscount()
+        );
+
         return orderProductModel;
 
     }
 
-    public OrderProductUpdateModel convert(OrderProductUpdateDTO orderProductUpdateDTO) {
-        if (orderProductUpdateDTO==null) {
+    public OrderProductUpdateModel convert(OrderProductUpdateDTO orderProductDTO) {
+        if (orderProductDTO == null) {
             return null;
         }
-        OrderProductUpdateModel orderProduct = new OrderProductUpdateModel();
-        orderProduct.setId(orderProductUpdateDTO.getId());
-        orderProduct.setProductId(orderProductUpdateDTO.getProductId());
-        orderProduct.setOrderId(orderProductUpdateDTO.getOrderId());
-        //orderProduct.setAmount(orderProductUpdateDTO.getAmount());
-        orderProduct.setComment(orderProductUpdateDTO.getComment());
-        orderProduct.setOriginalPrice(orderProductUpdateDTO.getOriginalPrice());
-        orderProduct.setDiscount(orderProductUpdateDTO.getDiscount());
-        orderProduct.setTotalPrice(orderProductUpdateDTO.getTotalPrice());
+        OrderProductUpdateModel orderProduct = new OrderProductUpdateModel(
+                orderProductDTO.getId(),
+                orderProductDTO.getOrderId(),
+                orderProductDTO.getProductId(),
+                orderProductDTO.getTotalPrice(),
+                orderProductDTO.getAmount(),
+                orderProductDTO.getComment(),
+                orderProductDTO.getOriginalPrice(),
+                orderProductDTO.getDiscount()
+        );
         return orderProduct;
+
     }
 }
 

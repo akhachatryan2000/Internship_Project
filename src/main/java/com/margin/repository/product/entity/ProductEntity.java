@@ -3,9 +3,7 @@ package com.margin.repository.product.entity;
 import com.margin.common.enums.Unit;
 import com.margin.repository.productschedule.ProductScheduleEntity;
 import com.margin.repository.shop.entity.ShopEntity;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -15,6 +13,8 @@ import java.math.BigDecimal;
 @Getter
 @Table(name = "product")
 @EqualsAndHashCode
+@NoArgsConstructor
+@AllArgsConstructor
 public class ProductEntity {
     @Id
     @GeneratedValue

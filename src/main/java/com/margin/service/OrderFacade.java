@@ -6,6 +6,7 @@ import com.margin.repository.customer.CustomerRepository;
 import com.margin.repository.customer.entity.CustomerEntity;
 import com.margin.repository.order.OrderRepository;
 import com.margin.repository.order.entity.OrderEntity;
+import com.margin.repository.orderproduct.OrderProductRepository;
 import com.margin.repository.shop.entity.ShopEntity;
 import com.margin.repository.shop.entity.ShopRepository;
 import com.margin.service.order.OrderService;
@@ -14,6 +15,7 @@ import com.margin.service.order.converter.OrderModelConverter;
 import com.margin.service.order.model.OrderCreationModel;
 import com.margin.service.order.model.OrderModel;
 import com.margin.service.orderproduct.OrderProductService;
+import com.margin.service.orderproduct.converter.OrderProductEntityConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -44,6 +46,12 @@ public class OrderFacade {
     @Autowired
     private OrderEntityConverter orderEntityConverter;
 
+    @Autowired
+    private OrderProductRepository orderProductRepository;
+
+    @Autowired
+    private OrderProductEntityConverter orderProductEntityConverter;
+
 
     public OrderModel createOrder(OrderCreationModel orderCreationModel) {
         OrderModel orderModel = orderService.create(orderCreationModel);
@@ -55,7 +63,11 @@ public class OrderFacade {
         orderEntity.setCustomer(customerEntity);
         orderEntity.setShop(shopEntity);
         orderEntity = orderRepository.save(orderEntity);
-        //orderCreationModel.getOrderProducts().forEach(orderProduct -> orderProduct.setOrderId(orderEntity.getId()));
+        OrderEntity finalOrderEntity = orderEntity;
+        orderCreationModel.getOrderProducts().forEach(orderProduct -> {
+            orderProduct.setOrderId(finalOrderEntity.getId());
+            orderProductRepository.save(orderProductEntityConverter.convert(orderProduct));
+        });
 
         return orderEntityConverter.convert(orderEntity);
 

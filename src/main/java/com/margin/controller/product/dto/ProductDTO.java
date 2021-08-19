@@ -25,7 +25,5 @@ public class ProductDTO {
 
     private Unit unit;
 
-    //schedule
-
     private Long shopId;
 }

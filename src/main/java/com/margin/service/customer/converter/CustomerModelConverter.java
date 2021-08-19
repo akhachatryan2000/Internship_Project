@@ -30,34 +30,21 @@ import java.util.stream.Collectors;
 @Component
 public class CustomerModelConverter {
 
+    // TODO: 19.08.21 The CustomerDto and model does not have orderLIst
+
     public CustomerDTO convert(CustomerModel customerModel) {
         if (customerModel == null) {
             return null;
         }
-        CustomerDTO customerDTO = new CustomerDTO(customerModel.getId(),
+        CustomerDTO customerDTO = new CustomerDTO(
+                customerModel.getId(),
                 customerModel.getName(),
                 customerModel.getPhoneNumber(),
                 customerModel.getAddressId(),
-                customerModel.getBonus(),
-                customerModel.getOrders());
-//        customerDTO.setId(customerModel.getId());
-//        customerDTO.setName(customerModel.getName());
-//        customerDTO.setBonus(customerModel.getBonus());
-//        customerDTO.setPhoneNumber(customerModel.getPhoneNumber());
-//        customerDTO.setAddressId(customerModel.getAddressId());
-//        customerDTO.setOrderIds(customerModel.getOrderIds());
+                customerModel.getBonus());
         return customerDTO;
 
     }
-
-//    public List<OrderDTO> convert(List<OrderModel> orderModels, CustomerModel customerModel) {
-//        if (orderModels == null) {
-//            return new ArrayList<>();
-//        }
-//        List<OrderDTO> orderDTOS = customerModel.getOrders().stream()
-//                .map(o -> orderModelConverter.convert(o)).collect(Collectors.toList());
-//        return orderDTOS;
-//    }
 
     public CustomerCreationDTO convert(CustomerCreationModel customerModel) {
         if (customerModel == null) {
@@ -67,20 +54,9 @@ public class CustomerModelConverter {
                 customerModel.getName(),
                 customerModel.getPhoneNumber(),
                 customerModel.getAddressId(),
-                customerModel.getBonus(),
-                customerModel.getOrders());
+                customerModel.getBonus());
         return customerDTO;
     }
-
-//    public List<OrderCreationDTO> convert(List<OrderCreationModel> orderModels, CustomerCreationModel customerModel) {
-//        if (orderModels == null) {
-//            return new ArrayList<>();
-//        }
-//        List<OrderCreationDTO> orderDTOS = customerModel.getOrders().stream()
-//                .map(o -> orderModelConverter.convert(o)).collect(Collectors.toList());
-//        return orderDTOS;
-//    }
-
 
     public CustomerUpdateDTO convert(CustomerUpdateModel customerModel) {
         if (customerModel == null) {
@@ -91,21 +67,9 @@ public class CustomerModelConverter {
                 customerModel.getName(),
                 customerModel.getPhoneNumber(),
                 customerModel.getAddressId(),
-                customerModel.getBonus(),
-                customerModel.getOrders());
+                customerModel.getBonus());
         return customerDTO;
 
 
     }
-
-//    public List<OrderUpdateDTO> convert(List<OrderUpdateModel> orderModels, CustomerUpdateModel customerModel) {
-//        if (orderModels == null) {
-//            return new ArrayList<>();
-//        }
-//        List<OrderUpdateDTO> orderDTOS = customerModel.getOrders().stream()
-//                .map(orderUpdateModel -> orderModelConverter.convert(orderUpdateModel)).collect(Collectors.toList());
-//        return orderDTOS;
-//    }
-
-
 }

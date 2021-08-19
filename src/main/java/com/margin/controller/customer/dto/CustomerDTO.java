@@ -23,5 +23,4 @@ public class CustomerDTO {
 
     private BigDecimal bonus;
 
-    private List<Order> orders;
 }

@@ -1,11 +1,15 @@
 package com.margin.service.orderproduct.model;
 
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.math.BigDecimal;
 @Setter
 @Getter
+@AllArgsConstructor
+@EqualsAndHashCode
 public class OrderProductModel {
 
     private Long id;
