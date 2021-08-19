@@ -13,14 +13,15 @@ import java.util.List;
 @Getter
 @Setter
 public class OrderModel {
+    private Long id;
 
-    private List<OrderProductModel> products;
+    private List<OrderProductModel> orderProducts;
 
-    private CustomerModel customer;
+    private Long customerId;
 
-    private ShopModel shop;
+    private Long shopId;
 
-    private AddressModel address;
+    private Long addressId;
 
     private BigDecimal originalPrice;
 

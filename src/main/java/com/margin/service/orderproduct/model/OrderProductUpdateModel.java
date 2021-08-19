@@ -10,16 +10,15 @@ public class OrderProductUpdateModel {
 
     private Long id;
 
-    private Long productId;
-
     private Long orderId;
+
+    private Long productId;
 
     private BigDecimal sum;
 
     private BigDecimal totalPrice;
 
-
-    private Integer amount;
+    private BigDecimal amount;
 
     private String comment;
 

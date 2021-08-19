@@ -2,12 +2,13 @@ package com.margin.controller.product.dto;
 
 import com.margin.common.enums.Unit;
 import com.margin.controller.shop.dto.ShopDTO;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.math.BigDecimal;
 @Getter
 @Setter
+@EqualsAndHashCode
+@AllArgsConstructor
 public class ProductDTO {
 
     private Long id;
@@ -26,5 +27,5 @@ public class ProductDTO {
 
     //schedule
 
-    private ShopDTO shop;
+    private Long shopId;
 }

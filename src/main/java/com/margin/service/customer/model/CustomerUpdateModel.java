@@ -20,9 +20,9 @@ public class CustomerUpdateModel {
 
     private String phoneNumber;
 
-    private AddressUpdateModel addressModel;
+    private Long addressId;
 
     private BigDecimal bonus;
 
-    private List<OrderUpdateModel> orders;
+    private List<OrderModel> orders;
 }

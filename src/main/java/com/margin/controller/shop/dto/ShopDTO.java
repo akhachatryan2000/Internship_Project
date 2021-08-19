@@ -3,13 +3,14 @@ package com.margin.controller.shop.dto;
 import com.margin.common.Schedule;
 import com.margin.controller.product.dto.ProductDTO;
 import com.margin.controller.user.dto.User;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.Id;
 import java.util.List;
 @Getter
 @Setter
+@EqualsAndHashCode
+@AllArgsConstructor
 public class ShopDTO {
 
     private Long id;
@@ -20,9 +21,9 @@ public class ShopDTO {
 
     private Boolean visible;
 
-    private Schedule schedule;
+   // private Long scheduleId;
 
-    private User user;
+   // private Long userId;
 
 
 }

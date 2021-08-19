@@ -5,16 +5,18 @@ import com.margin.repository.address.entity.AddressEntity;
 import com.margin.repository.customer.entity.CustomerEntity;
 import com.margin.repository.orderproduct.entity.OrderProductEntity;
 import com.margin.repository.shop.entity.ShopEntity;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.List;
 
-@Entity
+@Entity(name = "OrderEntity")
 @Table(name = "order")
 @Setter
 @Getter
+@EqualsAndHashCode
 public class OrderEntity {
 
     @Id

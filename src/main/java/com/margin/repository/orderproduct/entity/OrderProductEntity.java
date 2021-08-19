@@ -1,5 +1,6 @@
 package com.margin.repository.orderproduct.entity;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,6 +11,7 @@ import java.math.BigDecimal;
 @Table(name = "order_products")
 @Getter
 @Setter
+@EqualsAndHashCode
 public class OrderProductEntity {
     @Id
     @GeneratedValue

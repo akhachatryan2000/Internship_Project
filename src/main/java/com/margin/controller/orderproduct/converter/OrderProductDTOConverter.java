@@ -40,7 +40,7 @@ public class OrderProductDTOConverter {
         OrderProductCreationModel orderProductModel = new OrderProductCreationModel();
         orderProductModel.setProductId(orderProductCreationDTO.getProductId());
         orderProductModel.setOrderId(orderProductCreationDTO.getOrderId());
-        orderProductModel.setAmount(orderProductCreationDTO.getAmount());
+        //orderProductModel.setAmount(orderProductCreationDTO.getAmount());
         orderProductModel.setComment(orderProductCreationDTO.getComment());
         orderProductModel.setOriginalPrice(orderProductCreationDTO.getOriginalPrice());
         orderProductModel.setDiscount(orderProductCreationDTO.getDiscount());
@@ -57,7 +57,7 @@ public class OrderProductDTOConverter {
         orderProduct.setId(orderProductUpdateDTO.getId());
         orderProduct.setProductId(orderProductUpdateDTO.getProductId());
         orderProduct.setOrderId(orderProductUpdateDTO.getOrderId());
-        orderProduct.setAmount(orderProductUpdateDTO.getAmount());
+        //orderProduct.setAmount(orderProductUpdateDTO.getAmount());
         orderProduct.setComment(orderProductUpdateDTO.getComment());
         orderProduct.setOriginalPrice(orderProductUpdateDTO.getOriginalPrice());
         orderProduct.setDiscount(orderProductUpdateDTO.getDiscount());

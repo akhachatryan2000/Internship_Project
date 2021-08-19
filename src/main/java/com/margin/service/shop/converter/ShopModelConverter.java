@@ -10,45 +10,39 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class ShopModelConverter {
+
     public ShopDTO convert(ShopModel shopModel) {
-        if (shopModel==null) {
+        if (shopModel == null) {
             return null;
         }
-        ShopDTO shopDTO = new ShopDTO();
-        shopDTO.setId(shopModel.getId());
-        shopDTO.setName(shopModel.getName());
-        shopDTO.setActive(shopModel.getActive());
-        shopDTO.setVisible(shopModel.getVisible());
-        shopDTO.setSchedule(shopModel.getSchedule());
-        //shopDTO.setUser(shopModel.getUser());
+        ShopDTO shopDTO = new ShopDTO(shopModel.getId(),
+                shopModel.getName(), shopModel.getActive(), shopModel.getVisible());
         return shopDTO;
 
     }
 
     public ShopCreationDTO convert(ShopCreationModel shopModel) {
-        if (shopModel==null) {
+        if (shopModel == null) {
             return null;
         }
-        ShopCreationDTO shopDTO = new ShopCreationDTO();
-        shopDTO.setName(shopModel.getName());
-        shopDTO.setActive(shopModel.getActive());
-        shopDTO.setVisible(shopModel.getVisible());
-        shopDTO.setSchedule(shopModel.getSchedule());
-        // shopDTO.setUser(shopModel.getUser());
+        ShopCreationDTO shopDTO = new ShopCreationDTO(shopModel.getName(), shopModel.getActive(),shopModel.getVisible());
+        //shopDTO.setScheduleId(shopModel.getScheduleId());
+       // shopDTO.setUserId(shopModel.getUserId());
         return shopDTO;
 
     }
+
     public ShopUpdateDTO convert(ShopUpdateModel shopModel) {
-        if (shopModel==null) {
+        if (shopModel == null) {
             return null;
         }
-        ShopUpdateDTO shopDTO = new ShopUpdateDTO();
-        shopDTO.setId(shopModel.getId());
-        shopDTO.setName(shopModel.getName());
-        shopDTO.setActive(shopModel.getActive());
-        shopDTO.setVisible(shopModel.getVisible());
-        shopDTO.setSchedule(shopModel.getSchedule());
-        // shopDTO.setUser(shopModel.getUser());
+        ShopUpdateDTO shopDTO = new ShopUpdateDTO(shopModel.getId(),shopModel.getName(),shopModel.getActive(),shopModel.getVisible());
+//        shopDTO.setId(shopModel.getId());
+//        shopDTO.setName(shopModel.getName());
+//        shopDTO.setActive(shopModel.getActive());
+//        shopDTO.setVisible(shopModel.getVisible());
+//        shopDTO.setScheduleId(shopModel.getScheduleId());
+//        shopDTO.setUserId(shopModel.getUserId());
         return shopDTO;
 
     }

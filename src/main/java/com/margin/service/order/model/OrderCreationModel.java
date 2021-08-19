@@ -20,13 +20,13 @@ import java.util.List;
 @Getter
 public class OrderCreationModel {
 
-    private List<OrderProductCreationModel> products;
+    private List<OrderProductModel> orderProducts;
 
-    private CustomerCreationModel customer;
+    private Long customerId;
 
-    private ShopCreationModel shop;
+    private Long shopId;
 
-    private AddressCreationModel address;
+    private Long addressId;
 
     private BigDecimal originalPrice;
 

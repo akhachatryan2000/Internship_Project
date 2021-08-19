@@ -24,5 +24,5 @@ public class ProductCreationModel {
 
     private Unit unit;
 
-    private ShopCreationModel shop;
+    private Long shopId;
 }

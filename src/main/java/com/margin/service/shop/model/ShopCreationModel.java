@@ -2,13 +2,14 @@ package com.margin.service.shop.model;
 
 import com.margin.common.Schedule;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
 @Setter
 @Getter
+@EqualsAndHashCode
 public class ShopCreationModel {
-
 
     private String name;
 
@@ -16,7 +17,7 @@ public class ShopCreationModel {
 
     private Boolean visible;
 
-    private Schedule schedule;
+    //private Long scheduleId;
 
-   // private User user;
+   // private Long userId;
 }

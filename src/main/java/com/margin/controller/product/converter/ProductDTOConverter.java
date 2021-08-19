@@ -28,8 +28,8 @@ public class ProductDTOConverter {
         productCreationModel.setActive(productCreationDTO.getActive());
         productCreationModel.setDescription(productCreationDTO.getDescription());
         productCreationModel.setPrice(productCreationDTO.getPrice());
-        ShopCreationModel shopModel = shopDTOConverter.convert(productCreationDTO.getShop());
-        productCreationModel.setShop(shopModel);
+        //ShopCreationModel shopModel = shopDTOConverter.convert(productCreationDTO.getShop());
+        //productCreationModel.setShop(shopModel);
         productCreationModel.setVisible(productCreationDTO.getVisible());
         productCreationModel.setUnit(productCreationDTO.getUnit());
         return productCreationModel;
@@ -47,8 +47,8 @@ public class ProductDTOConverter {
         productModel.setActive(productDTO.getActive());
         productModel.setDescription(productDTO.getDescription());
         productModel.setPrice(productDTO.getPrice());
-        ShopModel shopModel = shopDTOConverter.convert(productDTO.getShop());
-        productModel.setShop(shopModel);
+        //ShopModel shopModel = shopDTOConverter.convert(productDTO.getShop());
+      //  productModel.setShop(shopModel);
         productModel.setVisible(productDTO.getVisible());
         productModel.setUnit(productDTO.getUnit());
         return productModel;
@@ -67,8 +67,8 @@ public class ProductDTOConverter {
         productModel.setActive(productDTO.getActive());
         productModel.setDescription(productDTO.getDescription());
         productModel.setPrice(productDTO.getPrice());
-        ShopUpdateModel shopUpdateModel = shopDTOConverter.convert(productDTO.getShop());
-        productModel.setShop(shopUpdateModel);
+       // ShopUpdateModel shopUpdateModel = shopDTOConverter.convert(productDTO.getShop());
+        //productModel.setShop(shopUpdateModel);
         productModel.setVisible(productDTO.getVisible());
         productModel.setUnit(productDTO.getUnit());
         return productModel;

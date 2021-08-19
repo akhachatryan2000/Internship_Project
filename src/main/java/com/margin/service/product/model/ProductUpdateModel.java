@@ -25,5 +25,5 @@ public class ProductUpdateModel {
 
     private Unit unit;
 
-    private ShopUpdateModel shop;
+    private Long shopId;
 }

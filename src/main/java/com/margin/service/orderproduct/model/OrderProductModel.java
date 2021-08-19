@@ -12,13 +12,11 @@ public class OrderProductModel {
 
     private Long orderId;
 
-    private BigDecimal sum;
+    private Long productId;
 
     private BigDecimal totalPrice;
 
-    private Long productId;
-
-    private Integer amount;
+    private BigDecimal amount;
 
     private String comment;
 

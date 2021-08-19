@@ -1,12 +1,14 @@
 package com.margin.service.address.model;
 
 import com.margin.common.enums.Country;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
 
 @Getter
 @Setter
+@EqualsAndHashCode
 public class AddressModel {
     private Long id;
 

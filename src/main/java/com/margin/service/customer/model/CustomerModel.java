@@ -18,7 +18,7 @@ public class CustomerModel {
 
     private String phoneNumber;
 
-    private AddressModel addressModel;
+    private Long addressId;
 
     private BigDecimal bonus;
 

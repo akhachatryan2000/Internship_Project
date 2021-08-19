@@ -4,6 +4,7 @@ import com.margin.controller.address.dto.AddressDTO;
 import com.margin.controller.order.dto.OrderDTO;
 import com.margin.repository.address.entity.AddressEntity;
 import com.margin.repository.order.entity.OrderEntity;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,6 +16,7 @@ import java.util.List;
 @Table(name = "customer")
 @Setter
 @Getter
+@EqualsAndHashCode
 public class CustomerEntity {
 
     @Id

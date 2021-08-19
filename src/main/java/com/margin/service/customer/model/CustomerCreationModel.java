@@ -19,9 +19,9 @@ public class CustomerCreationModel {
 
     private String phoneNumber;
 
-    private AddressCreationModel addressModel;
+    private Long addressId;
 
     private BigDecimal bonus;
 
-    private List<OrderCreationModel> orders;
+    private List<OrderModel> orders;
 }

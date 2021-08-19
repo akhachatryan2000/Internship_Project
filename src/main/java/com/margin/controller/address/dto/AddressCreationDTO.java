@@ -1,11 +1,15 @@
 package com.margin.controller.address.dto;
 
 import com.margin.common.enums.Country;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
 @Setter
 @Getter
+@EqualsAndHashCode
+@AllArgsConstructor
 public class AddressCreationDTO {
 
     private Country country;

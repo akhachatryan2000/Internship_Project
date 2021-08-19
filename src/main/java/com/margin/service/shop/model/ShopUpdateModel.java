@@ -17,7 +17,7 @@ public class ShopUpdateModel {
 
     private Boolean visible;
 
-    private Schedule schedule;
+    private Long scheduleId;
 
-    //private User user;
+    private Long userId;
 }

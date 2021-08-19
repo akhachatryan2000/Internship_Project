@@ -26,7 +26,7 @@ public class ProductModel {
 
     private Unit unit;
 
-    private ShopModel shop;
+    private Long shopId;
 
 
 

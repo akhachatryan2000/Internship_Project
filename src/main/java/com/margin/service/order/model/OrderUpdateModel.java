@@ -19,14 +19,15 @@ import java.util.List;
 @Setter
 @Getter
 public class OrderUpdateModel {
+    private Long id;
 
-    private List<OrderProductUpdateModel> products;
+    private List<OrderProductModel> orderProducts;
 
-    private CustomerUpdateModel customer;
+    private Long customerId;
 
-    private ShopUpdateModel shop;
+    private Long shopId;
 
-    private AddressUpdateModel address;
+    private Long addressId;
 
     private BigDecimal originalPrice;
 
