@@ -9,7 +9,6 @@ import com.margin.service.shop.model.ShopUpdateModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityNotFoundException;
 
 @Service
 public class ShopService {
@@ -22,31 +21,23 @@ public class ShopService {
 
     public ShopModel get(Long id) {
         ShopEntity shopEntity = shopRepository.getById(id);
-        ShopModel shopModel = shopEntityConverter.convert(shopEntity);
-        return shopModel;
+        return shopEntityConverter.convert(shopEntity);
     }
 
     public ShopModel create(ShopCreationModel shopCreationModel) {
         ShopEntity shopEntity = shopEntityConverter.convert(shopCreationModel);
         ShopEntity shopCreated = shopRepository.save(shopEntity);
-        ShopModel shopModel = shopEntityConverter.convert(shopCreated);
-        return shopModel;
+        return shopEntityConverter.convert(shopCreated);
     }
 
     public ShopModel update(ShopUpdateModel shopUpdateModel, Long id) {
         ShopEntity shopEntity = shopRepository.getById(id);
         ShopEntity shopUpdated = shopEntityConverter.convert(shopUpdateModel, shopEntity);
-        ShopModel shopModel = shopEntityConverter.convert(shopUpdated);
-        return shopModel;
+        return shopEntityConverter.convert(shopUpdated);
     }
 
     public Boolean delete(Long id) {
-        try {
-            shopRepository.deleteById(id);
-            return true;
-        } catch (EntityNotFoundException exception) {
-            System.out.println("No such entity to delete");
-        }
-        return null;
+        shopRepository.deleteById(id);
+        return true;
     }
 }

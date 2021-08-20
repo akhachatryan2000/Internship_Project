@@ -3,7 +3,6 @@ package com.margin.service.address.converter;
 import com.margin.controller.address.dto.AddressCreationDTO;
 import com.margin.controller.address.dto.AddressDTO;
 import com.margin.controller.address.dto.AddressUpdateDTO;
-import com.margin.repository.address.entity.AddressEntity;
 import com.margin.service.address.model.AddressCreationModel;
 import com.margin.service.address.model.AddressModel;
 import com.margin.service.address.model.AddressUpdateModel;
@@ -16,14 +15,13 @@ public class AddressModelConverter {
         if (addressModel == null) {
             return null;
         }
-        AddressDTO addressDTO = new AddressDTO(addressModel.getId(),
+        return new AddressDTO(addressModel.getId(),
                 addressModel.getCountry(),
                 addressModel.getDistrict(),
                 addressModel.getCity(),
                 addressModel.getAddressLine1(),
                 addressModel.getAddressLine2(),
                 addressModel.getPostCode());
-        return addressDTO;
     }
 
 
@@ -31,23 +29,20 @@ public class AddressModelConverter {
         if (addressModel == null) {
             return null;
         }
-        AddressCreationDTO addressDTO = new AddressCreationDTO(
+        return new AddressCreationDTO(
                 addressModel.getCountry(),
                 addressModel.getDistrict(),
                 addressModel.getCity(),
                 addressModel.getAddressLine1(),
                 addressModel.getAddressLine2(),
                 addressModel.getPostCode());
-        return addressDTO;
-
-
     }
 
     public AddressUpdateDTO convert(AddressUpdateModel addressModel) {
         if (addressModel == null) {
             return null;
         }
-        AddressUpdateDTO addressDTO = new AddressUpdateDTO(
+        return new AddressUpdateDTO(
                 addressModel.getId(),
                 addressModel.getCountry(),
                 addressModel.getDistrict(),
@@ -55,8 +50,5 @@ public class AddressModelConverter {
                 addressModel.getAddressLine1(),
                 addressModel.getAddressLine2(),
                 addressModel.getPostCode());
-        return addressDTO;
-
     }
-
 }

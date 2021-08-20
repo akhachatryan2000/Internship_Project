@@ -6,12 +6,12 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+
 @Setter
 @Getter
 @AllArgsConstructor
 @EqualsAndHashCode
 public class OrderProductCreationModel {
-
 
     private Long orderId;
 

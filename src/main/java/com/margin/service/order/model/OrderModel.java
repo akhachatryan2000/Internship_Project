@@ -1,10 +1,7 @@
 package com.margin.service.order.model;
 
 import com.margin.common.enums.PaymentType;
-import com.margin.service.address.model.AddressModel;
-import com.margin.service.customer.model.CustomerModel;
 import com.margin.service.orderproduct.model.OrderProductModel;
-import com.margin.service.shop.model.ShopModel;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -17,6 +14,7 @@ import java.util.List;
 @EqualsAndHashCode
 @AllArgsConstructor
 public class OrderModel {
+
     private Long id;
 
     private List<OrderProductModel> orderProducts;

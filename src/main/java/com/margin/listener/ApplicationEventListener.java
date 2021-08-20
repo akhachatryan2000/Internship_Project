@@ -2,6 +2,7 @@ package com.margin.listener;
 
 import com.margin.common.GenericResponseDTO;
 import com.margin.common.enums.Country;
+import com.margin.common.enums.PaymentType;
 import com.margin.common.enums.Unit;
 import com.margin.controller.address.AddressCRUDController;
 import com.margin.controller.address.dto.AddressCreationDTO;
@@ -14,17 +15,23 @@ import com.margin.controller.order.OrderCRUDController;
 import com.margin.controller.order.dto.OrderCreationDTO;
 import com.margin.controller.order.dto.OrderDTO;
 import com.margin.controller.orderproduct.OrderProductCRUDController;
+import com.margin.controller.orderproduct.dto.OrderProductCreationDTO;
+import com.margin.controller.orderproduct.dto.OrderProductDTO;
 import com.margin.controller.product.ProductCRUDController;
 import com.margin.controller.product.dto.ProductCreationDTO;
+import com.margin.controller.product.dto.ProductDTO;
 import com.margin.controller.shop.ShopCRUDController;
 import com.margin.controller.shop.dto.ShopCreationDTO;
 import com.margin.controller.shop.dto.ShopDTO;
+import org.hibernate.criterion.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 @Component
 public class ApplicationEventListener {
@@ -39,55 +46,110 @@ public class ApplicationEventListener {
     private OrderCRUDController orderCRUDController;
 
     @Autowired
-    private OrderProductCRUDController orderProductCRUDController;
-
-    @Autowired
     private ProductCRUDController productCRUDController;
 
     @Autowired
     private ShopCRUDController shopCRUDController;
 
+    @Autowired
+    ApplicationEventListener applicationEventListener;
+
     @EventListener(ContextRefreshedEvent.class)
     public void onContextRefreshedEvent() {
-        // 1.create shop
 
-        ShopCreationDTO shopCreationDTO = new ShopCreationDTO("OurShop", true, true);
-        GenericResponseDTO<ShopDTO> shopDTO = shopCRUDController.post(shopCreationDTO);
-
-        // 2.create product
-        ProductCreationDTO productCreationDTO = new ProductCreationDTO("Bread", "White bread", true,
-                true, BigDecimal.ONE, Unit.PIECE, 4L);
-        productCRUDController.post(productCreationDTO);
-
-        //  3.create customer
-
-        CustomerCreationDTO customerCreationDTO = new CustomerCreationDTO("Asya", "093910595", 5L,
-                BigDecimal.ZERO, null);
-        GenericResponseDTO<CustomerDTO> customerDT = customerCRUDController.post(customerCreationDTO);
-
-        //  4.create address
-
-        AddressCreationDTO addressCreationDTO = new AddressCreationDTO(Country.ARMENIA, "Yerevan", "Yerevan", "565656",
-                "56444", "0097");
-        GenericResponseDTO<AddressDTO> addressDTO = addressCRUDController.post(addressCreationDTO);
-
-        //  5.update customer with address
-        CustomerUpdateDTO customerUpdateDTO = new CustomerUpdateDTO(customerDT.getBody().getId(), "Asya", "093910595",
-                addressDTO.getBody().getId(), BigDecimal.ZERO, null);
-        customerCRUDController.put(customerUpdateDTO, customerDT.getBody().getId());
-
-        //  6.create order
-        OrderCreationDTO orderCreationDTO = new OrderCreationDTO();
-        GenericResponseDTO<OrderDTO> orderDTO = orderCRUDController.post(orderCreationDTO);
-
+        GenericResponseDTO<ShopDTO> shop = createShop();
+        GenericResponseDTO<ProductDTO> product = createProduct(shop.getBody());
+        GenericResponseDTO<CustomerDTO> customer = createCustomer();
+        GenericResponseDTO<AddressDTO> address = createAddress();
+        GenericResponseDTO<CustomerDTO> updatedCustomer = updateCustomer(customer.getBody(), address.getBody());
+        GenericResponseDTO<OrderDTO> order = createOrder(customer.getBody().getId(), address.getBody().getId(), shop.getBody().getId());
     }
 
-    //change dto and model object ref to long id **
+    public GenericResponseDTO<ShopDTO> createShop() {
+        ShopCreationDTO shopCreationDTO = new ShopCreationDTO(
+                "OurShop",
+                true,
+                true);
+        return shopCRUDController.post(shopCreationDTO);
+    }
 
-    //replace converter from repository layer**
+    public GenericResponseDTO<ProductDTO> createProduct(ShopDTO shopDTO) {
+        ProductCreationDTO productCreationDTO = new ProductCreationDTO(
+                "Bread",
+                "White bread",
+                true,
+                true,
+                BigDecimal.valueOf(56),
+                Unit.PIECE,
+                shopDTO.getId());
+        return productCRUDController.post(productCreationDTO);
+    }
 
-    //delete unused methods from that converters
+    public GenericResponseDTO<CustomerDTO> createCustomer() {
+        CustomerCreationDTO customerCreationDTO = new CustomerCreationDTO(
+                "Asya",
+                "093910595",
+                null,
+                BigDecimal.ZERO);
+        return customerCRUDController.post(customerCreationDTO);
+    }
 
-    //fix services
+    public GenericResponseDTO<AddressDTO> createAddress() {
+        AddressCreationDTO addressCreationDTO = new AddressCreationDTO(
+                Country.ARMENIA,
+                "Yerevan",
+                "Yerevan",
+                "565656",
+                "56444",
+                "0097");
+        return addressCRUDController.post(addressCreationDTO);
+    }
 
+    public GenericResponseDTO<CustomerDTO> updateCustomer(CustomerDTO customerDTO, AddressDTO addressDTO) {
+        CustomerUpdateDTO customerUpdateDTO = new CustomerUpdateDTO(customerDTO.getId(),
+                customerDTO.getName(),
+                customerDTO.getPhoneNumber(),
+                addressDTO.getId(),
+                customerDTO.getBonus());
+        return customerCRUDController.put(customerUpdateDTO, customerUpdateDTO.getId());
+    }
+
+    public GenericResponseDTO<OrderDTO> createOrder(Long customerId, Long shopId, Long addressId) {
+        OrderCreationDTO orderCreationDTO = new OrderCreationDTO(
+                null,
+                customerId,
+                shopId,
+                addressId,
+                BigDecimal.valueOf(78),
+                BigDecimal.valueOf(56),
+                BigDecimal.valueOf(77),
+                PaymentType.CARD,
+                BigDecimal.valueOf(89));
+        return orderCRUDController.post(orderCreationDTO);
+    }
+
+    public List<OrderProductCreationDTO> createOrderProducts() {
+        OrderProductCreationDTO orderProductCreationDTO = new OrderProductCreationDTO(
+                8L,
+                5L,
+                BigDecimal.valueOf(45),
+                BigDecimal.valueOf(45),
+                "HELLO",
+                BigDecimal.valueOf(45),
+                BigDecimal.valueOf(45));
+
+        OrderProductCreationDTO orderProductCreationDTO1 = new OrderProductCreationDTO(
+                5L,
+                6L,
+                BigDecimal.valueOf(89),
+                BigDecimal.valueOf(89),
+                "shh",
+                BigDecimal.valueOf(89),
+                BigDecimal.valueOf(89));
+
+        List<OrderProductCreationDTO> orderProductCreationDTOS = new ArrayList<>();
+        orderProductCreationDTOS.add(orderProductCreationDTO);
+        orderProductCreationDTOS.add(orderProductCreationDTO1);
+        return orderProductCreationDTOS;
+    }
 }

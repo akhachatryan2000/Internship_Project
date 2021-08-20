@@ -1,5 +1,6 @@
 package com.margin.controller.product;
 
+import com.margin.common.GenericResponseDTO;
 import com.margin.controller.product.converter.ProductDTOConverter;
 import com.margin.controller.product.dto.ProductCreationDTO;
 import com.margin.controller.product.dto.ProductDTO;
@@ -19,9 +20,9 @@ import static io.github.benas.randombeans.api.EnhancedRandom.random;
 @RestController
 @RequestMapping(path = "/products")
 public class ProductCRUDController {
+
     @Autowired
     private ProductService productService;
-
 
     @Autowired
     private ProductModelConverter productModelConverter;
@@ -38,18 +39,11 @@ public class ProductCRUDController {
     }
 
     @PostMapping
-    public ResponseEntity<ProductModel> post(@RequestBody ProductCreationDTO productCreationDTO) {
+    public GenericResponseDTO<ProductDTO> post(@RequestBody ProductCreationDTO productCreationDTO) {
         ProductCreationModel productCreationModel = productDTOConverter.convert(productCreationDTO);
         ProductModel productModel = productService.create(productCreationModel);
         ProductDTO productDTO = productModelConverter.convert(productModel);
-        if (true) {
-            throw new RuntimeException("Anhaskanali ban");
-
-        } else {
-            return new ResponseEntity<>(random(ProductModel.class), HttpStatus.OK);
-            // TODO: 18.08.21
-        }
-
+        throw new RuntimeException("Anhaskanali ban");
     }
 
     @PutMapping(path = "/{id}")
@@ -67,6 +61,4 @@ public class ProductCRUDController {
         return new ResponseEntity<>(true, HttpStatus.OK);
         // TODO: 18.08.21
     }
-
-
 }

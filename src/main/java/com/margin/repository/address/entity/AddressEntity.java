@@ -35,6 +35,4 @@ public class AddressEntity {
 
     @Column(name = "postCode")
     private String postCode;
-
-
 }

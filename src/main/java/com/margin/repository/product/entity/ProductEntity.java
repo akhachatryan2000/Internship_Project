@@ -1,7 +1,6 @@
 package com.margin.repository.product.entity;
 
 import com.margin.common.enums.Unit;
-import com.margin.repository.productschedule.ProductScheduleEntity;
 import com.margin.repository.shop.entity.ShopEntity;
 import lombok.*;
 

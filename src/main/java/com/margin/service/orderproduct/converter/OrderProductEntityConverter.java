@@ -1,6 +1,5 @@
 package com.margin.service.orderproduct.converter;
 
-
 import com.margin.repository.orderproduct.entity.OrderProductEntity;
 import com.margin.service.orderproduct.model.OrderProductCreationModel;
 import com.margin.service.orderproduct.model.OrderProductModel;
@@ -10,11 +9,11 @@ import org.springframework.stereotype.Component;
 @Component
 public class OrderProductEntityConverter {
 
-    public OrderProductModel convert(OrderProductUpdateModel orderProductEntity) {
+    public OrderProductModel convert(OrderProductEntity orderProductEntity) {
         if (orderProductEntity == null) {
             return null;
         }
-        OrderProductModel orderProductModel = new OrderProductModel(
+        return new OrderProductModel(
                 orderProductEntity.getId(),
                 orderProductEntity.getOrderId(),
                 orderProductEntity.getProductId(),
@@ -22,13 +21,8 @@ public class OrderProductEntityConverter {
                 orderProductEntity.getAmount(),
                 orderProductEntity.getComment(),
                 orderProductEntity.getOriginalPrice(),
-                orderProductEntity.getDiscount()
-        );
-
-        return orderProductModel;
-
+                orderProductEntity.getDiscount());
     }
-
 
     public OrderProductEntity convert(OrderProductCreationModel orderProductCreationModel) {
         if (orderProductCreationModel == null) {

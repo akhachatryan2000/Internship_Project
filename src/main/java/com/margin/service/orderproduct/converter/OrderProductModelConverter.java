@@ -15,7 +15,7 @@ public class OrderProductModelConverter {
         if (orderProductModel == null) {
             return null;
         }
-        OrderProductDTO orderProductDTO = new OrderProductDTO(
+        return new OrderProductDTO(
                 orderProductModel.getId(),
                 orderProductModel.getOrderId(),
                 orderProductModel.getProductId(),
@@ -23,44 +23,6 @@ public class OrderProductModelConverter {
                 orderProductModel.getAmount(),
                 orderProductModel.getComment(),
                 orderProductModel.getOriginalPrice(),
-                orderProductModel.getDiscount()
-        );
-        return orderProductDTO;
-    }
-
-    public OrderProductCreationDTO convert(OrderProductCreationModel orderProductModel) {
-        if (orderProductModel == null) {
-            return null;
-        }
-        OrderProductCreationDTO orderProductDTO = new OrderProductCreationDTO(
-                orderProductModel.getOrderId(),
-                orderProductModel.getProductId(),
-                orderProductModel.getTotalPrice(),
-                orderProductModel.getAmount(),
-                orderProductModel.getComment(),
-                orderProductModel.getOriginalPrice(),
-                orderProductModel.getDiscount()
-        );
-
-        return orderProductDTO;
-
-    }
-
-    public OrderProductUpdateDTO convert(OrderProductUpdateModel orderProductModel) {
-        if (orderProductModel == null) {
-            return null;
-        }
-        OrderProductUpdateDTO orderProductDTO = new OrderProductUpdateDTO(
-                orderProductModel.getId(),
-                orderProductModel.getOrderId(),
-                orderProductModel.getProductId(),
-                orderProductModel.getTotalPrice(),
-                orderProductModel.getAmount(),
-                orderProductModel.getComment(),
-                orderProductModel.getOriginalPrice(),
-                orderProductModel.getDiscount()
-        );
-        return orderProductDTO;
-
+                orderProductModel.getDiscount());
     }
 }

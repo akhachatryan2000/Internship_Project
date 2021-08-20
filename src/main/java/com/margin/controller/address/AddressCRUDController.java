@@ -11,8 +11,6 @@ import com.margin.service.address.model.AddressCreationModel;
 import com.margin.service.address.model.AddressModel;
 import com.margin.service.address.model.AddressUpdateModel;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -27,7 +25,6 @@ public class AddressCRUDController {
 
     @Autowired
     private AddressModelConverter addressModelConverter;
-
 
     @GetMapping(path = "/{id}")
     @ResponseBody
@@ -64,6 +61,4 @@ public class AddressCRUDController {
         // TODO: 18.08.21 Genereic response creation here
         return null;
     }
-
-
 }

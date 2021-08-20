@@ -4,26 +4,19 @@ import com.margin.controller.customer.dto.CustomerCreationDTO;
 import com.margin.controller.customer.dto.CustomerDTO;
 import com.margin.controller.customer.dto.CustomerUpdateDTO;
 import com.margin.controller.order.converter.OrderDTOConverter;
-import com.margin.controller.order.dto.OrderCreationDTO;
-import com.margin.controller.order.dto.OrderDTO;
-import com.margin.controller.order.dto.OrderUpdateDTO;
 import com.margin.service.customer.model.CustomerCreationModel;
 import com.margin.service.customer.model.CustomerModel;
 import com.margin.service.customer.model.CustomerUpdateModel;
-import com.margin.service.order.model.OrderCreationModel;
-import com.margin.service.order.model.OrderModel;
-import com.margin.service.order.model.OrderUpdateModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Component
 public class CustomerDTOConverter {
+
     @Autowired
     private OrderDTOConverter orderDTOConverter;
+
     @Autowired
     private CustomerDTOConverter customerDTOConverter;
 
@@ -32,44 +25,36 @@ public class CustomerDTOConverter {
         if (customerDTO == null) {
             return null;
         }
-        CustomerModel customerModel = new CustomerModel(
+
+        return new CustomerModel(
                 customerDTO.getId(),
                 customerDTO.getName(),
                 customerDTO.getPhoneNumber(),
                 customerDTO.getAddressId(),
-                customerDTO.getBonus()
-        );
-
-        return customerModel;
+                customerDTO.getBonus());
     }
-
 
     public CustomerCreationModel convert(CustomerCreationDTO customerDTO) {
         if (customerDTO == null) {
             return null;
         }
-        CustomerCreationModel customerModel = new CustomerCreationModel(
+
+        return new CustomerCreationModel(
                 customerDTO.getName(),
                 customerDTO.getPhoneNumber(),
                 customerDTO.getAddressId(),
-                customerDTO.getBonus()
-        );
-
-        return customerModel;
+                customerDTO.getBonus());
     }
 
     public CustomerUpdateModel convert(CustomerUpdateDTO customerDTO) {
         if (customerDTO == null) {
             return null;
         }
-        CustomerUpdateModel customerUpdateModel = new CustomerUpdateModel(
+        return new CustomerUpdateModel(
                 customerDTO.getId(),
                 customerDTO.getName(),
                 customerDTO.getPhoneNumber(),
                 customerDTO.getAddressId(),
-                customerDTO.getBonus()
-        );
-        return customerUpdateModel;
+                customerDTO.getBonus());
     }
-
 }

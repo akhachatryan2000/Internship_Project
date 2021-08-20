@@ -18,9 +18,9 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/order_products")
 public class OrderProductCRUDController {
+
     @Autowired
     private OrderProductService orderProductService;
-
 
     @Autowired
     private OrderProductModelConverter orderProductModelConverter;

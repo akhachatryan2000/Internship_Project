@@ -2,7 +2,6 @@ package com.margin.service.product.model;
 
 
 import com.margin.common.enums.Unit;
-import com.margin.service.shop.model.ShopModel;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -31,10 +30,4 @@ public class ProductModel {
     private Unit unit;
 
     private Long shopId;
-
-
-
-
-
-
 }

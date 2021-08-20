@@ -1,6 +1,5 @@
 package com.margin.service.shop.converter;
 
-
 import com.margin.repository.shop.entity.ShopEntity;
 import com.margin.service.shop.model.ShopCreationModel;
 import com.margin.service.shop.model.ShopModel;
@@ -14,13 +13,11 @@ public class ShopEntityConverter {
         if (shopEntity == null) {
             return null;
         }
-        ShopModel shopModel = new ShopModel(
+        return new ShopModel(
                 shopEntity.getId(),
                 shopEntity.getName(),
                 shopEntity.getActive(),
-                shopEntity.getVisible()
-        );
-        return shopModel;
+                shopEntity.getVisible());
     }
 
     public ShopEntity convert(ShopCreationModel shopCreationModel) {
@@ -31,7 +28,6 @@ public class ShopEntityConverter {
         shopEntity.setName(shopCreationModel.getName());
         shopEntity.setActive(shopCreationModel.getActive());
         shopEntity.setVisible(shopCreationModel.getVisible());
-
         return shopEntity;
     }
 
@@ -43,6 +39,5 @@ public class ShopEntityConverter {
         shopEntity.setActive(shopUpdateModel.getActive());
         shopEntity.setName(shopUpdateModel.getName());
         return shopEntity;
-
     }
 }

@@ -1,6 +1,5 @@
 package com.margin.controller.customer;
 
-
 import com.margin.common.GenericResponseDTO;
 import com.margin.controller.customer.converter.CustomerDTOConverter;
 import com.margin.controller.customer.dto.CustomerCreationDTO;
@@ -34,7 +33,6 @@ public class CustomerCRUDController {
         CustomerDTO customerDTO = customerModelConverter.convert(customerModel);
         // TODO: 18.08.21 Generic response creation here
         return null;
-
     }
 
     @PostMapping

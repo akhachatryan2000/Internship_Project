@@ -8,9 +8,6 @@ import com.margin.service.orderproduct.model.OrderProductModel;
 import com.margin.service.orderproduct.model.OrderProductUpdateModel;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Component
 public class OrderProductDTOConverter {
 
@@ -18,7 +15,7 @@ public class OrderProductDTOConverter {
         if (orderProductDTO == null) {
             return null;
         }
-        OrderProductModel orderProductModel = new OrderProductModel(
+        return new OrderProductModel(
                 orderProductDTO.getId(),
                 orderProductDTO.getOrderId(),
                 orderProductDTO.getProductId(),
@@ -26,38 +23,28 @@ public class OrderProductDTOConverter {
                 orderProductDTO.getAmount(),
                 orderProductDTO.getComment(),
                 orderProductDTO.getOriginalPrice(),
-                orderProductDTO.getDiscount()
-        );
-
-        return orderProductModel;
-
-
+                orderProductDTO.getDiscount());
     }
-
 
     public OrderProductCreationModel convert(OrderProductCreationDTO orderProductDTO) {
         if (orderProductDTO == null) {
             return null;
         }
-        OrderProductCreationModel orderProductModel = new OrderProductCreationModel(
+        return new OrderProductCreationModel(
                 orderProductDTO.getOrderId(),
                 orderProductDTO.getProductId(),
                 orderProductDTO.getTotalPrice(),
                 orderProductDTO.getAmount(),
                 orderProductDTO.getComment(),
                 orderProductDTO.getOriginalPrice(),
-                orderProductDTO.getDiscount()
-        );
-
-        return orderProductModel;
-
+                orderProductDTO.getDiscount());
     }
 
     public OrderProductUpdateModel convert(OrderProductUpdateDTO orderProductDTO) {
         if (orderProductDTO == null) {
             return null;
         }
-        OrderProductUpdateModel orderProduct = new OrderProductUpdateModel(
+        return new OrderProductUpdateModel(
                 orderProductDTO.getId(),
                 orderProductDTO.getOrderId(),
                 orderProductDTO.getProductId(),
@@ -65,10 +52,7 @@ public class OrderProductDTOConverter {
                 orderProductDTO.getAmount(),
                 orderProductDTO.getComment(),
                 orderProductDTO.getOriginalPrice(),
-                orderProductDTO.getDiscount()
-        );
-        return orderProduct;
-
+                orderProductDTO.getDiscount());
     }
 }
 

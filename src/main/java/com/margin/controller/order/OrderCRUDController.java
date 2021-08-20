@@ -5,6 +5,7 @@ import com.margin.controller.order.converter.OrderDTOConverter;
 import com.margin.controller.order.dto.OrderCreationDTO;
 import com.margin.controller.order.dto.OrderDTO;
 import com.margin.controller.order.dto.OrderUpdateDTO;
+import com.margin.service.OrderFacade;
 import com.margin.service.order.OrderService;
 import com.margin.service.order.converter.OrderModelConverter;
 import com.margin.service.order.model.OrderCreationModel;
@@ -23,9 +24,11 @@ public class OrderCRUDController {
     @Autowired
     private OrderModelConverter orderModelConverter;
 
-
     @Autowired
     private OrderDTOConverter orderDTOConverter;
+
+    @Autowired
+    private OrderFacade orderFacade;
 
 
     @GetMapping("/{id}")
@@ -40,12 +43,11 @@ public class OrderCRUDController {
     @PostMapping
     public GenericResponseDTO<OrderDTO> post(@RequestBody OrderCreationDTO orderCreationDTO) {
         OrderCreationModel orderCreationModel = orderDTOConverter.convert(orderCreationDTO);
-        OrderModel orderModel = orderService.create(orderCreationModel);
+        OrderModel orderModel = orderFacade.createOrder(orderCreationModel);
         OrderDTO orderDTO = orderModelConverter.convert(orderModel);
         // TODO: 18.08.21 Genereic response creation here
         return null;
     }
-
 
     @PutMapping(name = "/{id}")
     public GenericResponseDTO<OrderDTO> put(@PathVariable(name = "id") Long id, @RequestBody OrderUpdateDTO orderUpdateDTO) {
@@ -54,7 +56,6 @@ public class OrderCRUDController {
         OrderDTO orderDTO = orderModelConverter.convert(orderModel);
         // TODO: 18.08.21 Genereic response creation here
         return null;
-
     }
 
     @DeleteMapping(name = "/{id}")

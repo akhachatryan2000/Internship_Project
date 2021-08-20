@@ -9,7 +9,6 @@ import com.margin.service.product.model.ProductUpdateModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityNotFoundException;
 
 @Service
 public class ProductService {
@@ -21,47 +20,26 @@ public class ProductService {
     private ProductEntityConverter productEntityConverter;
 
 
-   public ProductModel get(Long id) {
-        try {
-            ProductEntity productEntity =productRepository.getById(id);
-            ProductModel productModel = productEntityConverter.convert(productEntity);
-            return productModel;
-        } catch (EntityNotFoundException exception) {
-            System.out.println("No such element to retrieve");
-        }
-
-        return null;
+    public ProductModel get(Long id) {
+        ProductEntity productEntity = productRepository.getById(id);
+        return productEntityConverter.convert(productEntity);
     }
 
     public ProductModel create(ProductCreationModel productCreationModel) {
         ProductEntity productEntity = productEntityConverter.convert(productCreationModel);
+        // set shop id
         ProductEntity productCreated = productRepository.save(productEntity);
-        ProductModel productModel = productEntityConverter.convert(productCreated);
-        return productModel;
+        return productEntityConverter.convert(productCreated);
     }
 
     public ProductModel update(ProductUpdateModel productUpdateModel, Long id) {
-        try {
-            ProductEntity productEntity = productRepository.getById(id);
-            ProductEntity orderEntity1 = productEntityConverter.convert(productUpdateModel, productEntity);
-            ProductModel productModel = productEntityConverter.convert(orderEntity1);
-            return productModel;
-
-        } catch (EntityNotFoundException exception) {
-            System.out.println("There is no such entity to update");
-        }
-        return null;
+        ProductEntity productEntity = productRepository.getById(id);
+        ProductEntity orderEntity1 = productEntityConverter.convert(productUpdateModel, productEntity);
+        return productEntityConverter.convert(orderEntity1);
     }
 
     public Boolean delete(Long id) {
-        try {
-            productRepository.deleteById(id);
-            return true;
-
-        } catch (EntityNotFoundException exception) {
-            System.out.println("No such entity to delete");
-        }
-        return null;
+        productRepository.deleteById(id);
+        return true;
     }
-
 }

@@ -1,7 +1,5 @@
 package com.margin.repository.shop.entity;
 
-import com.margin.common.Schedule;
-
 import com.margin.repository.product.entity.ProductEntity;
 import lombok.*;
 
@@ -37,6 +35,4 @@ public class ShopEntity {
    // private user
 
    // private Schedule schedule;
-
-
 }

@@ -1,10 +1,7 @@
 package com.margin.controller.order.dto;
 
 import com.margin.common.enums.PaymentType;
-import com.margin.controller.address.dto.AddressDTO;
-import com.margin.controller.customer.dto.CustomerDTO;
 import com.margin.controller.orderproduct.dto.OrderProductDTO;
-import com.margin.controller.shop.dto.ShopDTO;
 import lombok.*;
 
 import java.math.BigDecimal;
@@ -35,5 +32,4 @@ public class OrderDTO {
     private PaymentType paymentType;
 
     private BigDecimal orderDiscount;
-
 }

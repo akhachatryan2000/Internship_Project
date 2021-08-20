@@ -15,43 +15,32 @@ public class ShopDTOConverter {
         if (shopDTO == null) {
             return null;
         } else {
-            ShopModel shopModel = new ShopModel(
+            return new ShopModel(
                     shopDTO.getId(),
                     shopDTO.getName(),
                     shopDTO.getActive(),
-                    shopDTO.getVisible()
-            );
-            return shopModel;
+                    shopDTO.getVisible());
         }
-
     }
 
     public ShopCreationModel convert(ShopCreationDTO shopDTO) {
         if (shopDTO == null) {
             return null;
         }
-        ShopCreationModel shopModel = new ShopCreationModel(
+        return new ShopCreationModel(
                 shopDTO.getName(),
                 shopDTO.getActive(),
-                shopDTO.getVisible()
-        );
-
-        return shopModel;
+                shopDTO.getVisible());
     }
 
     public ShopUpdateModel convert(ShopUpdateDTO shopDTO) {
         if (shopDTO == null) {
             return null;
         }
-        ShopUpdateModel shopModel = new ShopUpdateModel(
+        return new ShopUpdateModel(
                 shopDTO.getId(),
                 shopDTO.getName(),
                 shopDTO.getActive(),
-                shopDTO.getVisible()
-        );
-
-        return shopModel;
-
-
+                shopDTO.getVisible());
     }
 }

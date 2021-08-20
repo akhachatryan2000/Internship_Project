@@ -1,6 +1,5 @@
 package com.margin.service.orderproduct;
 
-
 import com.margin.repository.orderproduct.OrderProductRepository;
 import com.margin.repository.orderproduct.entity.OrderProductEntity;
 import com.margin.service.orderproduct.converter.OrderProductEntityConverter;
@@ -9,8 +8,6 @@ import com.margin.service.orderproduct.model.OrderProductModel;
 import com.margin.service.orderproduct.model.OrderProductUpdateModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import javax.persistence.EntityNotFoundException;
 
 @Service
 public class OrderProductService {
@@ -23,46 +20,25 @@ public class OrderProductService {
 
 
     public OrderProductModel get(Long id) {
-        try {
-            OrderProductEntity orderProductEntity = orderProductRepository.getById(id);
-            OrderProductModel orderProductModel = orderProductEntityConverter.convert(orderProductEntity);
-            return orderProductModel;
-        } catch (EntityNotFoundException exception) {
-            System.out.println("No such element to retrieve");
-        }
-
-        return null;
+        OrderProductEntity orderProductEntity = orderProductRepository.getById(id);
+        return orderProductEntityConverter.convert(orderProductEntity);
     }
 
     public OrderProductModel create(OrderProductCreationModel orderProductCreationModel) {
         OrderProductEntity orderProductEntity = orderProductEntityConverter.convert(orderProductCreationModel);
+        //check product id from db
         OrderProductEntity orderProductCreated = orderProductRepository.save(orderProductEntity);
-        OrderProductModel orderProductModel = orderProductEntityConverter.convert(orderProductCreated);
-        return orderProductModel;
+        return orderProductEntityConverter.convert(orderProductCreated);
     }
 
     public OrderProductModel update(OrderProductUpdateModel orderProductUpdateModel, Long id) {
-        try {
-            OrderProductEntity orderProductEntity = orderProductRepository.getById(id);
-            OrderProductEntity orderEntity1 = orderProductEntityConverter.convert(orderProductUpdateModel, orderProductEntity);
-            OrderProductModel orderProductModel = orderProductEntityConverter.convert(orderEntity1);
-            return orderProductModel;
-
-        } catch (EntityNotFoundException exception) {
-            System.out.println("There is no such entity to update");
-        }
-        return null;
+        OrderProductEntity orderProductEntity = orderProductRepository.getById(id);
+        OrderProductEntity orderEntity1 = orderProductEntityConverter.convert(orderProductUpdateModel, orderProductEntity);
+        return orderProductEntityConverter.convert(orderEntity1);
     }
 
     public Boolean delete(Long id) {
-        try {
-            orderProductRepository.deleteById(id);
-            return true;
-
-        } catch (EntityNotFoundException exception) {
-            System.out.println("No such entity to delete");
-        }
-        return null;
+        orderProductRepository.deleteById(id);
+        return true;
     }
-
 }

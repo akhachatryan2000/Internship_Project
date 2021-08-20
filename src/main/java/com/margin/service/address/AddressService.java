@@ -19,20 +19,14 @@ public class AddressService {
     @Autowired
     private AddressEntityConverter addressEntityConverter;
 
-
     @Autowired
     AddressModelConverter addressModelConverter;
 
 
     public AddressModel get(Long id) {
-        try {
-            AddressEntity addressEntity = addressRepository.getById(id);
-            AddressModel addressModel = addressEntityConverter.convert(addressEntity);
-            return addressModel;
-        } catch (NoSuchFieldError error) {
-            System.out.println("The address does not exist");
-        }
-        return null;
+        //here can be an exception
+        AddressEntity addressEntity = addressRepository.getById(id);
+        return addressEntityConverter.convert(addressEntity);
     }
 
     public AddressModel create(AddressCreationModel addressCreationModel) {
@@ -42,20 +36,16 @@ public class AddressService {
     }
 
     public AddressModel update(AddressUpdateModel addressUpdateModel, Long id) {
+        //here can be an exception
         AddressEntity addressEntity = addressRepository.getById(id);
         AddressEntity addressEntity1 = addressEntityConverter.convert(addressUpdateModel, addressEntity);
         AddressEntity addressUpdated = addressRepository.save(addressEntity1);
-        AddressModel addressModel = addressEntityConverter.convert(addressUpdated);
-        return addressModel;
+        return addressEntityConverter.convert(addressUpdated);
     }
 
     public Boolean delete(Long id) {
-        try {
-            addressRepository.deleteById(id);
-            return true;
-        } catch (IllegalArgumentException exception) {
-            System.out.println("Such element does not exist");
-        }
-        return null;
+        //here can be an exception
+        addressRepository.deleteById(id);
+        return true;
     }
 }

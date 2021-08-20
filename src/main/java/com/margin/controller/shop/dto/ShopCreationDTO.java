@@ -1,7 +1,5 @@
 package com.margin.controller.shop.dto;
 
-import com.margin.common.Schedule;
-import com.margin.controller.user.dto.User;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

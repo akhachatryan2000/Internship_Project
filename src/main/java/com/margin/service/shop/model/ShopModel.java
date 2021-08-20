@@ -1,9 +1,5 @@
 package com.margin.service.shop.model;
 
-import com.margin.common.Schedule;
-
-import com.margin.service.product.model.ProductModel;
-import com.margin.service.user.model.UserModel;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

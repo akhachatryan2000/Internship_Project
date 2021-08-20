@@ -11,15 +11,12 @@ import org.springframework.stereotype.Component;
 @Component
 public class ProductEntityConverter {
 
-    @Autowired
-    private ShopRepository shopRepository;
-
     public ProductModel convert(ProductEntity productEntity) {
         if (productEntity == null) {
             return null;
         }
 
-        ProductModel productModel = new ProductModel(
+        return new ProductModel(
                 productEntity.getId(),
                 productEntity.getName(),
                 productEntity.getDescription(),
@@ -27,11 +24,7 @@ public class ProductEntityConverter {
                 productEntity.getVisible(),
                 productEntity.getPrice(),
                 productEntity.getUnit(),
-                productEntity.getShopEntity().getId()
-
-        );
-
-        return productModel;
+                productEntity.getShopEntity().getId());
     }
 
     public ProductEntity convert(ProductCreationModel productCreationModel) {
@@ -45,16 +38,13 @@ public class ProductEntityConverter {
         productEntity.setPrice(productCreationModel.getPrice());
         productEntity.setUnit(productCreationModel.getUnit());
         productEntity.setActive(productCreationModel.getActive());
-        productEntity.setShopEntity(shopRepository.getById(productCreationModel.getShopId()));
         return productEntity;
-
     }
 
     public ProductEntity convert(ProductUpdateModel productUpdateModel, ProductEntity productEntity) {
         if (productUpdateModel == null) {
             return null;
         }
-        productEntity.setShopEntity(shopRepository.getById(productUpdateModel.getShopId()));
         productEntity.setActive(productUpdateModel.getActive());
         productEntity.setVisible(productUpdateModel.getVisible());
         productEntity.setPrice(productUpdateModel.getPrice());

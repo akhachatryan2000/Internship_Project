@@ -1,6 +1,5 @@
 package com.margin.controller.shop;
 
-
 import com.margin.common.GenericResponseDTO;
 import com.margin.controller.shop.converter.ShopDTOConverter;
 import com.margin.controller.shop.dto.ShopCreationDTO;
@@ -36,7 +35,6 @@ public class ShopCRUDController {
         return null;
     }
 
-
     @PostMapping
     public GenericResponseDTO<ShopDTO> post(@RequestBody ShopCreationDTO shopCreationDTO) {
         ShopCreationModel shopCreationModel = shopDTOConverter.convert(shopCreationDTO);
@@ -44,7 +42,6 @@ public class ShopCRUDController {
         ShopDTO shopDTO = shopModelConverter.convert(shopModel);
         // TODO: 18.08.21 Genereic response creation here
         return null;
-
     }
 
     @PutMapping("/{id}")

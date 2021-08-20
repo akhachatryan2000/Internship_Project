@@ -24,7 +24,7 @@ public class OrderEntity {
     @GeneratedValue
     private Long id;
 
-    @OneToMany(cascade =  CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private List<OrderProductEntity> products;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -38,7 +38,6 @@ public class OrderEntity {
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "address_id")
     private AddressEntity address;
-
 
     @Column(name = "original_price")
     private BigDecimal originalPrice;
@@ -54,5 +53,4 @@ public class OrderEntity {
 
     @Column(name = "order_discount")
     private BigDecimal orderDiscount;
-
 }
