@@ -14,16 +14,13 @@ import com.margin.controller.customer.dto.CustomerUpdateDTO;
 import com.margin.controller.order.OrderCRUDController;
 import com.margin.controller.order.dto.OrderCreationDTO;
 import com.margin.controller.order.dto.OrderDTO;
-import com.margin.controller.orderproduct.OrderProductCRUDController;
 import com.margin.controller.orderproduct.dto.OrderProductCreationDTO;
-import com.margin.controller.orderproduct.dto.OrderProductDTO;
 import com.margin.controller.product.ProductCRUDController;
 import com.margin.controller.product.dto.ProductCreationDTO;
 import com.margin.controller.product.dto.ProductDTO;
 import com.margin.controller.shop.ShopCRUDController;
 import com.margin.controller.shop.dto.ShopCreationDTO;
 import com.margin.controller.shop.dto.ShopDTO;
-import org.hibernate.criterion.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
@@ -51,18 +48,18 @@ public class ApplicationEventListener {
     @Autowired
     private ShopCRUDController shopCRUDController;
 
-    @Autowired
-    ApplicationEventListener applicationEventListener;
-
     @EventListener(ContextRefreshedEvent.class)
     public void onContextRefreshedEvent() {
 
         GenericResponseDTO<ShopDTO> shop = createShop();
         GenericResponseDTO<ProductDTO> product = createProduct(shop.getBody());
-        GenericResponseDTO<CustomerDTO> customer = createCustomer();
+        GenericResponseDTO<ProductDTO> product1 = createProduct(shop.getBody());
         GenericResponseDTO<AddressDTO> address = createAddress();
+        GenericResponseDTO<CustomerDTO> customer = createCustomer(address.getBody().getId());
+        GenericResponseDTO<CustomerDTO> customer1 = createCustomer(address.getBody().getId());
         GenericResponseDTO<CustomerDTO> updatedCustomer = updateCustomer(customer.getBody(), address.getBody());
         GenericResponseDTO<OrderDTO> order = createOrder(customer.getBody().getId(), address.getBody().getId(), shop.getBody().getId());
+        System.out.println();
     }
 
     public GenericResponseDTO<ShopDTO> createShop() {
@@ -85,7 +82,7 @@ public class ApplicationEventListener {
         return productCRUDController.post(productCreationDTO);
     }
 
-    public GenericResponseDTO<CustomerDTO> createCustomer() {
+    public GenericResponseDTO<CustomerDTO> createCustomer(Long id) {
         CustomerCreationDTO customerCreationDTO = new CustomerCreationDTO(
                 "Asya",
                 "093910595",
@@ -106,7 +103,8 @@ public class ApplicationEventListener {
     }
 
     public GenericResponseDTO<CustomerDTO> updateCustomer(CustomerDTO customerDTO, AddressDTO addressDTO) {
-        CustomerUpdateDTO customerUpdateDTO = new CustomerUpdateDTO(customerDTO.getId(),
+        CustomerUpdateDTO customerUpdateDTO = new CustomerUpdateDTO(
+                customerDTO.getId(),
                 customerDTO.getName(),
                 customerDTO.getPhoneNumber(),
                 addressDTO.getId(),

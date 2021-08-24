@@ -1,10 +1,9 @@
 package com.margin.service.order.converter;
 
-import com.margin.controller.order.dto.OrderCreationDTO;
 import com.margin.controller.order.dto.OrderDTO;
-import com.margin.controller.order.dto.OrderUpdateDTO;
-import com.margin.controller.orderproduct.dto.OrderProductCreationDTO;
 import com.margin.controller.orderproduct.dto.OrderProductDTO;
+import com.margin.repository.order.entity.OrderEntity;
+import com.margin.repository.orderproduct.entity.OrderProductEntity;
 import com.margin.service.order.model.OrderCreationModel;
 import com.margin.service.order.model.OrderModel;
 import com.margin.service.order.model.OrderUpdateModel;
@@ -14,6 +13,7 @@ import com.margin.service.orderproduct.model.OrderProductModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.persistence.criteria.Order;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -24,16 +24,14 @@ public class OrderModelConverter {
     @Autowired
     private OrderProductModelConverter orderProductModelConverter;
 
-    @Autowired
-    private OrderModelConverter orderModelConverter;
-
     public OrderDTO convert(OrderModel orderModel) {
         if (orderModel == null) {
             return null;
         }
+        List<OrderProductDTO> orderProductDTOS = orderProductModelConverter.convertModels(orderModel.getOrderProducts());
         return new OrderDTO(
                 orderModel.getId(),
-                orderModelConverter.convert(orderModel.getOrderProducts(), orderModel),
+                orderProductDTOS,
                 orderModel.getCustomerId(),
                 orderModel.getShopId(),
                 orderModel.getAddressId(),
@@ -44,32 +42,28 @@ public class OrderModelConverter {
                 orderModel.getOrderDiscount());
     }
 
-    public OrderUpdateDTO convert(OrderUpdateModel orderModel) {
-        if (orderModel == null) {
+    public OrderEntity convert(OrderCreationModel model) {
+        if (model == null) {
             return null;
         }
-        return new OrderUpdateDTO(
-                orderModel.getId(),
-                //orderModelConverter.convert(orderModel.getOrderProducts(), orderModel),
-                orderModel.getCustomerId(),
-                orderModel.getShopId(),
-                orderModel.getAddressId(),
-                orderModel.getOriginalPrice(),
-                orderModel.getTotalPrice(),
-                orderModel.getPaidFromBonus(),
-                orderModel.getPaymentType(),
-                orderModel.getOrderDiscount());
+        OrderEntity orderEntity = new OrderEntity();
+        orderEntity.setOrderDiscount(model.getOrderDiscount());
+        orderEntity.setPaymentType(model.getPaymentType());
+        orderEntity.setPaidFromBonus(model.getPaidFromBonus());
+        orderEntity.setTotalPrice(model.getTotalPrice());
+        orderEntity.setOriginalPrice(model.getOriginalPrice());
+        return orderEntity;
     }
 
-    public List<OrderProductDTO> convert(List<OrderProductModel> orderProductModels, OrderModel orderModel) {
-        if (orderProductModels == null) {
-            return new ArrayList<>();
+    public OrderEntity convert(OrderUpdateModel model, OrderEntity orderEntity) {
+        if (model == null && orderEntity == null) {
+            return null;
         }
-        return orderModel.getOrderProducts()
-                .stream()
-                .map(orderProductModel
-                        -> orderProductModelConverter
-                        .convert(orderProductModel))
-                .collect(Collectors.toList());
+        orderEntity.setOrderDiscount(model.getOrderDiscount());
+        orderEntity.setTotalPrice(model.getTotalPrice());
+        orderEntity.setOriginalPrice(model.getOriginalPrice());
+        orderEntity.setPaymentType(model.getPaymentType());
+        orderEntity.setPaidFromBonus(model.getPaidFromBonus());
+        return orderEntity;
     }
 }

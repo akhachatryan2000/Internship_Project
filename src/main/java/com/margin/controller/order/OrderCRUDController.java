@@ -5,7 +5,7 @@ import com.margin.controller.order.converter.OrderDTOConverter;
 import com.margin.controller.order.dto.OrderCreationDTO;
 import com.margin.controller.order.dto.OrderDTO;
 import com.margin.controller.order.dto.OrderUpdateDTO;
-import com.margin.service.OrderFacade;
+import com.margin.service.facade.OrderFacade;
 import com.margin.service.order.OrderService;
 import com.margin.service.order.converter.OrderModelConverter;
 import com.margin.service.order.model.OrderCreationModel;
@@ -36,8 +36,7 @@ public class OrderCRUDController {
     public GenericResponseDTO<OrderDTO> get(@PathVariable(name = "id") Long id) {
         OrderModel orderModel = orderService.get(id);
         OrderDTO orderDTO = orderModelConverter.convert(orderModel);
-        // TODO: 18.08.21 Genereic response creation here
-        return null;
+        return new GenericResponseDTO<>(orderDTO, null);
     }
 
     @PostMapping
@@ -45,8 +44,7 @@ public class OrderCRUDController {
         OrderCreationModel orderCreationModel = orderDTOConverter.convert(orderCreationDTO);
         OrderModel orderModel = orderFacade.createOrder(orderCreationModel);
         OrderDTO orderDTO = orderModelConverter.convert(orderModel);
-        // TODO: 18.08.21 Genereic response creation here
-        return null;
+        return new GenericResponseDTO<>(orderDTO, null);
     }
 
     @PutMapping(name = "/{id}")
@@ -54,14 +52,12 @@ public class OrderCRUDController {
         OrderUpdateModel orderUpdateModel = orderDTOConverter.convert(orderUpdateDTO);
         OrderModel orderModel = orderService.update(orderUpdateModel, id);
         OrderDTO orderDTO = orderModelConverter.convert(orderModel);
-        // TODO: 18.08.21 Genereic response creation here
-        return null;
+        return new GenericResponseDTO<>(orderDTO, null);
     }
 
     @DeleteMapping(name = "/{id}")
     public GenericResponseDTO<Boolean> delete(@PathVariable(name = "id") Long id) {
         Boolean isDeleted = orderService.delete(id);
-        // TODO: 18.08.21 Genereic response creation here
-        return null;
+        return new GenericResponseDTO<>(isDeleted, null);
     }
 }

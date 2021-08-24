@@ -9,7 +9,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 @Entity(name = "CustomerEntity")
-@Table(name = "customer")
+@Table(name = "customers")
 @Setter
 @Getter
 @EqualsAndHashCode
@@ -18,20 +18,20 @@ import java.util.List;
 public class CustomerEntity {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name")
+    @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "phoneNumber")
+    @Column(name = "phoneNumber", nullable = false)
     private String phoneNumber;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "address_id")
     private AddressEntity address;
 
-    @Column(name = "bonus")
+    @Column(name = "bonus", nullable = false)
     private BigDecimal bonus;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "customer")

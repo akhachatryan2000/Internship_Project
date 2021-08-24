@@ -13,9 +13,6 @@ import org.springframework.stereotype.Component;
 @Component
 public class ProductDTOConverter {
 
-    @Autowired
-    private ShopDTOConverter shopDTOConverter;
-
     public ProductCreationModel convert(ProductCreationDTO productDTO) {
         if (productDTO == null) {
             return null;

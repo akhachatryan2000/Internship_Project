@@ -19,8 +19,4 @@ public class ShopUpdateDTO {
     private Boolean active;
 
     private Boolean visible;
-
-    // private Long scheduleId;
-
-    // private Long userId;
 }

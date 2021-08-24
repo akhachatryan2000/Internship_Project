@@ -22,5 +22,4 @@ public class AddressDTO {
     private String addressLine2;
 
     private String postCode;
-
 }

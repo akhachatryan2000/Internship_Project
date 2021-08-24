@@ -9,11 +9,14 @@ import com.margin.repository.order.entity.OrderEntity;
 import com.margin.repository.shop.entity.ShopEntity;
 import com.margin.repository.shop.entity.ShopRepository;
 import com.margin.service.order.converter.OrderEntityConverter;
+import com.margin.service.order.converter.OrderModelConverter;
 import com.margin.service.order.model.OrderCreationModel;
 import com.margin.service.order.model.OrderModel;
 import com.margin.service.order.model.OrderUpdateModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import javax.transaction.Transactional;
 
 @Service
 public class OrderService {
@@ -33,28 +36,33 @@ public class OrderService {
     @Autowired
     private OrderEntityConverter orderEntityConverter;
 
+    @Autowired
+    private OrderModelConverter orderModelConverter;
+
     public OrderModel get(Long id) {
         OrderEntity orderEntity = orderRepository.getById(id);
         return orderEntityConverter.convert(orderEntity);
     }
 
+    @Transactional
     public OrderModel create(OrderCreationModel orderCreationModel) {
-        OrderEntity orderEntity = orderEntityConverter.convert(orderCreationModel);
-        OrderEntity orderCreated = orderRepository.save(orderEntity);
+        OrderEntity orderEntity = orderModelConverter.convert(orderCreationModel);
         AddressEntity addressEntity = addressRepository.getById(orderCreationModel.getAddressId());
-        orderCreated.setAddress(addressEntity);
+        orderEntity.setAddress(addressEntity);
         CustomerEntity customer = customerRepository.getById(orderCreationModel.getCustomerId());
-        orderCreated.setCustomer(customer);
+        orderEntity.setCustomer(customer);
         ShopEntity shop = shopRepository.getById(orderCreationModel.getShopId());
-        orderCreated.setShop(shop);
-        return orderEntityConverter.convert(orderCreated);
+        orderEntity.setShop(shop);
+        orderEntity = orderRepository.save(orderEntity);
+        return orderEntityConverter.convert(orderEntity);
     }
 
+    @Transactional
     public OrderModel update(OrderUpdateModel orderUpdateModel, Long id) {
         OrderEntity orderEntity = orderRepository.getById(id);
-        OrderEntity orderEntity1 = orderEntityConverter.convert(orderUpdateModel, orderEntity);
-        OrderEntity order = orderRepository.save(orderEntity1);
-        return orderEntityConverter.convert(order);
+        orderEntity = orderModelConverter.convert(orderUpdateModel, orderEntity);
+        orderEntity = orderRepository.save(orderEntity);
+        return orderEntityConverter.convert(orderEntity);
     }
 
     public Boolean delete(Long id) {

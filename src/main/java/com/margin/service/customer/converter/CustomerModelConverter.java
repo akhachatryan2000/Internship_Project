@@ -1,8 +1,7 @@
 package com.margin.service.customer.converter;
 
-import com.margin.controller.customer.dto.CustomerCreationDTO;
 import com.margin.controller.customer.dto.CustomerDTO;
-import com.margin.controller.customer.dto.CustomerUpdateDTO;
+import com.margin.repository.customer.entity.CustomerEntity;
 import com.margin.service.customer.model.CustomerCreationModel;
 import com.margin.service.customer.model.CustomerModel;
 import com.margin.service.customer.model.CustomerUpdateModel;
@@ -23,26 +22,24 @@ public class CustomerModelConverter {
                 customerModel.getBonus());
     }
 
-    public CustomerCreationDTO convert(CustomerCreationModel customerModel) {
-        if (customerModel == null) {
+    public CustomerEntity convert(CustomerCreationModel customerCreationModel) {
+        if (customerCreationModel == null) {
             return null;
         }
-        return new CustomerCreationDTO(
-                customerModel.getName(),
-                customerModel.getPhoneNumber(),
-                customerModel.getAddressId(),
-                customerModel.getBonus());
+        CustomerEntity customer = new CustomerEntity();
+        customer.setName(customerCreationModel.getName());
+        customer.setBonus(customerCreationModel.getBonus());
+        customer.setPhoneNumber(customerCreationModel.getPhoneNumber());
+        return customer;
     }
 
-    public CustomerUpdateDTO convert(CustomerUpdateModel customerModel) {
-        if (customerModel == null) {
+    public CustomerEntity convert(CustomerUpdateModel customerUpdateModel, CustomerEntity customerEntity) {
+        if (customerUpdateModel == null && customerEntity == null) {
             return null;
         }
-        return new CustomerUpdateDTO(
-                customerModel.getId(),
-                customerModel.getName(),
-                customerModel.getPhoneNumber(),
-                customerModel.getAddressId(),
-                customerModel.getBonus());
+        customerEntity.setBonus(customerUpdateModel.getBonus());
+        customerEntity.setName(customerUpdateModel.getName());
+        customerEntity.setPhoneNumber(customerUpdateModel.getPhoneNumber());
+        return customerEntity;
     }
 }

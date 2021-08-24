@@ -10,6 +10,8 @@ import com.margin.service.address.model.AddressUpdateModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+
 @Service
 public class AddressService {
 
@@ -24,27 +26,26 @@ public class AddressService {
 
 
     public AddressModel get(Long id) {
-        //here can be an exception
         AddressEntity addressEntity = addressRepository.getById(id);
         return addressEntityConverter.convert(addressEntity);
     }
 
+    @Transactional
     public AddressModel create(AddressCreationModel addressCreationModel) {
-        AddressEntity addressEntity = addressEntityConverter.convert(addressCreationModel);
+        AddressEntity addressEntity = addressModelConverter.convert(addressCreationModel);
         AddressEntity address = addressRepository.save(addressEntity);
         return addressEntityConverter.convert(address);
     }
 
+    @Transactional
     public AddressModel update(AddressUpdateModel addressUpdateModel, Long id) {
-        //here can be an exception
         AddressEntity addressEntity = addressRepository.getById(id);
-        AddressEntity addressEntity1 = addressEntityConverter.convert(addressUpdateModel, addressEntity);
-        AddressEntity addressUpdated = addressRepository.save(addressEntity1);
+        addressEntity = addressModelConverter.convert(addressUpdateModel, addressEntity);
+        AddressEntity addressUpdated = addressRepository.save(addressEntity);
         return addressEntityConverter.convert(addressUpdated);
     }
 
     public Boolean delete(Long id) {
-        //here can be an exception
         addressRepository.deleteById(id);
         return true;
     }

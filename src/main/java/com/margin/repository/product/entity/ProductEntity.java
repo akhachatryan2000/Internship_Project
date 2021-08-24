@@ -7,43 +7,39 @@ import lombok.*;
 import javax.persistence.*;
 import java.math.BigDecimal;
 
-@Entity
+@Entity(name = "ProductEntity")
 @Setter
 @Getter
-@Table(name = "product")
+@Table(name = "products")
 @EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
 public class ProductEntity {
+
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name")
+    @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "description")
+    @Column(name = "description", nullable = false)
     private String description;
 
-    @Column(name = "active")
+    @Column(name = "active", nullable = false)
     private Boolean active;
 
-
-    @Column(name = "visible")
+    @Column(name = "visible", nullable = false)
     private Boolean visible;
 
-
-    @Column(name = "price")
+    @Column(name = "price", nullable = false)
     private BigDecimal price;
 
-    @Column(name = "unit")
+    @Column(name = "unit", nullable = false)
+    @Enumerated(EnumType.STRING)
     private Unit unit;
-
-   // private ProductScheduleEntity schedule;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "shop_id")
     private ShopEntity shopEntity;
-
-
 }

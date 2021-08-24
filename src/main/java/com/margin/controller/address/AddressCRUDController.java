@@ -30,11 +30,8 @@ public class AddressCRUDController {
     @ResponseBody
     public GenericResponseDTO<AddressDTO> get(@PathVariable(name = "id") Long id) {
         AddressModel addressModel = addressService.get(id);
-        // TODO return new GenericResponseDTO<AddressModel>(HttpStatus.OK);
         AddressDTO addressDTO = addressModelConverter.convert(addressModel);
-        // GenericResponseDTO<AddressDTO> addressDTOGenericResponseDTO = new GenericResponseDTO<AddressDTO>(addressDTO,);
-        // return addressDTOGenericResponseDTO;
-        return null;
+        return new GenericResponseDTO<>(addressDTO, null);
     }
 
     @PostMapping
@@ -42,8 +39,7 @@ public class AddressCRUDController {
         AddressCreationModel addressCreationalModel = addressDTOConverter.convert(addressCreationDTO);
         AddressModel addressModel = addressService.create(addressCreationalModel);
         AddressDTO addressDTO = addressModelConverter.convert(addressModel);
-        // TODO: 18.08.21 Genereic response creation here
-        return null;
+        return new GenericResponseDTO<>(addressDTO, null);
     }
 
     @PutMapping(path = "/{id}")
@@ -51,14 +47,12 @@ public class AddressCRUDController {
         AddressUpdateModel addressUpdateModel = addressDTOConverter.convert(addressUpdateDTO);
         AddressModel addressModel = addressService.update(addressUpdateModel, id);
         AddressDTO addressDTO = addressModelConverter.convert(addressModel);
-        // TODO: 18.08.21 Genereic response creation here
-        return null;
+        return new GenericResponseDTO<>(addressDTO, null);
     }
 
     @DeleteMapping(path = "/{id}")
     public GenericResponseDTO<Boolean> delete(@PathVariable(name = "id") Long id) {
         Boolean isDeleted = addressService.delete(id);
-        // TODO: 18.08.21 Genereic response creation here
-        return null;
+        return new GenericResponseDTO<>(isDeleted, null);
     }
 }

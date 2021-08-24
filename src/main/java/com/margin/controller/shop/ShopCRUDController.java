@@ -31,8 +31,7 @@ public class ShopCRUDController {
     public GenericResponseDTO<ShopDTO> get(@PathVariable(name = "id") Long id) {
         ShopModel shopModel = shopService.get(id);
         ShopDTO shopDTO = shopModelConverter.convert(shopModel);
-        // TODO: 18.08.21 Genereic response creation here
-        return null;
+        return new GenericResponseDTO<>(shopDTO, null);
     }
 
     @PostMapping
@@ -40,8 +39,7 @@ public class ShopCRUDController {
         ShopCreationModel shopCreationModel = shopDTOConverter.convert(shopCreationDTO);
         ShopModel shopModel = shopService.create(shopCreationModel);
         ShopDTO shopDTO = shopModelConverter.convert(shopModel);
-        // TODO: 18.08.21 Genereic response creation here
-        return null;
+        return new GenericResponseDTO<>(shopDTO, null);
     }
 
     @PutMapping("/{id}")
@@ -49,14 +47,12 @@ public class ShopCRUDController {
         ShopUpdateModel shopUpdateModel = shopDTOConverter.convert(shopUpdateDTO);
         ShopModel shopModel = shopService.update(shopUpdateModel, id);
         ShopDTO shopDTO = shopModelConverter.convert(shopModel);
-        // TODO: 18.08.21 Genereic response creation here
-        return null;
+        return new GenericResponseDTO<>(shopDTO, null);
     }
 
     @DeleteMapping("/{id}")
     public GenericResponseDTO<Boolean> delete(@PathVariable("id") Long id) {
         Boolean isDeleted = shopService.delete(id);
-        // TODO: 18.08.21 Genereic response creation here
-        return null;
+        return new GenericResponseDTO<>(isDeleted, null);
     }
 }

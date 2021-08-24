@@ -24,12 +24,6 @@ import java.util.stream.Collectors;
 public class OrderDTOConverter {
 
     @Autowired
-    private CustomerDTOConverter customerDTOConverter;
-
-    @Autowired
-    private ShopDTOConverter shopDTOConverter;
-
-    @Autowired
     private OrderProductDTOConverter orderProductDTOConverter;
 
     @Autowired

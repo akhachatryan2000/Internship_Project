@@ -6,7 +6,7 @@ import lombok.*;
 import javax.persistence.*;
 
 @Entity(name = "AddressEntity")
-@Table(name = "address")
+@Table(name = "addresses")
 @Setter
 @Getter
 @EqualsAndHashCode
@@ -18,21 +18,22 @@ public class AddressEntity {
     @GeneratedValue
     private Long id;
 
-    @Column(name = "country")
+    @Column(name = "country", nullable = false)
+    @Enumerated(EnumType.STRING)
     private Country country;
 
-    @Column(name = "district")
+    @Column(name = "district", nullable = false)
     private String district;
 
-    @Column(name = "city")
+    @Column(name = "city", nullable = false)
     private String city;
 
-    @Column(name = "addressLine1")
+    @Column(name = "addressLine1", nullable = false)
     private String addressLine1;
 
-    @Column(name = "addressLine2")
+    @Column(name = "addressLine2", nullable = true)
     private String addressLine2;
 
-    @Column(name = "postCode")
+    @Column(name = "postCode", nullable = false)
     private String postCode;
 }

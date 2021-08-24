@@ -13,6 +13,8 @@ import com.margin.service.customer.model.CustomerUpdateModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.constraints.NotNull;
+
 @RestController
 @RequestMapping("/customers")
 public class CustomerCRUDController {
@@ -31,8 +33,7 @@ public class CustomerCRUDController {
     public GenericResponseDTO<CustomerDTO> get(@PathVariable(name = "id") Long id) {
         CustomerModel customerModel = customerService.get(id);
         CustomerDTO customerDTO = customerModelConverter.convert(customerModel);
-        // TODO: 18.08.21 Generic response creation here
-        return null;
+        return new GenericResponseDTO<>(customerDTO, null);
     }
 
     @PostMapping
@@ -40,23 +41,20 @@ public class CustomerCRUDController {
         CustomerCreationModel customerCreationModel = customerDTOConverter.convert(customerCreationDTO);
         CustomerModel customerModel = customerService.create(customerCreationModel);
         CustomerDTO customerDTO = customerModelConverter.convert(customerModel);
-        // TODO: 18.08.21 Generic response creation here
-        return null;
+        return new GenericResponseDTO<>(customerDTO, null);
     }
 
     @PutMapping("/{id}")
-    public GenericResponseDTO<CustomerDTO> put(@RequestBody CustomerUpdateDTO customerUpdateDTO, @PathVariable(name = "id") Long id) {
+    public GenericResponseDTO<CustomerDTO> put(@RequestBody @NotNull CustomerUpdateDTO customerUpdateDTO, @PathVariable(name = "id") Long id) {
         CustomerUpdateModel customerUpdateModel = customerDTOConverter.convert(customerUpdateDTO);
         CustomerModel customerModel = customerService.update(customerUpdateModel, id);
         CustomerDTO customerDTO = customerModelConverter.convert(customerModel);
-        // TODO: 18.08.21 Generic response creation here
-        return null;
+        return new GenericResponseDTO<>(customerDTO, null);
     }
 
     @DeleteMapping("/{id}")
     public GenericResponseDTO<Boolean> delete(@PathVariable(name = "id") Long id) {
         Boolean isDeleted = customerService.delete(id);
-        // TODO: 18.08.21 Generic response creation here
-        return null;
+        return new GenericResponseDTO<>(isDeleted, null);
     }
 }

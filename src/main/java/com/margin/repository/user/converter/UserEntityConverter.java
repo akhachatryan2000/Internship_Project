@@ -10,16 +10,4 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class UserEntityConverter {
-
-    public UserModel convert(UserEntity userEntity) {
-        return new UserModel();
-    }
-
-    public UserCreationModel convert(UserCreationEntity userCreationEntity) {
-        return new UserCreationModel();
-    }
-
-    public UserUpdateModel convert(UserUpdateEntity userUpdateEntity) {
-        return new UserUpdateModel();
-    }
 }

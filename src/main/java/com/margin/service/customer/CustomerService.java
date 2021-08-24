@@ -4,60 +4,76 @@ import com.margin.repository.address.AddressRepository;
 import com.margin.repository.customer.CustomerRepository;
 import com.margin.repository.customer.entity.CustomerEntity;
 import com.margin.service.customer.converter.CustomerEntityConverter;
+import com.margin.service.customer.converter.CustomerModelConverter;
 import com.margin.service.customer.model.CustomerCreationModel;
 import com.margin.service.customer.model.CustomerModel;
 import com.margin.service.customer.model.CustomerUpdateModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityNotFoundException;
+import javax.transaction.Transactional;
 
 @Service
 public class CustomerService {
 
     @Autowired
-    CustomerRepository customerRepository;
+    private CustomerRepository customerRepository;
 
     @Autowired
-    CustomerEntityConverter customerEntityConverter;
+    private final CustomerEntityConverter customerEntityConverter;
+
+    @Autowired
+    private CustomerModelConverter customerModelConverter;
 
     @Autowired
     private AddressRepository addressRepository;
 
+    public CustomerService(CustomerRepository customerRepository, CustomerEntityConverter customerEntityConverter, CustomerModelConverter customerModelConverter, AddressRepository addressRepository) {
+        this.customerRepository = customerRepository;
+        this.customerEntityConverter = customerEntityConverter;
+        this.customerModelConverter = customerModelConverter;
+        this.addressRepository = addressRepository;
+    }
 
     public CustomerModel get(Long id) {
-        try {
-            CustomerEntity customerEntity = customerRepository.getById(id);
-            customerEntity.setAddress(addressRepository.getById(id));
-            return customerEntityConverter.convert(customerEntity);
-        } catch (EntityNotFoundException entityNotFoundException) {
-            System.out.println("No such element");
-        }
-        return null;
-    }
-
-    public CustomerModel create(CustomerCreationModel customerCreationModel) {
-        CustomerEntity customerCreated = customerEntityConverter.convert(customerCreationModel);
-        if (customerCreationModel.getAddressId() != null) {
-            customerCreated.setAddress(addressRepository.getById(customerCreationModel.getAddressId()));
-        } else {
-            customerCreationModel.setAddressId(null);
-        }
-        CustomerEntity customer = customerRepository.save(customerCreated);
-        return customerEntityConverter.convert(customer);
-    }
-
-    public CustomerModel update(CustomerUpdateModel customerUpdateModel, Long id) {
-        CustomerEntity customer = customerRepository.getById(id);
-        CustomerEntity customerEntity = customerEntityConverter.convert(customerUpdateModel, customer);
-        if (customerUpdateModel.getAddressId() != null) {
-            customer.setAddress(addressRepository.getById(id));
-        } else customer.setAddress(null);
-        customer = customerRepository.save(customer);
+        //handle the exception
+        CustomerEntity customerEntity = customerRepository.getById(id);
         return customerEntityConverter.convert(customerEntity);
     }
 
+    @Transactional
+    public CustomerModel create(CustomerCreationModel customerCreationModel) {
+        CustomerEntity customer = customerModelConverter.convert(customerCreationModel);
+        if (customerCreationModel.getAddressId() != null) {
+            customer.setAddress(addressRepository.getById(customerCreationModel.getAddressId()));
+        } else {
+            customer.setAddress(null);
+        }
+        CustomerEntity customerCreated = customerRepository.save(customer);
+        return customerEntityConverter.convert(customerCreated);
+    }
+
+    @Transactional
+    public CustomerModel update(CustomerUpdateModel customerUpdateModel, Long id) {
+        //handle the exception
+        System.out.println(id);
+        CustomerEntity customerExisting = null;
+        customerExisting = customerRepository.getById(id); //FIND BY ID?
+        customerExisting = customerModelConverter.convert(customerUpdateModel, customerExisting);
+        if (customerUpdateModel.getAddressId() != null) {
+            customerExisting.setAddress(addressRepository.getById(customerUpdateModel.getAddressId()));
+        } else customerExisting.setAddress(null);
+        try {
+            customerExisting = customerRepository.save(customerExisting);
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        }
+        return customerEntityConverter.convert(customerExisting);
+    }
+
+
     public Boolean delete(Long id) {
+        // handle the exception
         customerRepository.deleteById(id);
         return true;
     }

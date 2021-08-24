@@ -14,13 +14,12 @@ public class ShopDTOConverter {
     public ShopModel convert(ShopDTO shopDTO) {
         if (shopDTO == null) {
             return null;
-        } else {
-            return new ShopModel(
-                    shopDTO.getId(),
-                    shopDTO.getName(),
-                    shopDTO.getActive(),
-                    shopDTO.getVisible());
         }
+        return new ShopModel(
+                shopDTO.getId(),
+                shopDTO.getName(),
+                shopDTO.getActive(),
+                shopDTO.getVisible());
     }
 
     public ShopCreationModel convert(ShopCreationDTO shopDTO) {

@@ -15,7 +15,8 @@ public class AddressDTOConverter {
         if (addressDTO == null) {
             return null;
         }
-        return new AddressModel(addressDTO.getId(),
+        return new AddressModel(
+                addressDTO.getId(),
                 addressDTO.getCountry(),
                 addressDTO.getDistrict(),
                 addressDTO.getCity(),
@@ -41,8 +42,8 @@ public class AddressDTOConverter {
         if (addressUpdateDTO == null) {
             return null;
         }
-
-        return new AddressUpdateModel(addressUpdateDTO.getId(),
+        return new AddressUpdateModel(
+                addressUpdateDTO.getId(),
                 addressUpdateDTO.getCountry(),
                 addressUpdateDTO.getDistrict(),
                 addressUpdateDTO.getCity(),

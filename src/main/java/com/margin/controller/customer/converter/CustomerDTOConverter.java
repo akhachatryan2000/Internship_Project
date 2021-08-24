@@ -3,29 +3,18 @@ package com.margin.controller.customer.converter;
 import com.margin.controller.customer.dto.CustomerCreationDTO;
 import com.margin.controller.customer.dto.CustomerDTO;
 import com.margin.controller.customer.dto.CustomerUpdateDTO;
-import com.margin.controller.order.converter.OrderDTOConverter;
 import com.margin.service.customer.model.CustomerCreationModel;
 import com.margin.service.customer.model.CustomerModel;
 import com.margin.service.customer.model.CustomerUpdateModel;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
 
 @Component
 public class CustomerDTOConverter {
-
-    @Autowired
-    private OrderDTOConverter orderDTOConverter;
-
-    @Autowired
-    private CustomerDTOConverter customerDTOConverter;
-
 
     public CustomerModel convert(CustomerDTO customerDTO) {
         if (customerDTO == null) {
             return null;
         }
-
         return new CustomerModel(
                 customerDTO.getId(),
                 customerDTO.getName(),
@@ -38,7 +27,6 @@ public class CustomerDTOConverter {
         if (customerDTO == null) {
             return null;
         }
-
         return new CustomerCreationModel(
                 customerDTO.getName(),
                 customerDTO.getPhoneNumber(),
