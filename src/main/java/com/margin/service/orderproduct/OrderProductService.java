@@ -33,7 +33,6 @@ public class OrderProductService {
 
 
     public OrderProductModel get(Long id) {
-        //handle the exception
         OrderProductEntity orderProductEntity = orderProductRepository.getById(id);
         return orderProductEntityConverter.convert(orderProductEntity);
     }
@@ -41,7 +40,6 @@ public class OrderProductService {
     @Transactional
     public OrderProductModel create(OrderProductCreationModel orderProductCreationModel) {
         OrderProductEntity orderProductEntity = orderProductModelConverter.convert(orderProductCreationModel);
-        //what if the product does not exist
         OrderProductEntity orderProductCreated = orderProductRepository.save(orderProductEntity);
         return orderProductEntityConverter.convert(orderProductCreated);
     }

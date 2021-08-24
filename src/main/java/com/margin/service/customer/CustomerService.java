@@ -36,7 +36,6 @@ public class CustomerService {
     }
 
     public CustomerModel get(Long id) {
-        //handle the exception
         CustomerEntity customerEntity = customerRepository.getById(id);
         return customerEntityConverter.convert(customerEntity);
     }
@@ -55,25 +54,18 @@ public class CustomerService {
 
     @Transactional
     public CustomerModel update(CustomerUpdateModel customerUpdateModel, Long id) {
-        //handle the exception
         System.out.println(id);
         CustomerEntity customerExisting = null;
-        customerExisting = customerRepository.getById(id); //FIND BY ID?
+        customerExisting = customerRepository.getById(id);
         customerExisting = customerModelConverter.convert(customerUpdateModel, customerExisting);
         if (customerUpdateModel.getAddressId() != null) {
             customerExisting.setAddress(addressRepository.getById(customerUpdateModel.getAddressId()));
         } else customerExisting.setAddress(null);
-        try {
-            customerExisting = customerRepository.save(customerExisting);
-        } catch (Exception exception) {
-            exception.printStackTrace();
-        }
+        customerExisting = customerRepository.save(customerExisting);
         return customerEntityConverter.convert(customerExisting);
     }
 
-
     public Boolean delete(Long id) {
-        // handle the exception
         customerRepository.deleteById(id);
         return true;
     }
