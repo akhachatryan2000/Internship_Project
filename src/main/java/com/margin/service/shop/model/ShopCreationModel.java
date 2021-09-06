@@ -1,6 +1,4 @@
 package com.margin.service.shop.model;
-
-
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

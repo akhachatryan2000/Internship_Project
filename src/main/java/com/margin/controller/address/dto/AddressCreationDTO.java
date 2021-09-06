@@ -6,12 +6,15 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.validation.constraints.NotNull;
+
 @Setter
 @Getter
 @EqualsAndHashCode
 @AllArgsConstructor
 public class AddressCreationDTO {
 
+    @NotNull(message = "must not be null")
     private Country country;
 
     private String district;

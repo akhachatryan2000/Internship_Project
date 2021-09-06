@@ -1,9 +1,6 @@
 package com.margin.service.customer.model;
 
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.math.BigDecimal;
 
@@ -12,6 +9,7 @@ import java.math.BigDecimal;
 @Getter
 @EqualsAndHashCode
 @AllArgsConstructor
+@ToString
 public class CustomerModel {
 
     private Long id;

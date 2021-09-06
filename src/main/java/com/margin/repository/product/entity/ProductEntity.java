@@ -1,6 +1,7 @@
 package com.margin.repository.product.entity;
 
 import com.margin.common.enums.Unit;
+import com.margin.repository.AbstractEntity;
 import com.margin.repository.shop.entity.ShopEntity;
 import lombok.*;
 
@@ -14,13 +15,13 @@ import java.math.BigDecimal;
 @EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
-public class ProductEntity {
+public class ProductEntity extends AbstractEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name", nullable = false)
+    @Column(name = "name", nullable = false, unique = true)
     private String name;
 
     @Column(name = "description", nullable = false)
@@ -39,7 +40,8 @@ public class ProductEntity {
     @Enumerated(EnumType.STRING)
     private Unit unit;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(optional = false)
     @JoinColumn(name = "shop_id")
     private ShopEntity shopEntity;
+
 }

@@ -1,5 +1,6 @@
 package com.margin.repository.customer.entity;
 
+import com.margin.repository.AbstractEntity;
 import com.margin.repository.address.entity.AddressEntity;
 import com.margin.repository.order.entity.OrderEntity;
 import lombok.*;
@@ -12,10 +13,10 @@ import java.util.List;
 @Table(name = "customers")
 @Setter
 @Getter
-@EqualsAndHashCode
+@EqualsAndHashCode(callSuper = true)
 @AllArgsConstructor
 @NoArgsConstructor
-public class CustomerEntity {
+public class CustomerEntity extends AbstractEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,13 +28,14 @@ public class CustomerEntity {
     @Column(name = "phoneNumber", nullable = false)
     private String phoneNumber;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToOne(orphanRemoval = true)
     @JoinColumn(name = "address_id")
     private AddressEntity address;
 
     @Column(name = "bonus", nullable = false)
     private BigDecimal bonus;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "customer")
+    @OneToMany(mappedBy = "customer", orphanRemoval = true)
     private List<OrderEntity> orders;
+
 }

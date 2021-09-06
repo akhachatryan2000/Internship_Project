@@ -1,7 +1,10 @@
 package com.margin.repository.address.entity;
 
 import com.margin.common.enums.Country;
+import com.margin.repository.AbstractEntity;
+import com.margin.repository.address.AddressRepository;
 import lombok.*;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
 
@@ -11,11 +14,10 @@ import javax.persistence.*;
 @Getter
 @EqualsAndHashCode
 @AllArgsConstructor
-@NoArgsConstructor
-public class AddressEntity {
+public class AddressEntity extends AbstractEntity {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "country", nullable = false)
@@ -31,9 +33,13 @@ public class AddressEntity {
     @Column(name = "addressLine1", nullable = false)
     private String addressLine1;
 
-    @Column(name = "addressLine2", nullable = true)
+    @Column(name = "addressLine2")
     private String addressLine2;
 
-    @Column(name = "postCode", nullable = false)
+    @Column(name = "post_code")
     private String postCode;
+
+    public AddressEntity() {
+        super();
+    }
 }

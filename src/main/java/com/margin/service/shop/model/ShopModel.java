@@ -20,9 +20,4 @@ public class ShopModel {
 
     private Boolean visible;
 
-   // private Long scheduleId;
-
-   //private Long userId;
-
-
 }

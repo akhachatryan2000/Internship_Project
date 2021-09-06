@@ -1,6 +1,6 @@
 package com.margin.controller.product;
 
-import com.margin.common.GenericResponseDTO;
+import com.margin.common.exception.response.GenericResponse;
 import com.margin.controller.product.converter.ProductDTOConverter;
 import com.margin.controller.product.dto.ProductCreationDTO;
 import com.margin.controller.product.dto.ProductDTO;
@@ -12,6 +12,8 @@ import com.margin.service.product.model.ProductModel;
 import com.margin.service.product.model.ProductUpdateModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 
 @RestController
@@ -29,31 +31,31 @@ public class ProductCRUDController {
 
     @GetMapping(path = "/{id}")
     @ResponseBody
-    public GenericResponseDTO<ProductDTO> get(@PathVariable(name = "id") Long id) {
+    public GenericResponse<ProductDTO> get(@PathVariable(name = "id") Long id) {
         ProductModel productModel = productService.get(id);
         ProductDTO productDTO = productModelConverter.convert(productModel);
-        return new GenericResponseDTO<>(productDTO, null);
+        return new GenericResponse<>(productDTO, null);
     }
 
     @PostMapping
-    public GenericResponseDTO<ProductDTO> post(@RequestBody ProductCreationDTO productCreationDTO) {
+    public GenericResponse<ProductDTO> post(@Valid @RequestBody ProductCreationDTO productCreationDTO) {
         ProductCreationModel productCreationModel = productDTOConverter.convert(productCreationDTO);
         ProductModel productModel = productService.create(productCreationModel);
         ProductDTO productDTO = productModelConverter.convert(productModel);
-        return new GenericResponseDTO<>(productDTO, null);
+        return new GenericResponse<>(productDTO, null);
     }
 
     @PutMapping(path = "/{id}")
-    public GenericResponseDTO<ProductDTO> put(@PathVariable(name = "id") Long id, @RequestBody ProductUpdateDTO productUpdateDTO) {
+    public GenericResponse<ProductDTO> put(@PathVariable(name = "id") Long id, @Valid @RequestBody ProductUpdateDTO productUpdateDTO) {
         ProductUpdateModel productUpdateModel = productDTOConverter.convert(productUpdateDTO);
-        ProductModel productModel = productService.update(productUpdateModel, id);
+        ProductModel productModel = productService.update(productUpdateModel);
         ProductDTO productDTO = productModelConverter.convert(productModel);
-        return new GenericResponseDTO<>(productDTO, null);
+        return new GenericResponse<>(productDTO, null);
     }
 
     @DeleteMapping(path = "/{id}")
-    public GenericResponseDTO<Boolean> delete(@PathVariable(name = "id") Long id) {
+    public GenericResponse<Boolean> delete(@PathVariable(name = "id") Long id) {
         Boolean isDeleted = productService.delete(id);
-        return new GenericResponseDTO<>(isDeleted, null);
+        return new GenericResponse<>(isDeleted, null);
     }
 }

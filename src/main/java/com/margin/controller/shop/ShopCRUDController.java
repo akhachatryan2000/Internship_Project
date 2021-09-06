@@ -1,6 +1,6 @@
 package com.margin.controller.shop;
 
-import com.margin.common.GenericResponseDTO;
+import com.margin.common.exception.response.GenericResponse;
 import com.margin.controller.shop.converter.ShopDTOConverter;
 import com.margin.controller.shop.dto.ShopCreationDTO;
 import com.margin.controller.shop.dto.ShopDTO;
@@ -13,8 +13,10 @@ import com.margin.service.shop.model.ShopUpdateModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
-@RequestMapping(name = "/shops")
+@RequestMapping(path = "/shops")
 public class ShopCRUDController {
 
     @Autowired
@@ -26,33 +28,33 @@ public class ShopCRUDController {
     @Autowired
     private ShopDTOConverter shopDTOConverter;
 
-    @GetMapping(name = "/{id}")
+    @GetMapping(path = "/{id}")
     @ResponseBody
-    public GenericResponseDTO<ShopDTO> get(@PathVariable(name = "id") Long id) {
+    public GenericResponse<ShopDTO> get(@PathVariable(name = "id") Long id) {
         ShopModel shopModel = shopService.get(id);
         ShopDTO shopDTO = shopModelConverter.convert(shopModel);
-        return new GenericResponseDTO<>(shopDTO, null);
+        return new GenericResponse<>(shopDTO, null);
     }
 
     @PostMapping
-    public GenericResponseDTO<ShopDTO> post(@RequestBody ShopCreationDTO shopCreationDTO) {
+    public GenericResponse<ShopDTO> post(@Valid @RequestBody ShopCreationDTO shopCreationDTO) {
         ShopCreationModel shopCreationModel = shopDTOConverter.convert(shopCreationDTO);
         ShopModel shopModel = shopService.create(shopCreationModel);
         ShopDTO shopDTO = shopModelConverter.convert(shopModel);
-        return new GenericResponseDTO<>(shopDTO, null);
+        return new GenericResponse<>(shopDTO, null);
     }
 
     @PutMapping("/{id}")
-    public GenericResponseDTO<ShopDTO> put(@PathVariable(name = "id") Long id, ShopUpdateDTO shopUpdateDTO) {
+    public GenericResponse<ShopDTO> put(@PathVariable(name = "id") Long id, @Valid @RequestBody ShopUpdateDTO shopUpdateDTO) {
         ShopUpdateModel shopUpdateModel = shopDTOConverter.convert(shopUpdateDTO);
         ShopModel shopModel = shopService.update(shopUpdateModel, id);
         ShopDTO shopDTO = shopModelConverter.convert(shopModel);
-        return new GenericResponseDTO<>(shopDTO, null);
+        return new GenericResponse<>(shopDTO, null);
     }
 
     @DeleteMapping("/{id}")
-    public GenericResponseDTO<Boolean> delete(@PathVariable("id") Long id) {
+    public GenericResponse<Boolean> delete(@PathVariable("id") Long id) {
         Boolean isDeleted = shopService.delete(id);
-        return new GenericResponseDTO<>(isDeleted, null);
+        return new GenericResponse<>(isDeleted, null);
     }
 }

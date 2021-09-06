@@ -1,5 +1,6 @@
 package com.margin.repository.orderproduct.entity;
 
+import com.margin.repository.AbstractEntity;
 import lombok.*;
 
 import javax.persistence.*;
@@ -12,7 +13,7 @@ import java.math.BigDecimal;
 @EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
-public class OrderProductEntity {
+public class OrderProductEntity extends AbstractEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -37,4 +38,5 @@ public class OrderProductEntity {
 
     @Column(name = "discount",nullable = false)
     private BigDecimal discount;
+
 }

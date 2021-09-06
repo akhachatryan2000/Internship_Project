@@ -1,6 +1,6 @@
 package com.margin.listener;
 
-import com.margin.common.GenericResponseDTO;
+import com.margin.common.exception.response.GenericResponse;
 import com.margin.common.enums.Country;
 import com.margin.common.enums.PaymentType;
 import com.margin.common.enums.Unit;
@@ -14,7 +14,9 @@ import com.margin.controller.customer.dto.CustomerUpdateDTO;
 import com.margin.controller.order.OrderCRUDController;
 import com.margin.controller.order.dto.OrderCreationDTO;
 import com.margin.controller.order.dto.OrderDTO;
+import com.margin.controller.orderproduct.OrderProductCRUDController;
 import com.margin.controller.orderproduct.dto.OrderProductCreationDTO;
+import com.margin.controller.orderproduct.dto.OrderProductDTO;
 import com.margin.controller.product.ProductCRUDController;
 import com.margin.controller.product.dto.ProductCreationDTO;
 import com.margin.controller.product.dto.ProductDTO;
@@ -48,21 +50,29 @@ public class ApplicationEventListener {
     @Autowired
     private ShopCRUDController shopCRUDController;
 
+    @Autowired
+    private OrderProductCRUDController orderProductCRUDController;
+
     @EventListener(ContextRefreshedEvent.class)
     public void onContextRefreshedEvent() {
 
-        GenericResponseDTO<ShopDTO> shop = createShop();
-        GenericResponseDTO<ProductDTO> product = createProduct(shop.getBody());
-        GenericResponseDTO<ProductDTO> product1 = createProduct(shop.getBody());
-        GenericResponseDTO<AddressDTO> address = createAddress();
-        GenericResponseDTO<CustomerDTO> customer = createCustomer(address.getBody().getId());
-        GenericResponseDTO<CustomerDTO> customer1 = createCustomer(address.getBody().getId());
-        GenericResponseDTO<CustomerDTO> updatedCustomer = updateCustomer(customer.getBody(), address.getBody());
-        GenericResponseDTO<OrderDTO> order = createOrder(customer.getBody().getId(), address.getBody().getId(), shop.getBody().getId());
-        System.out.println();
+       // GenericResponse<AddressDTO> addressWithoutAddressLine = createAddressWithoutAddressLine();
+//        GenericResponse<ShopDTO> shop = createShop();
+//        GenericResponse<ProductDTO> product = createProduct(shop.getBody());
+//        GenericResponse<AddressDTO> address = createAddress();
+//        GenericResponse<CustomerDTO> customer = createCustomer(address.getBody().getId());
+//        GenericResponse<CustomerDTO> customer1 = createCustomer(address.getBody().getId());
+//        GenericResponse<CustomerDTO> updatedCustomer = updateCustomer(customer.getBody(), address.getBody());
+//        //GenericResponse<OrderDTO> orderDTO = createOrderWithoutAddress();
+//        //GenericResponse<OrderDTO> order = createOrder(customer.getBody().getId(), address.getBody().getId(), shop.getBody().getId());
+//        GenericResponse<OrderProductDTO> orderProduct = createOrderProd();
+//        // GenericResponse<ShopDTO> shopWithoutName = createShopWithoutName();
+//        // GenericResponse<ProductDTO> productWithoutName = createProductWithoutNameAndDescription(shop.getBody());
+//        //  GenericResponse<CustomerDTO> customerDTO = createCustomerWithoutName(address.getBody().getId());
+//        //  GenericResponse<ProductDTO> productDTO = createProductWithoutNameAndDescription(shop.getBody());
     }
 
-    public GenericResponseDTO<ShopDTO> createShop() {
+    public GenericResponse<ShopDTO> createShop() {
         ShopCreationDTO shopCreationDTO = new ShopCreationDTO(
                 "OurShop",
                 true,
@@ -70,7 +80,67 @@ public class ApplicationEventListener {
         return shopCRUDController.post(shopCreationDTO);
     }
 
-    public GenericResponseDTO<ProductDTO> createProduct(ShopDTO shopDTO) {
+    public GenericResponse<AddressDTO> createAddressWithoutAddressLine() {
+        AddressCreationDTO addressCreationDTO = new AddressCreationDTO(
+                Country.ARMENIA,
+                "Yerevan",
+                "Yerevan",
+                null,
+                "sdkjskd",
+                "0097"
+        );
+        return addressCRUDController.post(addressCreationDTO);
+    }
+
+
+    public GenericResponse<OrderDTO> createOrderWithoutAddress() {
+        OrderCreationDTO orderCreationDTO = new OrderCreationDTO(
+                null,
+                1L,
+                1L,
+                null,
+                new BigDecimal(100),
+                new BigDecimal(44),
+                new BigDecimal(45),
+                PaymentType.CARD,
+                new BigDecimal(45));
+        return orderCRUDController.post(orderCreationDTO);
+    }
+
+    public GenericResponse<OrderProductDTO> createOrderProd() {
+        OrderProductCreationDTO orderProductCreationDTO = new OrderProductCreationDTO(
+                5L,
+                null,
+                new BigDecimal(45),
+                new BigDecimal(56),
+                "djskjdsj",
+                new BigDecimal(56),
+                new BigDecimal(89)
+        );
+        return orderProductCRUDController.post(orderProductCreationDTO);
+    }
+
+    public GenericResponse<ProductDTO> createProductWithoutNameAndDescription(ShopDTO shopDTO) {
+        ProductCreationDTO productCreationDTO = new ProductCreationDTO(
+                "",
+                null,
+                true,
+                true,
+                new BigDecimal(450),
+                Unit.KG,
+                shopDTO.getId());
+        return productCRUDController.post(productCreationDTO);
+    }
+
+    public GenericResponse<ShopDTO> createShopWithoutName() {
+        ShopCreationDTO shopCreationDTO = new ShopCreationDTO(
+                null,
+                true,
+                true);
+        return shopCRUDController.post(shopCreationDTO);
+    }
+
+    public GenericResponse<ProductDTO> createProduct(ShopDTO shopDTO) {
         ProductCreationDTO productCreationDTO = new ProductCreationDTO(
                 "Bread",
                 "White bread",
@@ -82,7 +152,14 @@ public class ApplicationEventListener {
         return productCRUDController.post(productCreationDTO);
     }
 
-    public GenericResponseDTO<CustomerDTO> createCustomer(Long id) {
+    public GenericResponse<CustomerDTO> createCustomerWithoutName(Long id) {
+        CustomerCreationDTO customerCreationDTO = new CustomerCreationDTO(
+                null, "5656564", id, new BigDecimal(45)
+        );
+        return customerCRUDController.post(customerCreationDTO);
+    }
+
+    public GenericResponse<CustomerDTO> createCustomer(Long id) {
         CustomerCreationDTO customerCreationDTO = new CustomerCreationDTO(
                 "Asya",
                 "093910595",
@@ -91,7 +168,7 @@ public class ApplicationEventListener {
         return customerCRUDController.post(customerCreationDTO);
     }
 
-    public GenericResponseDTO<AddressDTO> createAddress() {
+    public GenericResponse<AddressDTO> createAddress() {
         AddressCreationDTO addressCreationDTO = new AddressCreationDTO(
                 Country.ARMENIA,
                 "Yerevan",
@@ -102,7 +179,7 @@ public class ApplicationEventListener {
         return addressCRUDController.post(addressCreationDTO);
     }
 
-    public GenericResponseDTO<CustomerDTO> updateCustomer(CustomerDTO customerDTO, AddressDTO addressDTO) {
+    public GenericResponse<CustomerDTO> updateCustomer(CustomerDTO customerDTO, AddressDTO addressDTO) {
         CustomerUpdateDTO customerUpdateDTO = new CustomerUpdateDTO(
                 customerDTO.getId(),
                 customerDTO.getName(),
@@ -112,7 +189,7 @@ public class ApplicationEventListener {
         return customerCRUDController.put(customerUpdateDTO, customerUpdateDTO.getId());
     }
 
-    public GenericResponseDTO<OrderDTO> createOrder(Long customerId, Long shopId, Long addressId) {
+    public GenericResponse<OrderDTO> createOrder(Long customerId, Long shopId, Long addressId) {
         OrderCreationDTO orderCreationDTO = new OrderCreationDTO(
                 null,
                 customerId,
@@ -144,7 +221,6 @@ public class ApplicationEventListener {
                 "shh",
                 BigDecimal.valueOf(89),
                 BigDecimal.valueOf(89));
-
         List<OrderProductCreationDTO> orderProductCreationDTOS = new ArrayList<>();
         orderProductCreationDTOS.add(orderProductCreationDTO);
         orderProductCreationDTOS.add(orderProductCreationDTO1);

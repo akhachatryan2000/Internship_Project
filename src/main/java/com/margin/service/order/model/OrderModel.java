@@ -2,17 +2,16 @@ package com.margin.service.order.model;
 
 import com.margin.common.enums.PaymentType;
 import com.margin.service.orderproduct.model.OrderProductModel;
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.math.BigDecimal;
 import java.util.List;
+
 @Getter
 @Setter
 @EqualsAndHashCode
 @AllArgsConstructor
+@ToString
 public class OrderModel {
 
     private Long id;
