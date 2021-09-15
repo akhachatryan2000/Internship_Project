@@ -14,8 +14,7 @@ public class UserEntityConverter {
                 user.getPassword(),
                 user.getName(),
                 user.getSurname(),
-                user.getStatus(),
-                null // set roles
+                user.getRole()
         );
     }
 }

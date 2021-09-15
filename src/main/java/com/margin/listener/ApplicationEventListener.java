@@ -1,12 +1,14 @@
 package com.margin.listener;
 
-import com.margin.common.exception.response.GenericResponse;
 import com.margin.common.enums.Country;
 import com.margin.common.enums.PaymentType;
 import com.margin.common.enums.Unit;
+import com.margin.common.enums.UserRole;
+import com.margin.common.exception.response.GenericResponse;
 import com.margin.controller.address.AddressCRUDController;
 import com.margin.controller.address.dto.AddressCreationDTO;
 import com.margin.controller.address.dto.AddressDTO;
+import com.margin.controller.admin.AdminCRUDController;
 import com.margin.controller.customer.CustomerCRUDController;
 import com.margin.controller.customer.dto.CustomerCreationDTO;
 import com.margin.controller.customer.dto.CustomerDTO;
@@ -23,6 +25,8 @@ import com.margin.controller.product.dto.ProductDTO;
 import com.margin.controller.shop.ShopCRUDController;
 import com.margin.controller.shop.dto.ShopCreationDTO;
 import com.margin.controller.shop.dto.ShopDTO;
+import com.margin.controller.user.dto.UserCreationDto;
+import com.margin.controller.user.dto.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
@@ -53,10 +57,18 @@ public class ApplicationEventListener {
     @Autowired
     private OrderProductCRUDController orderProductCRUDController;
 
+    @Autowired
+    private AdminCRUDController adminCRUDController;
+
     @EventListener(ContextRefreshedEvent.class)
     public void onContextRefreshedEvent() {
 
-       // GenericResponse<AddressDTO> addressWithoutAddressLine = createAddressWithoutAddressLine();
+        GenericResponse<UserDto> user = createUser();
+        GenericResponse<UserDto> user1 = createUser1();
+        GenericResponse<UserDto> driver = createDriver();
+
+//        GenericResponse<UserDto> userDto = createUser();
+        // GenericResponse<AddressDTO> addressWithoutAddressLine = createAddressWithoutAddressLine();
 //        GenericResponse<ShopDTO> shop = createShop();
 //        GenericResponse<ProductDTO> product = createProduct(shop.getBody());
 //        GenericResponse<AddressDTO> address = createAddress();
@@ -72,12 +84,55 @@ public class ApplicationEventListener {
 //        //  GenericResponse<ProductDTO> productDTO = createProductWithoutNameAndDescription(shop.getBody());
     }
 
+
+    public GenericResponse<UserDto> createUser() {
+       // List<RoleEntity> roles = new ArrayList<>();
+//        roles.add(new RoleEntity("ADMIN"));
+//        roles.add(new RoleEntity("MANAGER"));
+        UserCreationDto userCreationDto = new UserCreationDto(
+                "user",
+                "123456",
+                "Karen",
+                "Petrosyan",
+                UserRole.ADMIN
+        );
+        return adminCRUDController.createUser(userCreationDto);
+    }
+
     public GenericResponse<ShopDTO> createShop() {
         ShopCreationDTO shopCreationDTO = new ShopCreationDTO(
                 "OurShop",
                 true,
                 true);
         return shopCRUDController.post(shopCreationDTO);
+    }
+
+    public GenericResponse<UserDto> createUser1() {
+//        List<RoleEntity> roles = new ArrayList<>();
+//        roles.add(new RoleEntity("ADMIN"));
+        UserCreationDto userCreationDto = new UserCreationDto(
+                "asya",
+                "asya",
+                "Asya",
+                "Khachatryan",
+                UserRole.DRIVER
+
+        );
+        return adminCRUDController.createUser(userCreationDto);
+    }
+
+    public GenericResponse<UserDto> createDriver() {
+//        List<RoleEntity> roles = new ArrayList<>();
+//        roles.add(new RoleEntity("DRIVER"));
+
+        UserCreationDto userCreationDto = new UserCreationDto(
+                "hello",
+                "world",
+                "Arpi",
+                "Khachatryan",
+                UserRole.MANAGER
+        );
+        return adminCRUDController.createUser(userCreationDto);
     }
 
     public GenericResponse<AddressDTO> createAddressWithoutAddressLine() {
@@ -91,6 +146,19 @@ public class ApplicationEventListener {
         );
         return addressCRUDController.post(addressCreationDTO);
     }
+
+
+//    public GenericResponse<UserDto> createUser() {
+//        UserCreationDto userCreationDto1 = new UserCreationDto(
+//                "user",
+//                "123456",
+//                "Asya",
+//                "Khachatryan",
+//                10L,
+//                UserRole.ADMIN
+//        );
+//        return adminCRUDController.post(userCreationDto1);
+//    }
 
 
     public GenericResponse<OrderDTO> createOrderWithoutAddress() {

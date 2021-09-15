@@ -37,5 +37,4 @@ public class CustomerEntity extends AbstractEntity {
 
     @OneToMany(mappedBy = "customer", orphanRemoval = true)
     private List<OrderEntity> orders;
-
 }

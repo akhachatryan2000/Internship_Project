@@ -1,12 +1,10 @@
 package com.margin.controller.user.dto;
 
-import com.margin.controller.role.RoleDTO;
+import com.margin.common.enums.UserRole;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.util.List;
 
 @Getter
 @Setter
@@ -24,7 +22,7 @@ public class UserDto {
 
     private String surname;
 
-    private Long status;
+    private UserRole role;
 
-    private List<RoleDTO> roles;
+   // private List<RoleEntity> roles;
 }

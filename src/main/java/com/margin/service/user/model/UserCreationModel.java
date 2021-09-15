@@ -1,12 +1,11 @@
 package com.margin.service.user.model;
 
-import com.margin.service.role.RoleModel;
+import com.margin.common.enums.UserRole;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.List;
 
 @Getter
 @Setter
@@ -22,7 +21,7 @@ public class UserCreationModel {
 
     private String surname;
 
-    private Long status;
+   // private List<RoleEntity> roles;
 
-    private List<RoleModel> roleModels;
+    private UserRole role;
 }

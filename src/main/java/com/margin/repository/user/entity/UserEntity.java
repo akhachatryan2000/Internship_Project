@@ -1,18 +1,17 @@
 package com.margin.repository.user.entity;
 
-import com.margin.repository.role.RoleEntity;
+import com.margin.common.enums.UserRole;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Getter
 @Setter
 @EqualsAndHashCode
+@Table(name = "users")
 public class UserEntity {
 
     @Id
@@ -25,13 +24,11 @@ public class UserEntity {
 
     private String name;
 
+//    @OneToMany(cascade = CascadeType.ALL)
+//    private List<RoleEntity> roles;
+
     private String surname;
-
-    private Long status;
-
-    @OneToMany
-    @JoinColumn(name = "role_id")
-    private List<RoleEntity> roleEntities;
-
+    @Enumerated(value = EnumType.STRING)
+    private UserRole role;
 
 }

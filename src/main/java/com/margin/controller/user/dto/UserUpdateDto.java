@@ -1,18 +1,17 @@
 package com.margin.controller.user.dto;
 
-import com.margin.controller.role.RoleDTO;
+import com.margin.common.enums.UserRole;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.util.List;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @EqualsAndHashCode
 public class UserUpdateDto {
+
     private Long id;
 
     private String username;
@@ -22,8 +21,7 @@ public class UserUpdateDto {
     private String name;
 
     private String surname;
+    private UserRole role;
 
-    private Long status;
-
-    private List<RoleDTO> roleDTO;
+   // private List<RoleEntity> roles;
 }

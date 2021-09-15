@@ -62,4 +62,6 @@ public class OrderEntity extends AbstractEntity {
     @Column(name = "order_discount")
     private BigDecimal orderDiscount;
 
+    //STATUS
+
 }

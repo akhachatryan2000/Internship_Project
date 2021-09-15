@@ -20,8 +20,7 @@ public class UserModelConverter {
                 userModel.getPassword(),
                 userModel.getName(),
                 userModel.getSurname(),
-                userModel.getStatus(),
-                null // set roles
+                userModel.getRole()
         );
     }
 
@@ -34,7 +33,7 @@ public class UserModelConverter {
         user.setPassword(userCreationModel.getPassword());
         user.setName(userCreationModel.getName());
         user.setSurname(userCreationModel.getSurname());
-        // user.setRoleEntities(userCreationModel.getRoleModels());
+        user.setRole(userCreationModel.getRole());
         return user;
     }
 
@@ -46,7 +45,7 @@ public class UserModelConverter {
         user.setPassword(userUpdateModel.getPassword());
         user.setName(userUpdateModel.getName());
         user.setSurname(userUpdateModel.getSurname());
-        //user.setRoleEntities(userUpdateModel.getRoleModels());
+        user.setRole(userUpdateModel.getRole());
         return user;
     }
 }
