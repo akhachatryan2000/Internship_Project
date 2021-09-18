@@ -1,8 +1,10 @@
 package com.margin.common.config;
 
-import com.margin.repository.token.AccessTokenEntity;
 import com.margin.repository.token.TokenRepository;
-import io.jsonwebtoken.*;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.JwtBuilder;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -68,50 +70,24 @@ public class TokenService {
     }
 
     private String createToken(Map<String, Object> claims, String subject) {
-        try {
-            Instant issuedAt = Instant.now();
-            Instant expiration = issuedAt.plus(3, ChronoUnit.MINUTES);
-            JwtBuilder token = Jwts.builder().setClaims(claims).setSubject(subject)
-                    .setIssuedAt(Date.from(issuedAt))
-                    .setExpiration(Date.from(expiration))
-                    .signWith(SignatureAlgorithm.HS256, secretKey);
-            return token.compact();
-        } catch (ExpiredJwtException ex) {
-            ex.getMessage();
-        }
-        return null;
+        Instant issuedAt = Instant.now();
+        Instant expiration = issuedAt.plus(15, ChronoUnit.MINUTES);
+        JwtBuilder token = Jwts.builder().setClaims(claims).setSubject(subject)
+                .setIssuedAt(Date.from(issuedAt))
+                .setExpiration(Date.from(expiration))
+                .signWith(SignatureAlgorithm.HS256, secretKey);
+        return token.compact();
     }
 
     public Authentication getAuthentication(String token) {
         UserDetails user = userDetailsService.loadUserByUsername(extractUsername(token));
         Authentication authentication = new UsernamePasswordAuthenticationToken(user, "", user.getAuthorities());
-        System.out.println(authentication.toString());
         return authentication;
     }
 
-    public Boolean tokenIsExpired(String token) {
-        return extractExpirationDate(token).before(new Date());
-    }
-
-    public void saveToken(String token) {
-        AccessTokenEntity accessTokenEntity = new AccessTokenEntity();
-        accessTokenEntity.setToken(token);
-        tokenRepository.save(accessTokenEntity);
-    }
-
-
-    //
     public Boolean validateToken(String token, UserDetails userDetails) {
         final String username = extractUsername(token);
-        return (username.equals(userDetails.getUsername()) && tokenIsExpired(token));
+        return (username.equals(userDetails.getUsername()));
     }
-
-//    public Boolean validateToken(String token) {
-//        try {
-//            Claims claims = (Claims) Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token);
-//            return true;
-//        } catch (JwtException | IllegalArgumentException e) {
-//            throw new TokenExpiredException("Token is invalid");
-//        }
 }
 

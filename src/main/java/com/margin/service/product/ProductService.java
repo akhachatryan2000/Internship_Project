@@ -5,8 +5,6 @@ import com.margin.service.product.model.ProductModel;
 import com.margin.service.product.model.ProductUpdateModel;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
-
 @Service
 public interface ProductService {
 

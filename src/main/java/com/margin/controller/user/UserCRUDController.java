@@ -11,6 +11,7 @@ import com.margin.service.user.model.UserCreationModel;
 import com.margin.service.user.model.UserModel;
 import com.margin.service.user.model.UserUpdateModel;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -19,6 +20,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/users")
+@PreAuthorize("hasAnyRole('ADMIN')")
 public class UserCRUDController {
 
     @Autowired

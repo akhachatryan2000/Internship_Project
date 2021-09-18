@@ -11,12 +11,14 @@ import com.margin.service.orderproduct.model.OrderProductCreationModel;
 import com.margin.service.orderproduct.model.OrderProductModel;
 import com.margin.service.orderproduct.model.OrderProductUpdateModel;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/order_products")
+@PreAuthorize("hasAnyRole('ADMIN','MANAGER')")
 public class OrderProductCRUDController {
 
     @Autowired

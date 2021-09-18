@@ -2,7 +2,6 @@ package com.margin.common.security.filter;
 
 import com.margin.common.config.TokenService;
 import com.margin.common.config.UserDetailsServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -21,11 +20,12 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
 
     private final TokenService tokenService;
 
-    @Autowired
-    private UserDetailsServiceImpl userDetailsService;
 
-    public JWTAuthenticationFilter(TokenService tokenService) {
+    private final UserDetailsServiceImpl userDetailsService;
+
+    public JWTAuthenticationFilter(TokenService tokenService, UserDetailsServiceImpl userDetailsService) {
         this.tokenService = tokenService;
+        this.userDetailsService = userDetailsService;
     }
 
     @Override
@@ -43,10 +43,13 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
             if (username != null) {
                 UserDetails userDetails = userDetailsService.loadUserByUsername(username);
                 Boolean isValid = tokenService.validateToken(token, userDetails);
-                UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(
-                        userDetails, "", userDetails.getAuthorities());
-                auth.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-                SecurityContextHolder.getContext().setAuthentication(auth);
+                if (isValid == true) {
+                    UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(
+                            userDetails, "", userDetails.getAuthorities());
+                    auth.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                    SecurityContextHolder.getContext().setAuthentication(auth);
+                    filterChain.doFilter(request, response);
+                }
             }
         } catch (IllegalStateException exception) {
             SecurityContextHolder.clearContext();

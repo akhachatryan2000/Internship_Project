@@ -11,6 +11,7 @@ import com.margin.service.customer.model.CustomerCreationModel;
 import com.margin.service.customer.model.CustomerModel;
 import com.margin.service.customer.model.CustomerUpdateModel;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -18,6 +19,7 @@ import javax.validation.constraints.NotNull;
 
 @RestController
 @RequestMapping("/customers")
+@PreAuthorize("hasAnyRole('ADMIN','MANAGER')")
 public class CustomerCRUDController {
 
     @Autowired

@@ -16,7 +16,7 @@ import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.Collection;
 
-@Service
+@Component
 public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Autowired

@@ -11,6 +11,7 @@ import com.margin.service.product.model.ProductCreationModel;
 import com.margin.service.product.model.ProductModel;
 import com.margin.service.product.model.ProductUpdateModel;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -18,6 +19,7 @@ import javax.validation.Valid;
 
 @RestController
 @RequestMapping(path = "/products")
+@PreAuthorize("hasAnyRole('ADMIN','MANAGER')")
 public class ProductCRUDController {
 
     @Autowired

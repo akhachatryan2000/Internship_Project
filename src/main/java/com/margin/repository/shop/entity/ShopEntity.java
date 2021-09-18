@@ -3,12 +3,11 @@ package com.margin.repository.shop.entity;
 import com.margin.repository.AbstractEntity;
 import com.margin.repository.product.entity.ProductEntity;
 import lombok.*;
-import org.intellij.lang.annotations.Pattern;
 
 import javax.persistence.*;
 import java.util.List;
 
-@Entity(name = "ShopEntity")
+@Entity
 @Table(name = "shops")
 @Setter
 @Getter
@@ -30,6 +29,6 @@ public class ShopEntity extends AbstractEntity {
     @Column(name = "visible", nullable = false)
     private Boolean visible;
 
-    @OneToMany(mappedBy = "shopEntity", orphanRemoval = true, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "shops", orphanRemoval = true, cascade = CascadeType.ALL)
     private List<ProductEntity> productEntities;
 }

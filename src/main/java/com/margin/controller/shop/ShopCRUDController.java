@@ -11,12 +11,14 @@ import com.margin.service.shop.model.ShopCreationModel;
 import com.margin.service.shop.model.ShopModel;
 import com.margin.service.shop.model.ShopUpdateModel;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
 @RestController
 @RequestMapping(path = "/shops")
+@PreAuthorize("hasAnyRole('ADMIN','MANAGER')")
 public class ShopCRUDController {
 
     @Autowired

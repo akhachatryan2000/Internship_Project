@@ -41,7 +41,7 @@ public class AuthController {
         UserDetails userDetails = userDetailsService.loadUserByUsername(request.getUsername());
         final String jwt = tokenService.generateToken(request.getUsername(), userDetails.getAuthorities()
                 .stream().map(role -> new SimpleGrantedAuthority(role.getAuthority())).collect(Collectors.toList()));
-        return new GenericResponse<AuthenticationResponse>
+        return new GenericResponse<>
                 (new AuthenticationResponse(jwt, userDetails.getAuthorities().toString(), userDetails.getUsername()), null);
     }
 }
