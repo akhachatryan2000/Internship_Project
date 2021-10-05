@@ -1,7 +1,7 @@
 package com.margin.service.shop.converter;
 
 import com.margin.controller.shop.dto.ShopDTO;
-import com.margin.repository.shop.entity.ShopEntity;
+import com.margin.entity.ShopEntity;
 import com.margin.service.shop.model.ShopCreationModel;
 import com.margin.service.shop.model.ShopModel;
 import com.margin.service.shop.model.ShopUpdateModel;

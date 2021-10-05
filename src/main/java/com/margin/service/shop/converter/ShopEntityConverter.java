@@ -1,6 +1,6 @@
 package com.margin.service.shop.converter;
 
-import com.margin.repository.shop.entity.ShopEntity;
+import com.margin.entity.ShopEntity;
 import com.margin.service.shop.model.ShopModel;
 import org.springframework.stereotype.Component;
 

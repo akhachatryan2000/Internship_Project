@@ -1,7 +1,7 @@
 package com.margin.service.orderproduct.converter;
 
 import com.margin.controller.orderproduct.dto.OrderProductDTO;
-import com.margin.repository.orderproduct.entity.OrderProductEntity;
+import com.margin.entity.OrderProductEntity;
 import com.margin.service.orderproduct.model.OrderProductCreationModel;
 import com.margin.service.orderproduct.model.OrderProductModel;
 import com.margin.service.orderproduct.model.OrderProductUpdateModel;

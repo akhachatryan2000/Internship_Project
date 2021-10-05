@@ -1,6 +1,6 @@
 package com.margin.service.shop;
 
-import com.margin.repository.shop.entity.ShopEntity;
+import com.margin.entity.ShopEntity;
 import com.margin.repository.shop.ShopRepository;
 import com.margin.service.shop.converter.ShopEntityConverter;
 import com.margin.service.shop.converter.ShopModelConverter;
@@ -8,26 +8,26 @@ import com.margin.service.shop.model.ShopCreationModel;
 import com.margin.service.shop.model.ShopModel;
 import com.margin.service.shop.model.ShopUpdateModel;
 import com.margin.service.shop.validator.ShopValidator;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
+import net.bytebuddy.agent.builder.AgentBuilder;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
+import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Service
+@AllArgsConstructor
 public class ShopService {
 
-    @Autowired
     private ShopRepository shopRepository;
 
-    @Autowired
     private ShopEntityConverter shopEntityConverter;
 
-    @Autowired
     private ShopModelConverter shopModelConverter;
 
-    @Autowired
     private ShopValidator shopValidator;
 
     public ShopModel get(Long id) {
@@ -58,5 +58,14 @@ public class ShopService {
         shopRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("No such user to delete"));
         shopRepository.updateDeleted(id);
         return true;
+    }
+
+    public List<ShopModel> getAll() {
+        List<ShopEntity> shopEntities = shopRepository.findAll();
+        List<ShopModel> shopModels = shopEntities
+                .stream()
+                .map(shopEntity -> shopEntityConverter.convert(shopEntity))
+                .collect(Collectors.toList());
+        return shopModels;
     }
 }

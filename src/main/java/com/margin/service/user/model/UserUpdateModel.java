@@ -22,7 +22,5 @@ public class UserUpdateModel {
 
     private String surname;
 
-   // private List<RoleEntity> roles;
-
     private UserRole role;
 }

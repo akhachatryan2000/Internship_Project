@@ -19,5 +19,4 @@ public class ShopModel {
     private Boolean active;
 
     private Boolean visible;
-
 }

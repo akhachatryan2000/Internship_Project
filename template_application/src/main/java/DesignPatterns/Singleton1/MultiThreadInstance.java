@@ -18,9 +18,7 @@ public final class MultiThreadInstance {
             }
 
             return instance;
-
         }
-
 
     }
 }

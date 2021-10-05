@@ -1,39 +1,28 @@
 package com.margin.common.config;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
+@Primary
 public class PasswordEncoderImpl implements PasswordEncoder {
+
 
     @Override
     public String encode(CharSequence rawPassword) {
-        return rawPassword.toString();
+        return encoder().encode(rawPassword);
     }
 
     @Override
     public boolean matches(CharSequence rawPassword, String encodedPassword) {
-        return true;
+        return encoder().matches(rawPassword, encodedPassword);
+    }
+
+    @Bean
+    public PasswordEncoder encoder() {
+        return new BCryptPasswordEncoder();
     }
 }
-
-
-//    @Bean
-//    public BCryptPasswordEncoder bCryptPasswordEncoder() {
-//        byte[] seed = "salt".getBytes();
-//        return new BCryptPasswordEncoder(BCryptPasswordEncoder.BCryptVersion.$2A, new SecureRandom(seed));
-//    }
-//
-//    @Override
-//    public String encode(CharSequence rawPassword) {
-//        String encoded = bCryptPasswordEncoder().encode(rawPassword);
-//        return encoded;
-//    }
-//
-//    @Override
-//    public boolean matches(CharSequence rawPassword, String encodedPassword) {
-//        String encoded = encode(rawPassword);
-//        if (encoded.equals(encodedPassword)) {
-//            return true;
-//        }
-//        return false;

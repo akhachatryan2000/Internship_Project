@@ -21,7 +21,6 @@ public class UserUpdateDto {
     private String name;
 
     private String surname;
-    private UserRole role;
 
-   // private List<RoleEntity> roles;
+    private UserRole role;
 }

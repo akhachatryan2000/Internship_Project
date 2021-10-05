@@ -1,13 +1,13 @@
 package com.margin.service.order;
 
+import com.margin.entity.AddressEntity;
+import com.margin.entity.CustomerEntity;
+import com.margin.entity.OrderEntity;
+import com.margin.entity.ShopEntity;
 import com.margin.repository.address.AddressRepository;
-import com.margin.repository.address.entity.AddressEntity;
 import com.margin.repository.customer.CustomerRepository;
-import com.margin.repository.customer.entity.CustomerEntity;
 import com.margin.repository.order.OrderRepository;
-import com.margin.repository.order.entity.OrderEntity;
 import com.margin.repository.orderproduct.OrderProductRepository;
-import com.margin.repository.shop.entity.ShopEntity;
 import com.margin.repository.shop.ShopRepository;
 import com.margin.service.order.converter.OrderEntityConverter;
 import com.margin.service.order.converter.OrderModelConverter;
@@ -15,38 +15,32 @@ import com.margin.service.order.model.OrderCreationModel;
 import com.margin.service.order.model.OrderModel;
 import com.margin.service.order.model.OrderUpdateModel;
 import com.margin.service.order.validator.OrderValidator;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
+@AllArgsConstructor
 public class OrderService {
 
-    @Autowired
     private CustomerRepository customerRepository;
 
-    @Autowired
     private AddressRepository addressRepository;
 
-    @Autowired
     private ShopRepository shopRepository;
 
-    @Autowired
     private OrderRepository orderRepository;
 
-    @Autowired
     private OrderEntityConverter orderEntityConverter;
 
-    @Autowired
     private OrderModelConverter orderModelConverter;
 
-    @Autowired
     private OrderProductRepository orderProduct;
 
-    @Autowired
     private OrderValidator orderValidator;
 
     public OrderModel get(Long id) {
@@ -87,5 +81,14 @@ public class OrderService {
                 .orElseThrow(() -> new EntityNotFoundException("Order with this id does not exist"));
         orderRepository.deleteUpdated(id);
         return true;
+    }
+
+    public List<OrderModel> getAll() {
+        List<OrderEntity> orderEntities = orderRepository.findAll();
+        List<OrderModel> orderModels = orderEntities
+                .stream()
+                .map(orderEntity -> orderEntityConverter.convert(orderEntity))
+                .collect(Collectors.toList());
+        return orderModels;
     }
 }

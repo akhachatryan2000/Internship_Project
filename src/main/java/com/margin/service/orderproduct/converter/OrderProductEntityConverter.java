@@ -1,6 +1,6 @@
 package com.margin.service.orderproduct.converter;
 
-import com.margin.repository.orderproduct.entity.OrderProductEntity;
+import com.margin.entity.OrderProductEntity;
 import com.margin.service.orderproduct.model.OrderProductModel;
 import org.springframework.stereotype.Component;
 

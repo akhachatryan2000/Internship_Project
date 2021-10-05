@@ -1,7 +1,7 @@
 package com.margin.service.product.converter;
 
 import com.margin.controller.product.dto.ProductDTO;
-import com.margin.repository.product.entity.ProductEntity;
+import com.margin.entity.ProductEntity;
 import com.margin.service.product.model.ProductCreationModel;
 import com.margin.service.product.model.ProductModel;
 import com.margin.service.product.model.ProductUpdateModel;

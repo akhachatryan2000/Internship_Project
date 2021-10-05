@@ -11,38 +11,38 @@ import com.margin.service.order.converter.OrderModelConverter;
 import com.margin.service.order.model.OrderCreationModel;
 import com.margin.service.order.model.OrderModel;
 import com.margin.service.order.model.OrderUpdateModel;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(path = {"/orders"})
 @PreAuthorize("hasAnyRole('ADMIN','MANAGER')")
+@AllArgsConstructor
 public class OrderCRUDController {
 
-    @Autowired
     private OrderService orderService;
 
-    @Autowired
     private OrderModelConverter orderModelConverter;
 
-    @Autowired
+
     private OrderDTOConverter orderDTOConverter;
 
-    @Autowired
     private OrderFacade orderFacade;
 
     @GetMapping("/{id}")
-    @ResponseBody
     public GenericResponse<OrderDTO> get(@PathVariable(name = "id") Long id) {
         OrderModel orderModel = orderService.get(id);
         OrderDTO orderDTO = orderModelConverter.convert(orderModel);
         return new GenericResponse<>(orderDTO, null);
     }
 
-    @PostMapping
+    @PostMapping("/create")
     public GenericResponse<OrderDTO> post(@Valid @RequestBody OrderCreationDTO orderCreationDTO) {
         OrderCreationModel orderCreationModel = orderDTOConverter.convert(orderCreationDTO);
         OrderModel orderModel = orderFacade.createOrder(orderCreationModel);
@@ -50,7 +50,7 @@ public class OrderCRUDController {
         return new GenericResponse<>(orderDTO, null);
     }
 
-    @PutMapping(path = "/{id}")
+    @PutMapping(path = "/{id}/update")
     public GenericResponse<OrderDTO> put(@PathVariable(name = "id") Long id, @Valid @RequestBody OrderUpdateDTO orderUpdateDTO) {
         OrderUpdateModel orderUpdateModel = orderDTOConverter.convert(orderUpdateDTO);
         OrderModel orderModel = orderService.update(orderUpdateModel, id);
@@ -58,9 +58,19 @@ public class OrderCRUDController {
         return new GenericResponse<>(orderDTO, null);
     }
 
-    @DeleteMapping(path = "/{id}")
+    @DeleteMapping(path = "/{id}/delete")
     public GenericResponse<Boolean> delete(@PathVariable(name = "id") Long id) {
         Boolean isDeleted = orderService.delete(id);
         return new GenericResponse<>(isDeleted, null);
+    }
+
+    @GetMapping
+    public GenericResponse<List<OrderDTO>> getAll() {
+        List<OrderModel> orderModels = orderService.getAll();
+        List<OrderDTO> orders = orderModels
+                .stream()
+                .map(orderModel -> orderModelConverter.convert(orderModel))
+                .collect(Collectors.toList());
+        return new GenericResponse<>(orders, null);
     }
 }

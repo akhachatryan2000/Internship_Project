@@ -1,13 +1,15 @@
 package com.margin.service.user.converter;
 
 import com.margin.controller.user.dto.UserDto;
-import com.margin.repository.user.entity.UserEntity;
+import com.margin.entity.UserEntity;
 import com.margin.service.user.model.UserCreationModel;
 import com.margin.service.user.model.UserModel;
 import com.margin.service.user.model.UserUpdateModel;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @Component
+@AllArgsConstructor
 public class UserModelConverter {
 
     public UserDto convert(UserModel userModel) {

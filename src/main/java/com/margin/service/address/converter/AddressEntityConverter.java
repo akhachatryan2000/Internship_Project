@@ -1,6 +1,6 @@
 package com.margin.service.address.converter;
 
-import com.margin.repository.address.entity.AddressEntity;
+import com.margin.entity.AddressEntity;
 import com.margin.service.address.model.AddressModel;
 import org.springframework.stereotype.Component;
 

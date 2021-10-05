@@ -1,6 +1,6 @@
 package com.margin.service.product.converter;
 
-import com.margin.repository.product.entity.ProductEntity;
+import com.margin.entity.ProductEntity;
 import com.margin.service.product.model.ProductModel;
 import org.springframework.stereotype.Component;
 

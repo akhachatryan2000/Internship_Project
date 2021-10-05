@@ -1,6 +1,6 @@
 package com.margin.service.customer.converter;
 
-import com.margin.repository.customer.entity.CustomerEntity;
+import com.margin.entity.CustomerEntity;
 import com.margin.service.customer.model.CustomerModel;
 import org.springframework.stereotype.Component;
 

@@ -10,54 +10,63 @@ import com.margin.service.product.converter.ProductModelConverter;
 import com.margin.service.product.model.ProductCreationModel;
 import com.margin.service.product.model.ProductModel;
 import com.margin.service.product.model.ProductUpdateModel;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
+import java.util.List;
+import java.util.stream.Collectors;
 
 
 @RestController
 @RequestMapping(path = "/products")
-@PreAuthorize("hasAnyRole('ADMIN','MANAGER')")
+@PreAuthorize("hasAnyAuthority('ADMIN','MANAGER')")
+@AllArgsConstructor
 public class ProductCRUDController {
 
-    @Autowired
     private ProductService productService;
 
-    @Autowired
     private ProductModelConverter productModelConverter;
 
-    @Autowired
     private ProductDTOConverter productDTOConverter;
 
     @GetMapping(path = "/{id}")
-    @ResponseBody
     public GenericResponse<ProductDTO> get(@PathVariable(name = "id") Long id) {
         ProductModel productModel = productService.get(id);
         ProductDTO productDTO = productModelConverter.convert(productModel);
         return new GenericResponse<>(productDTO, null);
     }
 
-    @PostMapping
-    public GenericResponse<ProductDTO> post(@Valid @RequestBody ProductCreationDTO productCreationDTO) {
+    @PostMapping("create")
+    public GenericResponse<ProductDTO> post(@RequestBody ProductCreationDTO productCreationDTO) {
         ProductCreationModel productCreationModel = productDTOConverter.convert(productCreationDTO);
         ProductModel productModel = productService.create(productCreationModel);
         ProductDTO productDTO = productModelConverter.convert(productModel);
         return new GenericResponse<>(productDTO, null);
     }
 
-    @PutMapping(path = "/{id}")
-    public GenericResponse<ProductDTO> put(@PathVariable(name = "id") Long id, @Valid @RequestBody ProductUpdateDTO productUpdateDTO) {
+    @PutMapping(path = "/{id}/update")
+    public GenericResponse<ProductDTO> put(@PathVariable(name = "id") Long id, @RequestBody ProductUpdateDTO productUpdateDTO) {
         ProductUpdateModel productUpdateModel = productDTOConverter.convert(productUpdateDTO);
         ProductModel productModel = productService.update(productUpdateModel);
         ProductDTO productDTO = productModelConverter.convert(productModel);
         return new GenericResponse<>(productDTO, null);
     }
 
-    @DeleteMapping(path = "/{id}")
+    @DeleteMapping(path = "/{id}/delete")
     public GenericResponse<Boolean> delete(@PathVariable(name = "id") Long id) {
         Boolean isDeleted = productService.delete(id);
         return new GenericResponse<>(isDeleted, null);
+    }
+
+    @GetMapping
+    public GenericResponse<List<ProductDTO>> getAll() {
+        List<ProductModel> products = productService.getAll();
+        List<ProductDTO> productDTOS = products
+                .stream()
+                .map(productModel -> productModelConverter
+                        .convert(productModel))
+                .collect(Collectors.toList());
+        return new GenericResponse<>(productDTOS, null);
     }
 }

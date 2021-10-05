@@ -5,6 +5,8 @@ import com.margin.service.product.model.ProductModel;
 import com.margin.service.product.model.ProductUpdateModel;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public interface ProductService {
 
@@ -15,4 +17,6 @@ public interface ProductService {
     ProductModel create(ProductCreationModel productCreationModel);
 
     ProductModel update(ProductUpdateModel productUpdateModel);
+
+    List<ProductModel> getAll();
 }

@@ -1,6 +1,6 @@
 package com.margin.service.order.converter;
 
-import com.margin.repository.order.entity.OrderEntity;
+import com.margin.entity.OrderEntity;
 import com.margin.service.order.model.OrderModel;
 import com.margin.service.orderproduct.converter.OrderProductEntityConverter;
 import com.margin.service.orderproduct.model.OrderProductModel;

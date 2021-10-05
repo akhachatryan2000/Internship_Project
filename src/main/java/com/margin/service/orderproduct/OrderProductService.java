@@ -1,15 +1,16 @@
 package com.margin.service.orderproduct;
 
 import com.margin.repository.orderproduct.OrderProductRepository;
-import com.margin.repository.orderproduct.entity.OrderProductEntity;
+import com.margin.entity.OrderProductEntity;
 import com.margin.repository.product.ProductRepository;
-import com.margin.repository.product.entity.ProductEntity;
+import com.margin.entity.ProductEntity;
 import com.margin.service.orderproduct.converter.OrderProductEntityConverter;
 import com.margin.service.orderproduct.converter.OrderProductModelConverter;
 import com.margin.service.orderproduct.model.OrderProductCreationModel;
 import com.margin.service.orderproduct.model.OrderProductModel;
 import com.margin.service.orderproduct.model.OrderProductUpdateModel;
 import com.margin.service.orderproduct.validator.OrderProductValidator;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,23 +18,20 @@ import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Service
+@AllArgsConstructor
 public class OrderProductService {
 
-    @Autowired
     private OrderProductRepository orderProductRepository;
 
-    @Autowired
     private OrderProductEntityConverter orderProductEntityConverter;
 
-    @Autowired
     private OrderProductModelConverter orderProductModelConverter;
 
-    @Autowired
     private ProductRepository productRepository;
 
-    @Autowired
     private OrderProductValidator orderProductValidator;
 
 
@@ -82,5 +80,14 @@ public class OrderProductService {
                 });
         entityList = orderProductRepository.saveAll(entityList);
         return orderProductEntityConverter.convert(entityList);
+    }
+
+    public List<OrderProductModel> getAll() {
+        List<OrderProductEntity> orderProductEntities = orderProductRepository.findAll();
+        List<OrderProductModel> orderProductModels = orderProductEntities
+                .stream()
+                .map(orderProductEntity -> orderProductEntityConverter.convert(orderProductEntity))
+                .collect(Collectors.toList());
+        return orderProductModels;
     }
 }

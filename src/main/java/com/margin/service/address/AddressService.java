@@ -1,33 +1,32 @@
 package com.margin.service.address;
 
-import com.margin.repository.AbstractEntity;
 import com.margin.repository.address.AddressRepository;
-import com.margin.repository.address.entity.AddressEntity;
+import com.margin.entity.AddressEntity;
 import com.margin.service.address.converter.AddressEntityConverter;
 import com.margin.service.address.converter.AddressModelConverter;
 import com.margin.service.address.model.AddressCreationModel;
 import com.margin.service.address.model.AddressModel;
 import com.margin.service.address.model.AddressUpdateModel;
 import com.margin.service.address.validator.AddressValidator;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
+@AllArgsConstructor
 public class AddressService {
 
-    @Autowired
     private AddressRepository addressRepository;
 
-    @Autowired
     private AddressEntityConverter addressEntityConverter;
 
-    @Autowired
     private AddressModelConverter addressModelConverter;
 
-    @Autowired
     private AddressValidator addressValidator;
 
 
@@ -61,5 +60,14 @@ public class AddressService {
         }
         addressRepository.deletedUpdate(id);
         return true;
+    }
+
+    public List<AddressModel> getAll() {
+        List<AddressEntity> addressEntities = addressRepository.findAll();
+        List<AddressModel> addressModels = addressEntities
+                .stream()
+                .map(addressEntity -> addressEntityConverter.convert(addressEntity))
+                .collect(Collectors.toList());
+        return addressModels;
     }
 }

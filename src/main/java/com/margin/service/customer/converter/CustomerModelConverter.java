@@ -1,7 +1,7 @@
 package com.margin.service.customer.converter;
 
 import com.margin.controller.customer.dto.CustomerDTO;
-import com.margin.repository.customer.entity.CustomerEntity;
+import com.margin.entity.CustomerEntity;
 import com.margin.service.customer.model.CustomerCreationModel;
 import com.margin.service.customer.model.CustomerModel;
 import com.margin.service.customer.model.CustomerUpdateModel;

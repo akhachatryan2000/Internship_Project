@@ -1,45 +1,39 @@
 package com.margin.service.customer;
 
+import com.margin.entity.AddressEntity;
+import com.margin.entity.CustomerEntity;
 import com.margin.repository.address.AddressRepository;
 import com.margin.repository.customer.CustomerRepository;
-import com.margin.repository.customer.entity.CustomerEntity;
+import com.margin.service.address.model.AddressModel;
 import com.margin.service.customer.converter.CustomerEntityConverter;
 import com.margin.service.customer.converter.CustomerModelConverter;
 import com.margin.service.customer.model.CustomerCreationModel;
 import com.margin.service.customer.model.CustomerModel;
 import com.margin.service.customer.model.CustomerUpdateModel;
 import com.margin.service.customer.validator.CustomerValidator;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.ParameterResolutionDelegate;
+import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
+@AllArgsConstructor
 public class CustomerService {
 
-    @Autowired
     private CustomerRepository customerRepository;
 
-    @Autowired
-    private final CustomerEntityConverter customerEntityConverter;
+    private CustomerEntityConverter customerEntityConverter;
 
-    @Autowired
     private CustomerModelConverter customerModelConverter;
 
-    @Autowired
     private AddressRepository addressRepository;
 
-    @Autowired
     private CustomerValidator customerValidator;
 
-    public CustomerService(CustomerRepository customerRepository, CustomerEntityConverter customerEntityConverter, CustomerModelConverter customerModelConverter, AddressRepository addressRepository) {
-        this.customerRepository = customerRepository;
-        this.customerEntityConverter = customerEntityConverter;
-        this.customerModelConverter = customerModelConverter;
-        this.addressRepository = addressRepository;
-    }
 
     public CustomerModel get(Long id) {
         CustomerEntity customerEntity = customerRepository.findById(id)
@@ -78,8 +72,16 @@ public class CustomerService {
 
     public Boolean delete(Long id) {
         customerRepository.findById(id)
-                .orElseThrow(()->new EntityNotFoundException("Customer with this id does not exist"));
+                .orElseThrow(() -> new EntityNotFoundException("Customer with this id does not exist"));
         customerRepository.deletedUpdate(id);
         return true;
+    }
+
+    public List<CustomerModel> getAll() {
+        List<CustomerEntity> customerEntities = customerRepository.findAll();
+        return customerEntities
+                .stream()
+                .map(customerEntity -> customerEntityConverter.convert(customerEntity))
+                .collect(Collectors.toList());
     }
 }

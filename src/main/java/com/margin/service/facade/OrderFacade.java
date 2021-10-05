@@ -7,22 +7,19 @@ import com.margin.service.order.validator.OrderValidator;
 import com.margin.service.orderproduct.OrderProductService;
 import com.margin.service.orderproduct.model.OrderProductCreationModel;
 import com.margin.service.orderproduct.model.OrderProductModel;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import javax.validation.Valid;
 import java.util.List;
 
 @Service
+@AllArgsConstructor
 public class OrderFacade {
 
-    @Autowired
     private OrderService orderService;
 
-    @Autowired
     private OrderProductService orderProductService;
 
-    @Autowired
     private OrderValidator orderValidator;
 
     public OrderModel createOrder(OrderCreationModel orderCreationModel) {

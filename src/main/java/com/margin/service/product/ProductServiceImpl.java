@@ -1,42 +1,37 @@
 package com.margin.service.product;
 
+import com.margin.entity.ProductEntity;
+import com.margin.entity.ShopEntity;
 import com.margin.repository.product.ProductRepository;
-import com.margin.repository.product.entity.ProductEntity;
 import com.margin.repository.shop.ShopRepository;
-import com.margin.repository.shop.entity.ShopEntity;
 import com.margin.service.product.converter.ProductEntityConverter;
 import com.margin.service.product.converter.ProductModelConverter;
 import com.margin.service.product.model.ProductCreationModel;
 import com.margin.service.product.model.ProductModel;
 import com.margin.service.product.model.ProductUpdateModel;
-import com.margin.service.product.validator.ProductHasDescriptionValidator;
 import com.margin.service.product.validator.ProductValidator;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
+@AllArgsConstructor
 public class ProductServiceImpl implements ProductService {
 
-    @Autowired
     private ProductRepository productRepository;
 
-    @Autowired
     private ProductEntityConverter productEntityConverter;
 
-    @Autowired
     private ShopRepository shopRepository;
 
-    @Autowired
     private ProductModelConverter productModelConverter;
 
-    @Autowired
     private ProductValidator productValidator;
 
-    @Autowired
-    private ProductHasDescriptionValidator hasDescriptionValidator;
 
     public ProductModel get(Long id) {
         ProductEntity productEntity = productRepository.findById(id)
@@ -66,8 +61,6 @@ public class ProductServiceImpl implements ProductService {
                         productUpdateModel.getId() + " does not exist"));
         if (nameIsChanged(productEntity.getName(), productUpdateModel.getName())) {
             productValidator.productIsValid(productUpdateModel);
-        } else {
-            hasDescriptionValidator.productHasDescription(productUpdateModel.getDescription());
         }
         productEntity = productModelConverter.convert(productUpdateModel, productEntity);
         productEntity = productRepository.save(productEntity);
@@ -80,6 +73,17 @@ public class ProductServiceImpl implements ProductService {
                 .orElseThrow(() -> new EntityNotFoundException("Product with this id does not exist"));
         productRepository.updateDeleted(id);
         return true;
+    }
+
+    @Override
+    public List<ProductModel> getAll() {
+        List<ProductEntity> products = productRepository.findAll();
+        List<ProductModel> productModels = products
+                .stream()
+                .map(productEntity -> productEntityConverter
+                        .convert(productEntity))
+                .collect(Collectors.toList());
+        return productModels;
     }
 
     public Boolean nameIsChanged(String oldName, String newName) {

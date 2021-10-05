@@ -21,6 +21,4 @@ public class UserCreationDto {
     private String surname;
 
     private UserRole role;
-
-    //private List<RoleEntity> roles;
 }

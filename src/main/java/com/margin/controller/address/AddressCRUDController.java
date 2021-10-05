@@ -10,41 +10,42 @@ import com.margin.service.address.converter.AddressModelConverter;
 import com.margin.service.address.model.AddressCreationModel;
 import com.margin.service.address.model.AddressModel;
 import com.margin.service.address.model.AddressUpdateModel;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.security.RolesAllowed;
 import javax.validation.Valid;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(path = "/addresses")
+@AllArgsConstructor
 public class AddressCRUDController {
 
-    @Autowired
+
     private AddressService addressService;
 
-    @Autowired
     private AddressDTOConverter addressDTOConverter;
 
-    @Autowired
     private AddressModelConverter addressModelConverter;
 
     @GetMapping(path = "/{id}")
-    @ResponseBody
     public GenericResponse<AddressDTO> get(@PathVariable(name = "id") Long id) {
         AddressModel addressModel = addressService.get(id);
         AddressDTO addressDTO = addressModelConverter.convert(addressModel);
         return new GenericResponse<>(addressDTO, null);
     }
 
-    @PostMapping
+    @PostMapping("create")
     public GenericResponse<AddressDTO> post(@Valid @RequestBody AddressCreationDTO addressCreationDTO) {
-        AddressCreationModel addressCreationalModel = addressDTOConverter.convert(addressCreationDTO);
-        AddressModel addressModel = addressService.create(addressCreationalModel);
+        AddressCreationModel addressCreationModel = addressDTOConverter.convert(addressCreationDTO);
+        AddressModel addressModel = addressService.create(addressCreationModel);
         AddressDTO addressDTO = addressModelConverter.convert(addressModel);
         return new GenericResponse<>(addressDTO, null);
     }
 
-    @PutMapping(path = "/{id}")
+    @PutMapping(path = "/{id}/update")
     public GenericResponse<AddressDTO> put(@PathVariable(name = "id") Long id, @Valid @RequestBody AddressUpdateDTO addressUpdateDTO) {
         AddressUpdateModel addressUpdateModel = addressDTOConverter.convert(addressUpdateDTO);
         AddressModel addressModel = addressService.update(addressUpdateModel, id);
@@ -52,9 +53,20 @@ public class AddressCRUDController {
         return new GenericResponse<>(addressDTO, null);
     }
 
-    @DeleteMapping(path = "/{id}")
+    @DeleteMapping(path = "/{id}/delete")
     public GenericResponse<Boolean> delete(@PathVariable(name = "id") Long id) {
         Boolean isDeleted = addressService.delete(id);
         return new GenericResponse<>(isDeleted, null);
+    }
+
+    @GetMapping
+    public GenericResponse<List<AddressDTO>> getAll() {
+        List<AddressModel> addresses = addressService.getAll();
+        List<AddressDTO> addressDTOS = addresses
+                .stream()
+                .map(addressModel ->
+                        addressModelConverter.convert(addressModel))
+                .collect(Collectors.toList());
+        return new GenericResponse<>(addressDTOS, null);
     }
 }

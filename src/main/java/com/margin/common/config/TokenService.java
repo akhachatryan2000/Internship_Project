@@ -1,11 +1,10 @@
 package com.margin.common.config;
 
-import com.margin.repository.token.TokenRepository;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -22,14 +21,10 @@ import java.util.Map;
 import java.util.function.Function;
 
 @Component
+@AllArgsConstructor
 public class TokenService {
-
     private final String secretKey = "secretkey";
 
-    @Autowired
-    private TokenRepository tokenRepository;
-
-    @Autowired
     private UserDetailsServiceImpl userDetailsService;
 
 
@@ -46,7 +41,7 @@ public class TokenService {
     public String resolveToken(HttpServletRequest request) {
         String bearerToken = request.getHeader("Authorization");
         if (bearerToken != null && bearerToken.startsWith("Bearer ")) {
-            return bearerToken.substring(7); //returns the token
+            return bearerToken.substring(7);
         }
         return null;
     }
@@ -65,7 +60,7 @@ public class TokenService {
         Map<String, Object> claims = new HashMap<>();
         claims.put("username", username);
         claims.put("roles", roles.toString());
-        String createdToken = createToken(claims, username); // subject is the username
+        String createdToken = createToken(claims, username);
         return createdToken;
     }
 

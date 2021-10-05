@@ -1,31 +1,45 @@
 package com.margin.service.customer.validator;
 
+import com.margin.common.exception.customer.CustomerNotValidException;
+import com.margin.common.exception.response.ExceptionCode;
 import com.margin.service.customer.model.CustomerCreationModel;
 import com.margin.service.customer.model.CustomerUpdateModel;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.math.BigDecimal;
 
 @Component
 public class CustomerValidator {
 
-    @Autowired
-    private CustomerHasNameValidator customerHasNameValidator;
-
-    @Autowired
-    private CustomerHasPhoneNumber customerHasPhoneNumber;
-
-    @Autowired
-    private CustomerHasBonusValidator bonusValidator;
-
     public void customerIsValid(CustomerCreationModel customerModel) {
-        customerHasNameValidator.customerHasName(customerModel.getName());
-        customerHasPhoneNumber.hasPhoneNumber(customerModel.getPhoneNumber());
-        bonusValidator.customerHasBonus(customerModel.getBonus());
+        customerHasName(customerModel.getName());
+        hasPhoneNumber(customerModel.getPhoneNumber());
+        customerHasBonus(customerModel.getBonus());
     }
 
     public void customerIsValid(CustomerUpdateModel customerModel) {
-        customerHasNameValidator.customerHasName(customerModel.getName());
-        customerHasPhoneNumber.hasPhoneNumber(customerModel.getPhoneNumber());
-        bonusValidator.customerHasBonus(customerModel.getBonus());
+        customerHasName(customerModel.getName());
+        hasPhoneNumber(customerModel.getPhoneNumber());
+        customerHasBonus(customerModel.getBonus());
+    }
+
+    private void customerHasBonus(BigDecimal bonus) {
+        if (bonus == null) {
+            throw new CustomerNotValidException("You should provide bonus field", ExceptionCode.UUTI_45);
+        }
+    }
+
+    private void customerHasName(String name) {
+        if (name == null) {
+            throw new CustomerNotValidException("Customer's name is mandatory", ExceptionCode.UUTI_45);
+        }
+    }
+
+    private void hasPhoneNumber(String phoneNumber) {
+        if (phoneNumber == null) {
+            throw new CustomerNotValidException("Phone number is mandatory", ExceptionCode.UUTI_45);
+        }
     }
 }

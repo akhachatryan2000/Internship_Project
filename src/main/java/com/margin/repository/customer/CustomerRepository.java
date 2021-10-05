@@ -1,6 +1,6 @@
 package com.margin.repository.customer;
 
-import com.margin.repository.customer.entity.CustomerEntity;
+import com.margin.entity.CustomerEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;

@@ -10,43 +10,42 @@ import com.margin.service.shop.converter.ShopModelConverter;
 import com.margin.service.shop.model.ShopCreationModel;
 import com.margin.service.shop.model.ShopModel;
 import com.margin.service.shop.model.ShopUpdateModel;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(path = "/shops")
-@PreAuthorize("hasAnyRole('ADMIN','MANAGER')")
+@PreAuthorize("hasAnyAuthority('ADMIN','MANAGER')")
+@AllArgsConstructor
 public class ShopCRUDController {
 
-    @Autowired
     private ShopService shopService;
 
-    @Autowired
     private ShopModelConverter shopModelConverter;
 
-    @Autowired
     private ShopDTOConverter shopDTOConverter;
 
     @GetMapping(path = "/{id}")
-    @ResponseBody
     public GenericResponse<ShopDTO> get(@PathVariable(name = "id") Long id) {
         ShopModel shopModel = shopService.get(id);
         ShopDTO shopDTO = shopModelConverter.convert(shopModel);
         return new GenericResponse<>(shopDTO, null);
     }
 
-    @PostMapping
-    public GenericResponse<ShopDTO> post(@Valid @RequestBody ShopCreationDTO shopCreationDTO) {
+    @PostMapping("create")
+    public GenericResponse<ShopDTO> post(@RequestBody ShopCreationDTO shopCreationDTO) {
         ShopCreationModel shopCreationModel = shopDTOConverter.convert(shopCreationDTO);
         ShopModel shopModel = shopService.create(shopCreationModel);
         ShopDTO shopDTO = shopModelConverter.convert(shopModel);
         return new GenericResponse<>(shopDTO, null);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/{id}/update")
     public GenericResponse<ShopDTO> put(@PathVariable(name = "id") Long id, @Valid @RequestBody ShopUpdateDTO shopUpdateDTO) {
         ShopUpdateModel shopUpdateModel = shopDTOConverter.convert(shopUpdateDTO);
         ShopModel shopModel = shopService.update(shopUpdateModel, id);
@@ -54,9 +53,19 @@ public class ShopCRUDController {
         return new GenericResponse<>(shopDTO, null);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{id}/delete")
     public GenericResponse<Boolean> delete(@PathVariable("id") Long id) {
         Boolean isDeleted = shopService.delete(id);
         return new GenericResponse<>(isDeleted, null);
+    }
+
+    @GetMapping
+    public GenericResponse<List<ShopDTO>> getAll() {
+        List<ShopModel> shopModels = shopService.getAll();
+        List<ShopDTO> shopDTOS = shopModels
+                .stream()
+                .map(shopModel -> shopModelConverter.convert(shopModel))
+                .collect(Collectors.toList());
+        return new GenericResponse<>(shopDTOS, null);
     }
 }

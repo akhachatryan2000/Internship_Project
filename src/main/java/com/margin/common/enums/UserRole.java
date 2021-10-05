@@ -1,5 +1,5 @@
 package com.margin.common.enums;
 
 public enum UserRole {
-    MANAGER, ADMIN, DRIVER
+    MANAGER, ADMIN, DRIVER,USER
 }
