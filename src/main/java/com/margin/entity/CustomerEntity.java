@@ -1,6 +1,8 @@
 package com.margin.entity;
 
 import lombok.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -32,6 +34,6 @@ public class CustomerEntity extends AbstractEntity {
     @Column(name = "bonus", nullable = false)
     private BigDecimal bonus;
 
-    @OneToMany(mappedBy = "customer", orphanRemoval = true)
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<OrderEntity> orders;
 }

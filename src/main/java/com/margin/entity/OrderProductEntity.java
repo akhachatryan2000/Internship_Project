@@ -9,7 +9,7 @@ import java.math.BigDecimal;
 @Table(name = "order_products")
 @Getter
 @Setter
-@EqualsAndHashCode
+@EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 @AllArgsConstructor
 public class OrderProductEntity extends AbstractEntity {

@@ -11,7 +11,6 @@ import com.margin.service.shop.model.ShopCreationModel;
 import com.margin.service.shop.model.ShopModel;
 import com.margin.service.shop.model.ShopUpdateModel;
 import lombok.AllArgsConstructor;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -20,7 +19,6 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(path = "/shops")
-@PreAuthorize("hasAnyAuthority('ADMIN','MANAGER')")
 @AllArgsConstructor
 public class ShopCRUDController {
 

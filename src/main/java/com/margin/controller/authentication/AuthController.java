@@ -10,6 +10,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -46,7 +47,7 @@ public class AuthController {
         final String jwt = tokenService.generateToken(request.getUsername(), userDetails.getAuthorities()
                 .stream().map(role -> new SimpleGrantedAuthority(role.getAuthority())).collect(Collectors.toList()));
         return new GenericResponse<>
-                (new AuthenticationResponse(jwt, userDetails.getAuthorities().toString(), userDetails.getUsername()), null);
+                (new AuthenticationResponse(jwt, userDetails.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList()), userDetails.getUsername()), null);
     }
 
 
@@ -57,5 +58,10 @@ public class AuthController {
             new SecurityContextLogoutHandler().logout(request, response, auth);
         }
         return new GenericResponse<>("You have successfully logged out", null);
+    }
+
+    @GetMapping("/access-denied")
+    public String accessDenied() {
+        return "Access Denied";
     }
 }

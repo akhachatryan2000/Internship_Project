@@ -13,8 +13,6 @@ import com.margin.service.address.model.AddressUpdateModel;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.security.RolesAllowed;
-import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -38,7 +36,7 @@ public class AddressCRUDController {
     }
 
     @PostMapping("create")
-    public GenericResponse<AddressDTO> post(@Valid @RequestBody AddressCreationDTO addressCreationDTO) {
+    public GenericResponse<AddressDTO> post(@RequestBody AddressCreationDTO addressCreationDTO) {
         AddressCreationModel addressCreationModel = addressDTOConverter.convert(addressCreationDTO);
         AddressModel addressModel = addressService.create(addressCreationModel);
         AddressDTO addressDTO = addressModelConverter.convert(addressModel);
@@ -46,7 +44,7 @@ public class AddressCRUDController {
     }
 
     @PutMapping(path = "/{id}/update")
-    public GenericResponse<AddressDTO> put(@PathVariable(name = "id") Long id, @Valid @RequestBody AddressUpdateDTO addressUpdateDTO) {
+    public GenericResponse<AddressDTO> put(@PathVariable(name = "id") Long id, @RequestBody AddressUpdateDTO addressUpdateDTO) {
         AddressUpdateModel addressUpdateModel = addressDTOConverter.convert(addressUpdateDTO);
         AddressModel addressModel = addressService.update(addressUpdateModel, id);
         AddressDTO addressDTO = addressModelConverter.convert(addressModel);

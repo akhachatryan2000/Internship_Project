@@ -5,7 +5,6 @@ import com.margin.common.exception.DomainNotValidException;
 import com.margin.controller.shop.dto.ShopCreationDTO;
 import com.margin.controller.shop.dto.ShopUpdateDTO;
 import com.margin.service.shop.model.ShopModel;
-import netscape.javascript.JSObject;
 import org.json.JSONObject;
 import org.junit.Test;
 import org.junit.runner.RunWith;

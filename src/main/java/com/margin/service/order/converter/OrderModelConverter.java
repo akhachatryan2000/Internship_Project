@@ -7,15 +7,15 @@ import com.margin.service.order.model.OrderCreationModel;
 import com.margin.service.order.model.OrderModel;
 import com.margin.service.order.model.OrderUpdateModel;
 import com.margin.service.orderproduct.converter.OrderProductModelConverter;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 @Component
+@AllArgsConstructor
 public class OrderModelConverter {
 
-    @Autowired
     private OrderProductModelConverter orderProductModelConverter;
 
     public OrderDTO convert(OrderModel orderModel) {

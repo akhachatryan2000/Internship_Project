@@ -13,7 +13,6 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 public class ShopCreationDTO {
 
-    @NotNull(message = "Shop's name is mandatory")
     private String name;
 
     private Boolean active;

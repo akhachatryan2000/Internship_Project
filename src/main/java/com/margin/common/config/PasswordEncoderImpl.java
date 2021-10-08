@@ -10,7 +10,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Primary
 public class PasswordEncoderImpl implements PasswordEncoder {
 
-
     @Override
     public String encode(CharSequence rawPassword) {
         return encoder().encode(rawPassword);

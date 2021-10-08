@@ -1,7 +1,11 @@
 package com.margin.controller.address.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.margin.common.enums.Country;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 
 @Getter
 @Setter
@@ -9,6 +13,7 @@ import lombok.*;
 @AllArgsConstructor
 public class AddressDTO {
 
+    @JsonProperty("id")
     private Long id;
 
     private Country country;

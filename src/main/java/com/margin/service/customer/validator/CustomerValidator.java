@@ -4,8 +4,6 @@ import com.margin.common.exception.customer.CustomerNotValidException;
 import com.margin.common.exception.response.ExceptionCode;
 import com.margin.service.customer.model.CustomerCreationModel;
 import com.margin.service.customer.model.CustomerUpdateModel;
-import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;

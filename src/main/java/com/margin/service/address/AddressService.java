@@ -1,7 +1,7 @@
 package com.margin.service.address;
 
-import com.margin.repository.address.AddressRepository;
 import com.margin.entity.AddressEntity;
+import com.margin.repository.address.AddressRepository;
 import com.margin.service.address.converter.AddressEntityConverter;
 import com.margin.service.address.converter.AddressModelConverter;
 import com.margin.service.address.model.AddressCreationModel;
@@ -9,7 +9,6 @@ import com.margin.service.address.model.AddressModel;
 import com.margin.service.address.model.AddressUpdateModel;
 import com.margin.service.address.validator.AddressValidator;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
@@ -46,7 +45,7 @@ public class AddressService {
 
     @Transactional
     public AddressModel update(AddressUpdateModel addressUpdateModel, Long id) {
-        AddressEntity addressEntity = addressRepository.findById(id)
+        AddressEntity addressEntity = addressRepository.findByIdAndDeletedIsFalse(id)
                 .orElseThrow(() -> new EntityNotFoundException("Address with this id does not exist"));
         addressValidator.addressIsValid(addressUpdateModel);
         addressEntity = addressModelConverter.convert(addressUpdateModel, addressEntity);
@@ -63,11 +62,10 @@ public class AddressService {
     }
 
     public List<AddressModel> getAll() {
-        List<AddressEntity> addressEntities = addressRepository.findAll();
-        List<AddressModel> addressModels = addressEntities
+        List<AddressEntity> addressEntities = addressRepository.findAllByOrdered();
+        return addressEntities
                 .stream()
                 .map(addressEntity -> addressEntityConverter.convert(addressEntity))
                 .collect(Collectors.toList());
-        return addressModels;
     }
 }

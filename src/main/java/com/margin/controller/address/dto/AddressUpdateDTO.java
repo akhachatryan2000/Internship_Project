@@ -12,7 +12,6 @@ import lombok.Setter;
 @AllArgsConstructor
 public class AddressUpdateDTO {
 
-
     private Long id;
 
     private Country country;

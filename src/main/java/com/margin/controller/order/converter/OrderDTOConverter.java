@@ -1,18 +1,17 @@
 package com.margin.controller.order.converter;
 
-import com.margin.controller.customer.converter.CustomerDTOConverter;
 import com.margin.controller.order.dto.OrderCreationDTO;
 import com.margin.controller.order.dto.OrderDTO;
 import com.margin.controller.order.dto.OrderUpdateDTO;
 import com.margin.controller.orderproduct.converter.OrderProductDTOConverter;
 import com.margin.controller.orderproduct.dto.OrderProductCreationDTO;
 import com.margin.controller.orderproduct.dto.OrderProductDTO;
-import com.margin.controller.shop.converter.ShopDTOConverter;
 import com.margin.service.order.model.OrderCreationModel;
 import com.margin.service.order.model.OrderModel;
 import com.margin.service.order.model.OrderUpdateModel;
 import com.margin.service.orderproduct.model.OrderProductCreationModel;
 import com.margin.service.orderproduct.model.OrderProductModel;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -21,14 +20,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
+@AllArgsConstructor
 public class OrderDTOConverter {
 
-    @Autowired
     private OrderProductDTOConverter orderProductDTOConverter;
-
-    @Autowired
-    private OrderDTOConverter orderDTOConverter;
-
 
     public OrderModel convert(OrderDTO orderDTO) {
         if (orderDTO == null) {
@@ -37,7 +32,7 @@ public class OrderDTOConverter {
 
         return new OrderModel(
                 orderDTO.getId(),
-                orderDTOConverter.convertList(orderDTO.getOrderProducts(), orderDTO),
+                convertList(orderDTO.getOrderProducts(), orderDTO),
                 orderDTO.getCustomerId(),
                 orderDTO.getShopId(),
                 orderDTO.getAddressId(),
@@ -64,7 +59,7 @@ public class OrderDTOConverter {
             return null;
         }
         return new OrderCreationModel(
-                orderDTOConverter.convertList(orderDTO.getOrderProducts(), orderDTO),
+                convertList(orderDTO.getOrderProducts(), orderDTO),
                 orderDTO.getCustomerId(),
                 orderDTO.getShopId(),
                 orderDTO.getAddressId(),

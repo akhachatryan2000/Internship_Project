@@ -14,7 +14,7 @@ public class OrderProductNotValidException extends DomainNotValidException {
     private ExceptionCode code;
 
     public OrderProductNotValidException(String message, ExceptionCode code) {
-        super(message,code);
+        super(message, code);
         this.message = message;
         this.code = code;
     }

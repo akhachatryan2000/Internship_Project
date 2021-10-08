@@ -25,17 +25,17 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import javax.persistence.EntityNotFoundException;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ExtendWith(SpringExtension.class)
 @RunWith(SpringRunner.class)
 @SpringBootTest()
 @TestPropertySource(locations = "classpath:application.properties")
 @AutoConfigureMockMvc
-//@TestPropertySource(locations = "/application.properties")
 class AddressCRUDControllerTest {
 
     @Autowired
@@ -99,7 +99,7 @@ class AddressCRUDControllerTest {
         String response = mvcResult.getResponse().getContentAsString();
         response = new JSONObject(response).get("body").toString();
         AddressModel addressModel = mapper.readValue(response, AddressModel.class);
-        assertTrue(addressModel.getAddressLine1().equals(addressUpdateDTO.getAddressLine1()));
+        Assertions.assertEquals(addressModel.getAddressLine1(), addressUpdateDTO.getAddressLine1());
     }
 
     @Test

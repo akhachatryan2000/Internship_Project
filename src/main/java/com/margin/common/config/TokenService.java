@@ -5,10 +5,7 @@ import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.AllArgsConstructor;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
@@ -23,19 +20,11 @@ import java.util.function.Function;
 @Component
 @AllArgsConstructor
 public class TokenService {
-    private final String secretKey = "secretkey";
 
-    private UserDetailsServiceImpl userDetailsService;
-
+    private final String secretKey = "secretKey";
 
     public String extractUsername(String token) {
-        String username = extractClaim(token, Claims::getSubject);
-        return username;
-    }
-
-    public Date extractExpirationDate(String token) {
-        Date expiration = extractClaim(token, Claims::getExpiration);
-        return expiration;
+        return extractClaim(token, Claims::getSubject);
     }
 
     public String resolveToken(HttpServletRequest request) {
@@ -52,16 +41,14 @@ public class TokenService {
     }
 
     public Claims extractAllClaims(String token) {
-        Claims claims = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody();
-        return claims;
+        return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody();
     }
 
     public String generateToken(String username, Collection<SimpleGrantedAuthority> roles) {
         Map<String, Object> claims = new HashMap<>();
         claims.put("username", username);
         claims.put("roles", roles.toString());
-        String createdToken = createToken(claims, username);
-        return createdToken;
+        return createToken(claims, username);
     }
 
     private String createToken(Map<String, Object> claims, String subject) {
@@ -72,17 +59,6 @@ public class TokenService {
                 .setExpiration(Date.from(expiration))
                 .signWith(SignatureAlgorithm.HS256, secretKey);
         return token.compact();
-    }
-
-    public Authentication getAuthentication(String token) {
-        UserDetails user = userDetailsService.loadUserByUsername(extractUsername(token));
-        Authentication authentication = new UsernamePasswordAuthenticationToken(user, "", user.getAuthorities());
-        return authentication;
-    }
-
-    public Boolean validateToken(String token, UserDetails userDetails) {
-        final String username = extractUsername(token);
-        return (username.equals(userDetails.getUsername()));
     }
 }
 

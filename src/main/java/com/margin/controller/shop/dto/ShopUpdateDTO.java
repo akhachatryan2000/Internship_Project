@@ -16,7 +16,6 @@ public class ShopUpdateDTO {
 
     private Long id;
 
-    @NotNull(message = "Shop's name is mandatory")
     private String name;
 
     private Boolean active;

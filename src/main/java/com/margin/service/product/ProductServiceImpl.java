@@ -54,9 +54,9 @@ public class ProductServiceImpl implements ProductService {
 
     @Transactional
     @Override
-    public ProductModel update(ProductUpdateModel productUpdateModel) {
+    public ProductModel update(ProductUpdateModel productUpdateModel, Long id) {
         productValidator.productIsValid(productUpdateModel);
-        ProductEntity productEntity = productRepository.findById(productUpdateModel.getId())
+        ProductEntity productEntity = productRepository.findByIdAndDeletedIsFalse(id)
                 .orElseThrow(() -> new EntityNotFoundException("Product with id" +
                         productUpdateModel.getId() + " does not exist"));
         if (nameIsChanged(productEntity.getName(), productUpdateModel.getName())) {
@@ -77,13 +77,12 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<ProductModel> getAll() {
-        List<ProductEntity> products = productRepository.findAll();
-        List<ProductModel> productModels = products
+        List<ProductEntity> products = productRepository.findAllOrdered();
+        return products
                 .stream()
                 .map(productEntity -> productEntityConverter
                         .convert(productEntity))
                 .collect(Collectors.toList());
-        return productModels;
     }
 
     public Boolean nameIsChanged(String oldName, String newName) {

@@ -10,13 +10,13 @@ import java.util.List;
 @Service
 public interface ProductService {
 
-    public ProductModel get(Long id);
+    ProductModel get(Long id);
 
     Boolean delete(Long id);
 
     ProductModel create(ProductCreationModel productCreationModel);
 
-    ProductModel update(ProductUpdateModel productUpdateModel);
+    ProductModel update(ProductUpdateModel productUpdateModel, Long id);
 
     List<ProductModel> getAll();
 }

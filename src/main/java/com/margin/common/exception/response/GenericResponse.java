@@ -8,7 +8,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
-public class GenericResponse<T>{
+public class GenericResponse<T> {
 
     private T body;
 

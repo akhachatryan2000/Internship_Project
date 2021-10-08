@@ -38,6 +38,7 @@ import java.util.List;
 
 @Component
 public class ApplicationEventListener {
+    //ignore this class, it's intended to test the application
 
     @Autowired
     private AddressCRUDController addressCRUDController;

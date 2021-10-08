@@ -39,8 +39,6 @@ public class OrderService {
 
     private OrderModelConverter orderModelConverter;
 
-    private OrderProductRepository orderProduct;
-
     private OrderValidator orderValidator;
 
     public OrderModel get(Long id) {
@@ -53,13 +51,13 @@ public class OrderService {
     public OrderModel create(OrderCreationModel orderCreationModel) {
         orderValidator.orderIsValid(orderCreationModel);
         OrderEntity orderEntity = orderModelConverter.convert(orderCreationModel);
-        AddressEntity addressEntity = addressRepository.findById(orderCreationModel.getAddressId())
+        AddressEntity addressEntity = addressRepository.findByIdAndDeletedIsFalse(orderCreationModel.getAddressId())
                 .orElseThrow(() -> new EntityNotFoundException("Address with this id does not exist"));
         orderEntity.setAddress(addressEntity);
-        CustomerEntity customer = customerRepository.findById(orderCreationModel.getCustomerId())
+        CustomerEntity customer = customerRepository.findByIdAndDeletedIsFalse(orderCreationModel.getCustomerId())
                 .orElseThrow(() -> new EntityNotFoundException("Customer with this id does not exist"));
         orderEntity.setCustomer(customer);
-        ShopEntity shop = shopRepository.findById(orderCreationModel.getShopId())
+        ShopEntity shop = shopRepository.findByIdAndDeletedIsFalse(orderCreationModel.getShopId())
                 .orElseThrow(() -> new EntityNotFoundException("Shop with this id does not exist"));
         orderEntity.setShop(shop);
         orderEntity = orderRepository.save(orderEntity);
@@ -68,7 +66,7 @@ public class OrderService {
 
     @Transactional
     public OrderModel update(OrderUpdateModel orderUpdateModel, Long id) {
-        OrderEntity orderEntity = orderRepository.findById(id)
+        OrderEntity orderEntity = orderRepository.findByIdAndDeletedIsFalse(id)
                 .orElseThrow(() -> new EntityNotFoundException("Order with this id does not exist"));
         orderValidator.orderIsValid(orderUpdateModel);
         orderEntity = orderModelConverter.convert(orderUpdateModel, orderEntity);
@@ -84,11 +82,10 @@ public class OrderService {
     }
 
     public List<OrderModel> getAll() {
-        List<OrderEntity> orderEntities = orderRepository.findAll();
-        List<OrderModel> orderModels = orderEntities
+        List<OrderEntity> orderEntities = orderRepository.findAllOrdered();
+        return orderEntities
                 .stream()
                 .map(orderEntity -> orderEntityConverter.convert(orderEntity))
                 .collect(Collectors.toList());
-        return orderModels;
     }
 }

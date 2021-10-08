@@ -11,17 +11,14 @@ import com.margin.service.orderproduct.model.OrderProductCreationModel;
 import com.margin.service.orderproduct.model.OrderProductModel;
 import com.margin.service.orderproduct.model.OrderProductUpdateModel;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/order_products")
-@PreAuthorize("hasAnyAuthority('ADMIN','MANAGER')")
 @AllArgsConstructor
 public class OrderProductCRUDController {
 

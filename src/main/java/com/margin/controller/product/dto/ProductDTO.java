@@ -1,7 +1,10 @@
 package com.margin.controller.product.dto;
 
 import com.margin.common.enums.Unit;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.math.BigDecimal;
 

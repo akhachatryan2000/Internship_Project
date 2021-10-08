@@ -1,6 +1,5 @@
 package com.margin.service.user.validator;
 
-import com.margin.common.enums.UserRole;
 import com.margin.repository.user.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -12,8 +11,16 @@ public class UserIsValidValidator {
 
     private UserRepository userRepository;
 
-    public void userIsValid(String password, String username, UserRole userRole) {
+    public void userIsValid(String password, String username) {
+        checkUsernameValidity(username);
         userHasPasswordValidator(password);
+    }
+
+    public void userIsValid(String username) {
+        checkUsernameValidity(username);
+    }
+
+    private void checkUsernameValidity(String username) {
         userHasUsernameValidator(username);
         usernameIsUnique(username);
     }

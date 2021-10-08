@@ -36,42 +36,38 @@ public class UserService {
         if (user == null) {
             throw new EntityNotFoundException("User does not exist");
         }
-        UserModel userModel = userEntityConverter.convert(user);
-        return userModel;
+        return userEntityConverter.convert(user);
     }
 
     public UserModel create(UserCreationModel userCreationModel) {
         if (userCreationModel == null) {
             return null;
         }
-        userIsValid.userIsValid(userCreationModel.getPassword(), userCreationModel.getUsername(), userCreationModel.getRole());
+        userIsValid.userIsValid(userCreationModel.getPassword(), userCreationModel.getUsername());
         UserEntity user = userModelConverter.convert(userCreationModel);
         String password = userCreationModel.getPassword();
         String encoded = passwordEncoder.encode(password);
         user.setPassword(encoded);
         user = userRepository.save(user);
-        UserModel userModel = userEntityConverter.convert(user);
-        return userModel;
+        return userEntityConverter.convert(user);
     }
 
     public UserModel update(UserUpdateModel userUpdateModel, Long id) {
         if (userUpdateModel == null || id == null) {
             return null;
         }
-        userIsValid.userIsValid(userUpdateModel.getPassword(), userUpdateModel.getUsername(), userUpdateModel.getRole());
-        UserEntity user = userRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Such user does not exist"));
+        userIsValid.userIsValid(userUpdateModel.getUsername());
+        UserEntity user = userRepository.findByIdAndDeletedIsFalse(id).orElseThrow(() -> new EntityNotFoundException("Such user does not exist"));
         user = userModelConverter.convert(userUpdateModel, user);
         user = userRepository.save(user);
-        UserModel userModel = userEntityConverter.convert(user);
-        return userModel;
+        return userEntityConverter.convert(user);
     }
 
     public List<UserModel> getAllUsers() {
-        List<UserEntity> users = userRepository.findAll();
-        List<UserModel> userModels = users.stream()
+        List<UserEntity> users = userRepository.findAllOrdered();
+        return users.stream()
                 .map(userEntity -> userEntityConverter.convert(userEntity))
                 .collect(Collectors.toList());
-        return userModels;
     }
 
     public Boolean delete(Long id) {

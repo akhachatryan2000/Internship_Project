@@ -1,6 +1,5 @@
 package com.margin.controller.customer;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.margin.common.exception.DomainNotValidException;
 import com.margin.controller.customer.dto.CustomerCreationDTO;

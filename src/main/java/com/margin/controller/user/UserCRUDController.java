@@ -11,8 +11,6 @@ import com.margin.service.user.model.UserCreationModel;
 import com.margin.service.user.model.UserModel;
 import com.margin.service.user.model.UserUpdateModel;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -21,7 +19,6 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/users")
-@PreAuthorize("hasAnyAuthority('ADMIN')")
 @AllArgsConstructor
 public class UserCRUDController {
 
@@ -48,7 +45,7 @@ public class UserCRUDController {
     }
 
     @PostMapping("/create")
-    public GenericResponse<UserDto> createUser(@RequestBody @Valid UserCreationDto userCreationDto) {
+    public GenericResponse<UserDto> createUser(@RequestBody UserCreationDto userCreationDto) {
         UserCreationModel userCreationModel = userDtoConverter.convert(userCreationDto);
         UserModel userModel = userService.create(userCreationModel);
         UserDto userDto = userModelConverter.convert(userModel);
@@ -56,7 +53,7 @@ public class UserCRUDController {
     }
 
     @PutMapping("/{id}/update")
-    public GenericResponse<UserDto> updateUser(@RequestBody @Valid UserUpdateDto userUpdateDto, @PathVariable(name = "id") Long id) {
+    public GenericResponse<UserDto> updateUser(@RequestBody UserUpdateDto userUpdateDto, @PathVariable(name = "id") Long id) {
         UserUpdateModel userUpdateModel = userDtoConverter.convert(userUpdateDto);
         UserModel userModel = userService.update(userUpdateModel, id);
         UserDto userDto = userModelConverter.convert(userModel);

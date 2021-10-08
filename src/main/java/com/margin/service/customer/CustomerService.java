@@ -1,10 +1,8 @@
 package com.margin.service.customer;
 
-import com.margin.entity.AddressEntity;
 import com.margin.entity.CustomerEntity;
 import com.margin.repository.address.AddressRepository;
 import com.margin.repository.customer.CustomerRepository;
-import com.margin.service.address.model.AddressModel;
 import com.margin.service.customer.converter.CustomerEntityConverter;
 import com.margin.service.customer.converter.CustomerModelConverter;
 import com.margin.service.customer.model.CustomerCreationModel;
@@ -12,7 +10,6 @@ import com.margin.service.customer.model.CustomerModel;
 import com.margin.service.customer.model.CustomerUpdateModel;
 import com.margin.service.customer.validator.CustomerValidator;
 import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
@@ -57,16 +54,17 @@ public class CustomerService {
 
     @Transactional
     public CustomerModel update(CustomerUpdateModel customerUpdateModel, Long id) {
-        CustomerEntity customerExisting = customerRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Customer with this id does not exist"));
         customerValidator.customerIsValid(customerUpdateModel);
+        CustomerEntity customerExisting = customerRepository.findByIdAndDeletedIsFalse(id)
+                .orElseThrow(() -> new EntityNotFoundException("Customer with this id does not exist"));
         customerExisting = customerModelConverter.convert(customerUpdateModel, customerExisting);
         if (customerUpdateModel.getAddressId() != null) {
             customerExisting.setAddress(addressRepository.findById(customerUpdateModel.getAddressId())
                     .orElseThrow(() -> new EntityNotFoundException("Address with this id does not exist")));
+        } else {
+            customerExisting.setAddress(null);
         }
-        customerExisting.setAddress(null);
-        customerExisting = customerRepository.save(customerExisting);
+        customerExisting = customerRepository.saveAndFlush(customerExisting);
         return customerEntityConverter.convert(customerExisting);
     }
 
@@ -78,7 +76,7 @@ public class CustomerService {
     }
 
     public List<CustomerModel> getAll() {
-        List<CustomerEntity> customerEntities = customerRepository.findAll();
+        List<CustomerEntity> customerEntities = customerRepository.findAllOrdered();
         return customerEntities
                 .stream()
                 .map(customerEntity -> customerEntityConverter.convert(customerEntity))

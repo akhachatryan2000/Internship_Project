@@ -13,7 +13,7 @@ import java.util.List;
 @Table(name = "orders")
 @Setter
 @Getter
-@EqualsAndHashCode
+@EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 @AllArgsConstructor
 public class OrderEntity extends AbstractEntity {
@@ -54,7 +54,4 @@ public class OrderEntity extends AbstractEntity {
 
     @Column(name = "order_discount")
     private BigDecimal orderDiscount;
-
-    //STATUS
-
 }

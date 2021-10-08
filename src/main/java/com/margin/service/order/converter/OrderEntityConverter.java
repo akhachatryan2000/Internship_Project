@@ -4,15 +4,15 @@ import com.margin.entity.OrderEntity;
 import com.margin.service.order.model.OrderModel;
 import com.margin.service.orderproduct.converter.OrderProductEntityConverter;
 import com.margin.service.orderproduct.model.OrderProductModel;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 @Component
+@AllArgsConstructor
 public class OrderEntityConverter {
 
-    @Autowired
     private OrderProductEntityConverter orderProductEntityConverter;
 
     public OrderModel convert(OrderEntity orderEntity) {

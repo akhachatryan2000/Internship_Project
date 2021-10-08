@@ -9,7 +9,6 @@ import com.margin.service.shop.model.ShopModel;
 import com.margin.service.shop.model.ShopUpdateModel;
 import com.margin.service.shop.validator.ShopValidator;
 import lombok.AllArgsConstructor;
-import net.bytebuddy.agent.builder.AgentBuilder;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
@@ -46,7 +45,7 @@ public class ShopService {
 
     @Transactional
     public ShopModel update(ShopUpdateModel shopUpdateModel, Long id) {
-        ShopEntity shopEntity = shopRepository.findById(id)
+        ShopEntity shopEntity = shopRepository.findByIdAndDeletedIsFalse(id)
                 .orElseThrow(() -> new EntityNotFoundException("Shop with this id does not exist"));
         shopValidator.shopIsValid(shopUpdateModel.getName());
         shopEntity = shopModelConverter.convert(shopUpdateModel, shopEntity);
@@ -61,11 +60,10 @@ public class ShopService {
     }
 
     public List<ShopModel> getAll() {
-        List<ShopEntity> shopEntities = shopRepository.findAll();
-        List<ShopModel> shopModels = shopEntities
+        List<ShopEntity> shopEntities = shopRepository.findAllOrdered();
+        return shopEntities
                 .stream()
                 .map(shopEntity -> shopEntityConverter.convert(shopEntity))
                 .collect(Collectors.toList());
-        return shopModels;
     }
 }

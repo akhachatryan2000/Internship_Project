@@ -3,11 +3,9 @@ package com.margin.controller.product.converter;
 import com.margin.controller.product.dto.ProductCreationDTO;
 import com.margin.controller.product.dto.ProductDTO;
 import com.margin.controller.product.dto.ProductUpdateDTO;
-import com.margin.controller.shop.converter.ShopDTOConverter;
 import com.margin.service.product.model.ProductCreationModel;
 import com.margin.service.product.model.ProductModel;
 import com.margin.service.product.model.ProductUpdateModel;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component

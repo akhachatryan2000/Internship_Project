@@ -1,7 +1,10 @@
 package com.margin.entity;
 
 import com.margin.common.enums.Country;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 
@@ -9,7 +12,7 @@ import javax.persistence.*;
 @Table(name = "addresses")
 @Setter
 @Getter
-@EqualsAndHashCode
+@EqualsAndHashCode(callSuper = true)
 @AllArgsConstructor
 public class AddressEntity extends AbstractEntity {
 
@@ -24,16 +27,16 @@ public class AddressEntity extends AbstractEntity {
     @Column(name = "district", nullable = false)
     private String district;
 
-    @Column(name = "city", nullable = false)
+    @Column
     private String city;
 
-    @Column(name = "addressLine1", nullable = false)
+    @Column
     private String addressLine1;
 
-    @Column(name = "addressLine2")
+    @Column
     private String addressLine2;
 
-    @Column(name = "post_code")
+    @Column
     private String postCode;
 
     public AddressEntity() {

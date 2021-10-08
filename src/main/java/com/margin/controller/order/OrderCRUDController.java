@@ -12,7 +12,6 @@ import com.margin.service.order.model.OrderCreationModel;
 import com.margin.service.order.model.OrderModel;
 import com.margin.service.order.model.OrderUpdateModel;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,14 +21,12 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(path = {"/orders"})
-@PreAuthorize("hasAnyRole('ADMIN','MANAGER')")
 @AllArgsConstructor
 public class OrderCRUDController {
 
     private OrderService orderService;
 
     private OrderModelConverter orderModelConverter;
-
 
     private OrderDTOConverter orderDTOConverter;
 

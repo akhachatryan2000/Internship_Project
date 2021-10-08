@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 public class UserDtoConverter {
 
     public UserModel convert(UserDto userDto) {
-        UserModel userModel = new UserModel(
+        return new UserModel(
                 userDto.getId(),
                 userDto.getUsername(),
                 userDto.getPassword(),
@@ -20,7 +20,6 @@ public class UserDtoConverter {
                 userDto.getSurname(),
                 userDto.getRole()
         );
-        return userModel;
     }
 
     public UserCreationModel convert(UserCreationDto userDto) {

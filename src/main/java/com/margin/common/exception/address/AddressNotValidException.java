@@ -15,7 +15,7 @@ public class AddressNotValidException extends DomainNotValidException {
     private ExceptionCode exceptionCode;
 
     public AddressNotValidException(String message, ExceptionCode exceptionCode) {
-        super(message,exceptionCode);
+        super(message, exceptionCode);
         this.message = message;
         this.exceptionCode = exceptionCode;
     }

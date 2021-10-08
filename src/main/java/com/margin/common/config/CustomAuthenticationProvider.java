@@ -23,8 +23,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         String password = authentication.getCredentials().toString();
         UserDetails userDetails = userDetailsService.loadUserByUsername(username);
         if (passwordEncoder.matches(password, userDetails.getPassword())) {
-            Authentication authentication1 = authentication;
-            return authentication1;
+            return authentication;
         }
         throw new BadCredentialsException("Bad Credentials");
     }

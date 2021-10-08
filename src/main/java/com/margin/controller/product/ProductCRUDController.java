@@ -20,7 +20,6 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(path = "/products")
-@PreAuthorize("hasAnyAuthority('ADMIN','MANAGER')")
 @AllArgsConstructor
 public class ProductCRUDController {
 
@@ -48,7 +47,7 @@ public class ProductCRUDController {
     @PutMapping(path = "/{id}/update")
     public GenericResponse<ProductDTO> put(@PathVariable(name = "id") Long id, @RequestBody ProductUpdateDTO productUpdateDTO) {
         ProductUpdateModel productUpdateModel = productDTOConverter.convert(productUpdateDTO);
-        ProductModel productModel = productService.update(productUpdateModel);
+        ProductModel productModel = productService.update(productUpdateModel, id);
         ProductDTO productDTO = productModelConverter.convert(productModel);
         return new GenericResponse<>(productDTO, null);
     }

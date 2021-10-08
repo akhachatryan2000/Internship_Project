@@ -19,7 +19,6 @@ import java.util.Collection;
 @AllArgsConstructor
 public class UserDetailsServiceImpl implements UserDetailsService {
 
-
     private UserRepository userRepository;
 
     @Override

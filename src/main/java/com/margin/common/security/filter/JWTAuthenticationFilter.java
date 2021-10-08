@@ -20,7 +20,6 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
 
     private final TokenService tokenService;
 
-
     private final UserDetailsServiceImpl userDetailsService;
 
     public JWTAuthenticationFilter(TokenService tokenService, UserDetailsServiceImpl userDetailsService) {
